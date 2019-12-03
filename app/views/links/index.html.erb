@@ -1,0 +1,29 @@
+<h1>Links</h1>
+
+<%= link_to 'New Link', new_link_path %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>URL</th>
+      <th>Created</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @links.each do |link| %>
+      <tr>
+        <td><%= link.title %></td>
+        <td><%= link.description %></td>
+        <td><%= link_to link.url, link.url %></td>
+        <td><%= link.created_at %></td>
+        <td>
+          <%= link_to 'Edit', edit_link_path(link) %>
+          <%= link_to 'Delete', link_path(link), method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -34,14 +34,13 @@ RSpec.describe "link CRUD", type: :system do
 
       expect(page).to have_css 'h1', text: 'New Link'
 
+      fill_in 'https://...', with: 'https://example.com'
       fill_in 'Title', with: 'New Link'
-      fill_in 'Description', with: 'Description for new link!'
-      fill_in 'URL', with: 'https://example.com'
 
       click_button 'Create Link'
 
       expect(page).to have_current_path links_path
-      expect(page).to have_css '.flash', text: 'Created new link'
+      expect(page).to have_css '.alert.notice', text: 'Created new link'
       expect(page).to have_css 'td', text: 'New Link'
     end
   end
@@ -55,14 +54,13 @@ RSpec.describe "link CRUD", type: :system do
 
       expect(page).to have_css 'h1', text: 'Edit Link'
 
+      fill_in 'https://...', with: 'https://example2.com'
       fill_in 'Title', with: 'Edited Link'
-      fill_in 'Description', with: 'Edited description for new link!'
-      fill_in 'URL', with: 'https://example2.com'
 
       click_button 'Update Link'
 
       expect(page).to have_current_path link_path(link)
-      expect(page).to have_css '.flash', text: 'Updated link'
+      expect(page).to have_css '.alert.notice', text: 'Updated link'
       expect(page).to have_css 'h1', text: 'Edited Link'
     end
   end
@@ -78,7 +76,7 @@ RSpec.describe "link CRUD", type: :system do
       end
 
       expect(page).to have_current_path links_path
-      expect(page).to have_css '.flash', text: "Link '#{link.title}' deleted."
+      expect(page).to have_css '.alert.notice', text: "Link '#{link.title}' deleted."
       expect(page).not_to have_css 'td', text: link.title
     end
   end

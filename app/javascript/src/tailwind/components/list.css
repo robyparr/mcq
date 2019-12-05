@@ -1,0 +1,16 @@
+ul, ol {
+  @apply border px-4;
+
+  li {
+    @apply py-2 w-full;
+
+    &:not(:last-child) { @apply border-b; }
+  }
+
+  &.nav-list {
+    @apply text-xl;
+
+    &:hover { @apply bg-gray-100; }
+    a { @apply block w-full; }
+  }
+}

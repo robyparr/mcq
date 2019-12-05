@@ -1,14 +1,3 @@
-<h1>Edit Link</h1>
+<h1 class="page-header">Edit Link</h1>
 
-<%= form_with model: @link do |f| %>
-  <%= f.label :title %>
-  <%= f.text_field :title, placeholder: 'Title' %>
-
-  <%= f.label :description %>
-  <%= f.text_area :description, placeholder: 'Description' %>
-
-  <%= f.label :url %>
-  <%= f.text_field :url, placeholder: 'URL' %>
-
-  <%= f.submit %>
-<% end %>
+<%= render 'form', link: @link %>

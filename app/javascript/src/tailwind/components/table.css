@@ -11,4 +11,12 @@ table {
 
     &:first-child { @apply pl-4; }
   }
+
+  td {
+    &.actions {
+      @apply text-right;
+
+      :not(:last-child) { @apply mr-4; }
+    }
+  }
 }

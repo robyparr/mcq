@@ -1,0 +1,9 @@
+<%= form_with model: link do |f| %>
+  <%= f.label :url %>
+  <%= f.text_field :url, placeholder: 'https://...' %>
+
+  <%= f.label :title, 'Title' %>
+  <%= f.text_field :title, placeholder: 'Title (Optional)' %>
+
+  <%= f.submit class: 'button' %>
+<% end %>

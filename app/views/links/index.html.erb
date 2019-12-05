@@ -4,13 +4,10 @@
   <%= link_to 'New Link', new_link_path, class: 'button' %>
 </div>
 
-
 <table>
   <thead>
     <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>URL</th>
+      <th>Link</th>
       <th>Created</th>
       <th></th>
     </tr>
@@ -18,11 +15,13 @@
   <tbody>
     <% @links.each do |link| %>
       <tr>
-        <td><%= link.title %></td>
-        <td><%= link.description %></td>
-        <td><%= link_to link.url, link.url %></td>
-        <td><%= link.created_at %></td>
         <td>
+          <%= external_link_to link.title, link.url %>
+          <div class="text-sm text-gray-500"><%= link.url %></div>
+        </td>
+        <td><%= link.created_at %></td>
+        <td class="actions">
+          <%= link_to 'View', link_path(link) %>
           <%= link_to 'Edit', edit_link_path(link) %>
           <%= link_to 'Delete', link_path(link), method: :delete, data: { confirm: 'Are you sure?' } %>
         </td>

@@ -12,12 +12,12 @@ class LinksController < ApplicationController
   end
 
   def create
-    @link = current_user.links.create(link_params)
+    @link = current_user.links.build(link_params)
 
-    if @link
-      flash[:notice] = 'Created new link'
-      redirect_to links_path
+    if @link.save
+      redirect_to link_path(@link), notice: 'Created new link'
     else
+      flash[:error] = 'There was an error creating the link'
       render :new
     end
   end
@@ -30,8 +30,7 @@ class LinksController < ApplicationController
     @link = current_user.links.find(params[:id])
 
     if @link.update(link_params)
-      flash[:notice] = 'Updated link'
-      redirect_to link_path(@link)
+      redirect_to link_path(@link), notice: 'Updated link'
     else
       render :edit
     end
@@ -41,8 +40,7 @@ class LinksController < ApplicationController
     @link = current_user.links.find(params[:id])
 
     if @link.destroy
-      flash[:notice] = "Link '#{@link.title}' deleted."
-      redirect_to links_path
+      redirect_to links_path, notice: "Link '#{@link.title_or_url}' deleted."
     end
   end
 

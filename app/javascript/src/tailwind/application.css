@@ -9,6 +9,8 @@
 @import "./components/alert.css";
 @import "./components/card.css";
 @import "./components/list.css";
+@import "./components/toolbar.css";
+@import "./components/grid.css";
 
 @import "tailwindcss/utilities";
 

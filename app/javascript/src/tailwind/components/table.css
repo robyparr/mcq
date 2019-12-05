@@ -1,0 +1,14 @@
+table {
+  @apply w-full bg-white border;
+
+  th { @apply border-b-2; }
+  tr:not(:last-child) {
+    td{ @apply border-b; }
+  }
+
+  th, td {
+    @apply p-4 text-left;
+
+    &:first-child { @apply pl-4; }
+  }
+}

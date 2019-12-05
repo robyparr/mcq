@@ -1,0 +1,12 @@
+<nav class="flex items-center justify-between p-4 bg-white border-b-2">
+  &nbsp;
+  &nbsp;
+  <div class="flex items-center">
+    <% if signed_in? %>
+      <%= current_user.email %>
+      <%= button_to 'Sign out', sign_out_path, method: :delete, class: 'button ml-4' %>
+    <% else %>
+      <%= link_to 'Sign in', sign_in_path %>
+    <% end %>
+  </div>
+</nav>

@@ -1,9 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "link CRUD", type: :system do
-  attr_reader :current_user
-
-  let!(:current_user) { create(:user) }
+  let!(:current_user) { create :user }
 
   describe 'listing links' do
     let!(:users_link)         { create :link, title: 'link 1', user: current_user }
@@ -19,16 +17,17 @@ RSpec.describe "link CRUD", type: :system do
   end
 
   describe 'showing a link' do
-    let!(:users_link)         { create :link, title: 'link 1', user: current_user }
-    let!(:another_users_link) { create :link, title: 'link 2' }
+    let!(:link) { create :link, title: 'link 1', user: current_user }
 
-    it 'shows links for the current user' do
-      visit link_path(users_link, as: current_user)
-      expect(page).to have_css 'h1', text: users_link.title
+    it 'shows link' do
+      visit link_path(link, as: current_user)
+      expect(page).to have_css 'h2.page-header', text: link.title
     end
   end
 
   describe 'adding a link' do
+    let!(:queue) { create :queue, user: current_user }
+
     it 'Adds the link' do
       visit new_link_path(as: current_user)
 
@@ -39,9 +38,9 @@ RSpec.describe "link CRUD", type: :system do
 
       click_button 'Create Link'
 
-      expect(page).to have_current_path links_path
+      expect(page).to have_current_path link_path(current_user.links.last)
       expect(page).to have_css '.alert.notice', text: 'Created new link'
-      expect(page).to have_css 'td', text: 'New Link'
+      expect(page).to have_css 'h2.page-header', text: 'New Link'
     end
   end
 
@@ -61,7 +60,7 @@ RSpec.describe "link CRUD", type: :system do
 
       expect(page).to have_current_path link_path(link)
       expect(page).to have_css '.alert.notice', text: 'Updated link'
-      expect(page).to have_css 'h1', text: 'Edited Link'
+      expect(page).to have_css 'h2.page-header', text: 'Edited Link'
     end
   end
 

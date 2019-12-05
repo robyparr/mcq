@@ -1,1 +1,4 @@
 .page-header { @apply text-2xl mb-4; }
+.section-header { @apply text-xl mb-4; }
+
+.text-muted { @apply text-sm text-gray-500; }

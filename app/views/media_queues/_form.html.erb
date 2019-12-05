@@ -1,0 +1,23 @@
+<%= form_with(model: queue, url: url, method: method, local: true) do |form| %>
+  <% if queue.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(queue.errors.count, "error") %> prohibited this queue from being saved:</h2>
+
+      <ul>
+        <% queue.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form.label :name %>
+  <%= form.text_field :name, placeholder: 'Name' %>
+
+  <%= form.label :color %>
+  <%= form.color_field :color %>
+
+  <div class="mt-4">
+    <%= form.submit class: 'button' %>
+  </div>
+<% end %>

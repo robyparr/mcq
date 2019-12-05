@@ -4,5 +4,6 @@ FactoryBot.define do
     description { 'This is a link.' }
     url         { 'https://example.com' }
     user
+    queue
   end
 end

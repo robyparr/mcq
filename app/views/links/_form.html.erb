@@ -1,9 +1,17 @@
-<%= form_with model: link do |f| %>
-  <%= f.label :url %>
-  <%= f.text_field :url, placeholder: 'https://...' %>
+<%= form_with model: link, local: true do |f| %>
+  <div class="row">
+    <div class="column md8">
+      <%= f.label :url %>
+      <%= f.text_field :url, placeholder: 'https://...' %>
 
-  <%= f.label :title, 'Title' %>
-  <%= f.text_field :title, placeholder: 'Title (Optional)' %>
+      <%= f.label :title, 'Title' %>
+      <%= f.text_field :title, placeholder: 'Title (Optional)' %>
 
-  <%= f.submit class: 'button' %>
+    <%= f.submit class: 'button' %>
+    </div>
+
+    <div class="column md4">
+      <%= f.select :media_queue_id, options_from_collection_for_select(current_user.queues, :id, :name) %>
+    </div>
+  </div>
 <% end %>

@@ -32,6 +32,7 @@ class LinksController < ApplicationController
     if @link.update(link_params)
       redirect_to link_path(@link), notice: 'Updated link'
     else
+      flash[:error] = 'There was an error editing the link'
       render :edit
     end
   end
@@ -47,6 +48,6 @@ class LinksController < ApplicationController
   private
 
   def link_params
-    params.require(:link).permit(:title, :description, :url)
+    params.require(:link).permit(:url, :title, :media_queue_id)
   end
 end

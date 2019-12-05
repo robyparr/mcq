@@ -1,0 +1,11 @@
+<h2 class="page-header pl-2" style="border-left: 3px solid <%= @queue.color %>">
+  <%= @queue.name %>
+</h2>
+
+<div class="toolbar">
+  <%= link_to 'Edit', edit_queue_path(@queue), class: 'button' %>
+</div>
+
+<h3 class="section-header">Links</h3>
+
+<%= render 'links/links', links: @queue.links %>

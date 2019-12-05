@@ -1,0 +1,32 @@
+<h2 class="page-header">Queues</h2>
+
+<div class="toolbar">
+  <%= link_to 'New Queue', new_queue_path, class: 'button' %>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Links</th>
+      <th>Created</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @queues.each do |queue| %>
+      <tr>
+        <td style="border-left: 3px solid <%= queue.color %>">
+          <%= link_to queue.name, queue_path(queue) %>
+        </td>
+        <td><%= queue.links.size %> Links</td>
+        <td><%= queue.created_at %></td>
+        <td class="actions">
+          <%= link_to 'Edit', edit_queue_path(queue) %>
+          <%= link_to 'Delete', queue_path(queue), method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

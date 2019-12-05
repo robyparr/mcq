@@ -80,6 +80,4 @@ test:
 #
 production:
   <<: *default
-  database: mcq_production
-  username: mcq
-  password: <%= ENV['MCQ_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>

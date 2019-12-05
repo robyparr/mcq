@@ -1,15 +1,16 @@
-<div id="clearance" class="sign-up">
-  <h2><%= t(".title") %></h2>
+<div class="card">
+  <div class="card-header">
+    <h2 class="card-title"><%= t(".title") %></h2>
+  </div>
 
-  <%= form_for @user do |form| %>
-    <%= render partial: '/users/form', object: form %>
+  <div class="card-content">
+    <%= form_for @user do |form| %>
+      <%= render partial: '/users/form', object: form %>
 
-    <div class="submit-field">
-      <%= form.submit %>
-    </div>
-
-    <div class="other-links">
-      <%= link_to t(".sign_in"), sign_in_path %>
-    </div>
-  <% end %>
+      <div class="flex items-center justify-between">
+        <%= form.submit class: 'button' %>
+        <%= link_to t(".sign_in"), sign_in_path %>
+      </div>
+    <% end %>
+  </div>
 </div>

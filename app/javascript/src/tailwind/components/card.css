@@ -1,0 +1,13 @@
+.card {
+  @apply bg-white border rounded;
+
+  .card-header {
+    @apply px-4 py-4 pb-2;
+
+    .card-title { @apply text-2xl; }
+  }
+
+  .card-content {
+    @apply p-4;
+  }
+}

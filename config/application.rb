@@ -31,5 +31,11 @@ module Mcq
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    config.to_prepare do
+      Clearance::PasswordsController.layout 'layouts/guest'
+      Clearance::SessionsController.layout  'layouts/guest'
+      Clearance::UsersController.layout     'layouts/guest'
+    end
   end
 end

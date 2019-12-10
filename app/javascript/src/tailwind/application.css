@@ -8,9 +8,10 @@
 @import "./components/form.css";
 @import "./components/alert.css";
 @import "./components/card.css";
-@import "./components/list.css";
 @import "./components/toolbar.css";
 @import "./components/grid.css";
+
+@import "./components/sidebar_nav.css";
 
 @import "tailwindcss/utilities";
 

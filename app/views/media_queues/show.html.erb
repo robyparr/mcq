@@ -4,8 +4,8 @@
 
 <div class="toolbar">
   <%= link_to 'Edit', edit_queue_path(@queue), class: 'button' %>
+  <%= link_to 'New Link', new_link_path, class: 'button' %>
 </div>
 
 <h3 class="section-header">Links</h3>
-
 <%= render 'links/links', links: @queue.links %>

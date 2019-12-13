@@ -25,3 +25,6 @@ before_script:
 script:
   - bundle exec rake db:create db:migrate
   - bundle exec rspec
+
+after_script:
+  - docker build -t dokku/mcq .

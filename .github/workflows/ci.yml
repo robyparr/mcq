@@ -15,6 +15,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
+      - name: Setup Ruby
+        run: |
+          wget -q https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-installer -O- | bash
+          rbenv install 2.6.4
       - uses: borales/actions-yarn@v2.0.0
         with:
           cmd: install
@@ -33,5 +37,3 @@ jobs:
       - name: Build Docker image
         run: |
           docker build -t dokku/mcq .
-      container:
-        image: ruby:2.6.4

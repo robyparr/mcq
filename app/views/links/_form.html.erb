@@ -11,7 +11,8 @@
     </div>
 
     <div class="column md4">
-      <%= f.select :media_queue_id, options_from_collection_for_select(current_user.queues, :id, :name) %>
+      <%= f.select :media_queue_id,
+        options_from_collection_for_select(current_user.queues, :id, :name, @link.media_queue_id) %>
     </div>
   </div>
 <% end %>

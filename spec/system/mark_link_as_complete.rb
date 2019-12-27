@@ -11,15 +11,15 @@ RSpec.describe "mark link as complete", type: :system do
       # Confirm link is visible within queue
       visit queue_path(queue, as: current_user)
       expect(page).to have_content(link.title)
-      
+
       # Navigate to links#show
       click_on 'View'
       expect(page).to have_selector("input[type=submit][value='Mark Completed']")
-      
+
       # Mark as completed
       click_button 'Mark Completed'
       expect(page).to have_content('Marked link as completed.')
-      
+
       # Confirm link isn't visible within queue
       visit queue_path(queue, as: current_user)
       expect(page).not_to have_content(link.title)

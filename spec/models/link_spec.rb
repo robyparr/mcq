@@ -9,6 +9,10 @@ RSpec.describe Link, type: :model do
     it { is_expected.to belong_to(:user) }
   end
 
+  describe 'behaviours' do
+    it_behaves_like 'loggable'
+  end
+
   describe '#title_or_url' do
     let(:link) { build :link, title: 'title', url: 'https://example.com' }
 
@@ -31,7 +35,10 @@ RSpec.describe Link, type: :model do
       it 'marks it as complete and returns true' do
         link = build(:link, title: 'title', url: 'https://example.com', complete: false)
 
-        result = link.mark_complete
+        result = nil
+        expect { result = link.mark_complete }
+          .to change(link, :complete?).from(false).to(true)
+          .and change(link.activity_logs, :count).from(0).to(1)
 
         expect(result).to eq(true)
         expect(link).to be_complete
@@ -42,7 +49,8 @@ RSpec.describe Link, type: :model do
       it 'marks it as complete and returns true' do
         link = build(:link, title: 'title', url: 'https://example.com', complete: true)
 
-        result = link.mark_complete
+        result = nil
+        expect { result = link.mark_complete }.to change(link.activity_logs, :count).by(0)
 
         expect(result).to eq(false)
       end

@@ -1,4 +1,6 @@
 class Link < ApplicationRecord
+  include Loggable
+
   belongs_to :user
   belongs_to :queue, class_name: 'MediaQueue', foreign_key: :media_queue_id
 
@@ -11,6 +13,8 @@ class Link < ApplicationRecord
   def mark_complete
     return false if complete?
 
-    update_attributes complete: true
+    with_log(:mark_complete) do
+      update_attributes complete: true
+    end
   end
 end

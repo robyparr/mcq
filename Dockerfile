@@ -21,6 +21,7 @@ RUN gem install bundler && bundle install --jobs 20 --retry 5
 ENV RAILS_ENV production
 ENV RACK_ENV production
 ENV NODE_ENV production
+ENV SECRET_KEY_BASE super_secret_key
 
 COPY . ./
 

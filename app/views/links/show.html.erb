@@ -2,6 +2,7 @@
 
 <div class="toolbar">
   <%= link_to 'Open Link', @link.url, class: 'button' %>
+  <%= button_tag 'Open Viewer', class: 'button', data: { url_viewer: '#url-viewer' } %>
 
   <% unless @link.complete? %>
     <%= button_to 'Mark Completed', complete_link_url(@link), class: 'button', method: :post %>
@@ -9,8 +10,22 @@
 </div>
 
 <div class="row mt-4">
-  <div class="column md3 pl-0">
+  <div class="column md12 pl-0">
     <i class="fas fa-inbox mr-4 text-xl"></i>
     <%= @link.queue.name %>
   </div>
 </div>
+
+<div id="url-viewer" style="width: 0;">
+  <url-viewer url="<%= @link.url %>"></url-viewer>
+</div>
+
+<%= javascript_pack_tag 'url_viewer' %>
+<script>
+  document.querySelector('[data-url-viewer]').addEventListener('click', function(e) {
+    var viewerSelector = e.target.dataset.urlViewer;
+    var viewer         = document.querySelector(viewerSelector);
+
+    viewer.style.width = '50%';
+  });
+</script>

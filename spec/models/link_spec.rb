@@ -13,6 +13,10 @@ RSpec.describe Link, type: :model do
     it_behaves_like 'loggable'
   end
 
+  describe 'callbacks' do
+    it { is_expected.to callback(:log_creation!).after(:create) }
+  end
+
   describe '#title_or_url' do
     let(:link) { build :link, title: 'title', url: 'https://example.com' }
 
@@ -31,6 +35,10 @@ RSpec.describe Link, type: :model do
   end
 
   describe '#mark_complete' do
+    before do
+      allow_any_instance_of(Link).to receive(:log_creation!)
+    end
+
     context 'when not complete' do
       it 'marks it as complete and returns true' do
         link = build(:link, title: 'title', url: 'https://example.com', complete: false)

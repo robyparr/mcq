@@ -6,6 +6,8 @@ class Link < ApplicationRecord
 
   validates :url, presence: true
 
+  after_create :log_creation!
+
   def title_or_url
     title.presence || url
   end
@@ -14,7 +16,13 @@ class Link < ApplicationRecord
     return false if complete?
 
     with_log(:mark_complete) do
-      update_attributes complete: true
+      update complete: true
     end
+  end
+
+  private
+
+  def log_creation!
+    activity_logs.create action: :create
   end
 end

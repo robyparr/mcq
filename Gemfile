@@ -11,12 +11,14 @@ gem 'webpacker', '~> 4.0'
 gem 'turbolinks', '~> 5'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'clearance', '~> 2.0'
+gem 'rainbow', '~> 3.0'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails', '~> 3.9'
   gem 'factory_bot_rails', '~> 5.1', '>= 5.1.1'
   gem 'shoulda-matchers', '~> 4.1', '>= 4.1.2'
+  gem 'shoulda-callback-matchers', '~> 1.1', '>= 1.1.4'
   gem 'capybara', '~> 3.29'
   gem 'selenium-webdriver', '~> 3.142', '>= 3.142.6'
   gem 'webdrivers', '~> 4.1', '>= 4.1.3'

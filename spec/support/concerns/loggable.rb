@@ -4,12 +4,16 @@ RSpec.shared_examples 'loggable' do
   end
 
   describe '#with_log' do
+    before do
+      allow_any_instance_of(Link).to receive(:log_creation!)
+    end
+
     it 'creates a log if the block returns true' do
-      link = build(:link)
+      link = create(:link)
 
       expect do
-        link.with_log(:create) { link.save }
-      end.to change(Link, :count).by(1)
+        link.with_log(:update) { link.update(title: 'new title') }
+      end.to change(link, :title).to('new title')
          .and change(ActivityLog, :count).by(1)
 
       expect(link).to be_persisted

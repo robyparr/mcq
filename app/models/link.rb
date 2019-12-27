@@ -7,4 +7,10 @@ class Link < ApplicationRecord
   def title_or_url
     title.presence || url
   end
+
+  def mark_complete
+    return false if complete?
+
+    update_attributes complete: true
+  end
 end

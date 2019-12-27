@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_05_113811) do
+ActiveRecord::Schema.define(version: 2019_12_27_115447) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 2019_12_05_113811) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "media_queue_id", null: false
+    t.boolean "complete", default: false, null: false
     t.index ["media_queue_id"], name: "index_links_on_media_queue_id"
     t.index ["user_id"], name: "index_links_on_user_id"
   end

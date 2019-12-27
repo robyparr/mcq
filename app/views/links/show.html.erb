@@ -1,6 +1,12 @@
 <h2 class="page-header"><%= @link.title_or_url %></h1>
 
-<%= link_to @link.url, @link.url %>
+<div class="toolbar">
+  <%= link_to 'Open Link', @link.url, class: 'button' %>
+
+  <% unless @link.complete? %>
+    <%= button_to 'Mark Completed', complete_link_url(@link), class: 'button', method: :post %>
+  <% end %>
+</div>
 
 <div class="row mt-4">
   <div class="column md3 pl-0">

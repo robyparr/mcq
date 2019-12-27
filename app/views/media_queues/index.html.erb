@@ -20,7 +20,7 @@
         <td style="border-left: 3px solid <%= queue.color %>">
           <%= link_to queue.name, queue_path(queue) %>
         </td>
-        <td><%= queue.links.size %> Links</td>
+        <td><%= queue.active_links.size %> Links</td>
         <td><%= queue.created_at %></td>
         <td class="actions">
           <%= link_to 'Edit', edit_queue_path(queue) %>

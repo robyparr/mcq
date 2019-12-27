@@ -1,10 +1,10 @@
 class MediaQueuesController < ApplicationController
   def index
-    @queues = current_user.queues.includes(:links)
+    @queues = current_user.queues.includes(:active_links)
   end
 
   def show
-    @queue = current_user.queues.includes(:links).find(params[:id])
+    @queue = current_user.queues.includes(:active_links).find(params[:id])
   end
 
   def new

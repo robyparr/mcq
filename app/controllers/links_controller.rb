@@ -45,6 +45,17 @@ class LinksController < ApplicationController
     end
   end
 
+  def complete
+    @link = current_user.links.find(params[:id])
+
+    if @link.mark_complete
+      redirect_to link_path(@link), notice: 'Marked link as completed.'
+    else
+      flash[:error] = 'Could not be marked as completed.'
+      render :show
+    end
+  end
+
   private
 
   def link_params

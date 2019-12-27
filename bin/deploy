@@ -1,0 +1,7 @@
+#!/bin/bash
+
+source .env
+
+docker build -t $DOCKER_IMAGE .
+docker push $DOCKER_IMAGE
+ssh -t $PRODUCTION_NODE "sudo docker pull $DOCKER_IMAGE && $PRODUCTION_DEPLOY_COMMAND"

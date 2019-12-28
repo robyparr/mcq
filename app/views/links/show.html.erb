@@ -21,6 +21,8 @@
 </div>
 
 <%= javascript_pack_tag 'url_viewer' %>
+<%= stylesheet_pack_tag 'url_viewer' %>
+
 <script>
   document.querySelector('[data-url-viewer]').addEventListener('click', function(e) {
     var viewerSelector = e.target.dataset.urlViewer;

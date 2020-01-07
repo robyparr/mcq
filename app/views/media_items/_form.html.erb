@@ -1,4 +1,4 @@
-<%= form_with model: link, local: true do |f| %>
+<%= form_with model: media_item, local: true do |f| %>
   <div class="row">
     <div class="column md8">
       <%= f.label :url %>
@@ -7,12 +7,12 @@
       <%= f.label :title, 'Title' %>
       <%= f.text_field :title, placeholder: 'Title (Optional)' %>
 
-    <%= f.submit class: 'button' %>
+    <%= f.submit submit_button_text, class: 'button' %>
     </div>
 
     <div class="column md4">
       <%= f.select :media_queue_id,
-        options_from_collection_for_select(current_user.queues, :id, :name, @link.media_queue_id) %>
+        options_from_collection_for_select(current_user.queues, :id, :name, @media_item.media_queue_id) %>
     </div>
   </div>
 <% end %>

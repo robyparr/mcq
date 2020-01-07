@@ -4,8 +4,8 @@
 
 <div class="toolbar">
   <%= link_to 'Edit', edit_queue_path(@queue), class: 'button' %>
-  <%= link_to 'New Link', new_link_path, class: 'button' %>
+  <%= link_to 'Add Media', new_media_item_path, class: 'button' %>
 </div>
 
-<h3 class="section-header">Links</h3>
-<%= render 'links/links', links: @queue.active_links %>
+<h3 class="section-header">Media</h3>
+<%= render 'media_items/media_items', media_items: @queue.active_media_items %>

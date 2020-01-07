@@ -1,10 +1,10 @@
 class MediaQueue < ApplicationRecord
   belongs_to :user
 
-  has_many :links, dependent: :nullify
-  has_many :active_links,
+  has_many :media_items, dependent: :nullify
+  has_many :active_media_items,
     -> { where(complete: false) },
-    class_name: 'Link',
+    class_name: 'MediaItem',
     dependent: :nullify
 
   validates :name, presence: true

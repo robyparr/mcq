@@ -12,6 +12,7 @@
 @import "./components/grid.css";
 
 @import "./components/sidebar_nav.css";
+@import "./components/url_viewer.css";
 
 @import "tailwindcss/utilities";
 

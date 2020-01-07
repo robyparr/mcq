@@ -1,0 +1,4 @@
+#url-viewer {
+  @apply fixed right-0 bottom-0 border w-3/4;
+  top: 76px;
+}

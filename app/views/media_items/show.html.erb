@@ -5,6 +5,7 @@
 </div>
 
 <div class="toolbar mt-4">
+  <%= link_to 'Edit', edit_media_item_path(@media_item), class: 'button' %>
   <%= link_to 'Open Media', @media_item.url, class: 'button' %>
   <%= button_tag 'Open Viewer', class: 'button', data: { url_viewer: '#url-viewer' } %>
 

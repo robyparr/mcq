@@ -4,6 +4,10 @@
   </div>
 
   <div class="p-4 border-r-2" style="height: calc(100% - 75px);">
+    <div class="text-center">
+      <%= link_to 'New Link', new_link_path, class: 'button inline-block w-3/4' %>
+    </div>
+
     <ul class="sidebar-nav">
       <li>
         <%= active_link_to queues_path do %>

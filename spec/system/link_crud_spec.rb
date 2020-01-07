@@ -79,4 +79,25 @@ RSpec.describe "link CRUD", type: :system do
       expect(page).not_to have_css 'td', text: link.title
     end
   end
+
+  describe 'Adding a link from any page' do
+    it 'links to the add link form from the queues index page' do
+      visit queues_path(as: current_user)
+
+      expect(page).to have_css '.button', text: 'New Link'
+      click_link 'New Link'
+
+      expect(page).to have_current_path new_link_path
+    end
+
+    it 'links to the add link form from the link show page' do
+      link = create(:link, user: current_user)
+      visit link_path(link, as: current_user)
+
+      expect(page).to have_css '.button', text: 'New Link'
+      click_link 'New Link'
+
+      expect(page).to have_current_path new_link_path
+    end
+  end
 end

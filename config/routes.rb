@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root to: 'media_items#index'
 
-  resources :media_items do
+  resources :media_items, path: 'media' do
     member do
       post '/complete', action: :complete
     end

@@ -26,7 +26,7 @@ RSpec.describe "media queue CRUD", type: :system do
   end
 
   describe 'adding a queue' do
-    it 'Adds the link' do
+    it 'Adds the queue' do
       visit new_queue_path(as: current_user)
 
       expect(page).to have_css 'h2.page-header', text: 'New Queue'
@@ -63,7 +63,7 @@ RSpec.describe "media queue CRUD", type: :system do
   describe 'Deleting a queue' do
     let!(:queue) { create :queue, user: current_user }
 
-    it 'Deletes the link' do
+    it 'Deletes the queue' do
       visit queues_path(as: current_user)
 
       accept_confirm do

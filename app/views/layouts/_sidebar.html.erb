@@ -4,6 +4,10 @@
   </div>
 
   <div class="p-4 border-r-2" style="height: calc(100% - 75px);">
+    <div class="text-center">
+      <%= link_to 'Add Media', new_media_item_path, class: 'button inline-block w-3/4' %>
+    </div>
+
     <ul class="sidebar-nav">
       <li>
         <%= active_link_to queues_path do %>
@@ -12,9 +16,9 @@
         <% end %>
       </li>
       <li>
-        <%= active_link_to links_path do %>
-          <i class="fas fa-link mr-4"></i>
-          Links
+        <%= active_link_to media_items_path do %>
+          <i class="fas fa-photo-video mr-4"></i>
+          Media
         <% end %>
       </li>
     </ul>

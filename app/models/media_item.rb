@@ -1,4 +1,4 @@
-class Link < ApplicationRecord
+class MediaItem < ApplicationRecord
   include Loggable
 
   belongs_to :user

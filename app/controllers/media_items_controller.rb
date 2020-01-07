@@ -15,9 +15,9 @@ class MediaItemsController < ApplicationController
     @media_item = current_user.media_items.build(media_item_params)
 
     if @media_item.save
-      redirect_to media_item_path(@media_item), notice: 'Created new media'
+      redirect_to media_item_path(@media_item), notice: 'Added the media.'
     else
-      flash[:error] = 'There was an error creating the media'
+      flash[:error] = 'There was an error adding the media.'
       render :new
     end
   end
@@ -30,9 +30,9 @@ class MediaItemsController < ApplicationController
     @media_item = current_user.media_items.find(params[:id])
 
     if @media_item.update(media_item_params)
-      redirect_to media_item_path(@media_item), notice: 'Updated media'
+      redirect_to media_item_path(@media_item), notice: 'Updated the media.'
     else
-      flash[:error] = 'There was an error editing the media'
+      flash[:error] = 'There was an error editing the media.'
       render :edit
     end
   end
@@ -51,7 +51,7 @@ class MediaItemsController < ApplicationController
     if @media_item.mark_complete
       redirect_to media_item_path(@media_item), notice: 'Marked media as completed.'
     else
-      flash[:error] = 'Could not be marked as completed.'
+      flash[:error] = 'There was an error marking the media as completed.'
       render :show
     end
   end

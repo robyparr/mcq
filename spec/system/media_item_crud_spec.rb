@@ -31,15 +31,15 @@ RSpec.describe "media item CRUD", type: :system do
     it 'Adds the media item' do
       visit new_media_item_path(as: current_user)
 
-      expect(page).to have_css 'h1', text: 'New Media'
+      expect(page).to have_css 'h1', text: 'Add Media'
 
       fill_in 'https://...', with: 'https://example.com'
       fill_in 'Title', with: 'New Media'
 
-      click_button 'Create Media'
+      click_button 'Add Media'
 
       expect(page).to have_current_path media_item_path(current_user.media_items.last)
-      expect(page).to have_css '.alert.notice', text: 'Created new media'
+      expect(page).to have_css '.alert.notice', text: 'Added the media.'
       expect(page).to have_css 'h2.page-header', text: 'New Media'
     end
   end
@@ -59,7 +59,7 @@ RSpec.describe "media item CRUD", type: :system do
       click_button 'Update Media'
 
       expect(page).to have_current_path media_item_path(media_item)
-      expect(page).to have_css '.alert.notice', text: 'Updated media'
+      expect(page).to have_css '.alert.notice', text: 'Updated the media.'
       expect(page).to have_css 'h2.page-header', text: 'Edited Media'
     end
   end
@@ -84,8 +84,8 @@ RSpec.describe "media item CRUD", type: :system do
     it 'links to the add media item form from the queues index page' do
       visit queues_path(as: current_user)
 
-      expect(page).to have_css '.button', text: 'New Media'
-      click_link 'New Media'
+      expect(page).to have_css '.button', text: 'Add Media'
+      click_link 'Add Media'
 
       expect(page).to have_current_path new_media_item_path
     end
@@ -94,8 +94,8 @@ RSpec.describe "media item CRUD", type: :system do
       media_item = create(:media_item, user: current_user)
       visit media_item_path(media_item, as: current_user)
 
-      expect(page).to have_css '.button', text: 'New Media'
-      click_link 'New Media'
+      expect(page).to have_css '.button', text: 'Add Media'
+      click_link 'Add Media'
 
       expect(page).to have_current_path new_media_item_path
     end

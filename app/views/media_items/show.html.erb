@@ -1,4 +1,4 @@
-<h2 class="page-header"><%= @media_item.title_or_url %></h1>
+<h2 class="page-header" title="<%= @media_item.url %>"><%= @media_item.title_or_url %></h1>
 <div class="media-item -mt-4 text-muted">
   <i class="fas fa-inbox"></i>
   <%= link_to @media_item.queue.name, queue_path(@media_item.queue), class: 'text-muted' %>

@@ -1,0 +1,7 @@
+.media-item {
+  @apply flex items-center;
+
+  :first-child {
+    @apply mr-2;
+  }
+}

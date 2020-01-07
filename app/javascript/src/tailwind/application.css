@@ -10,6 +10,7 @@
 @import "./components/card.css";
 @import "./components/toolbar.css";
 @import "./components/grid.css";
+@import "./components/media_item.css";
 
 @import "./components/sidebar_nav.css";
 @import "./components/url_viewer.css";

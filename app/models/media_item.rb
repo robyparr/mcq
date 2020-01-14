@@ -3,6 +3,10 @@ class MediaItem < ApplicationRecord
 
   belongs_to :user
   belongs_to :queue, class_name: 'MediaQueue', foreign_key: :media_queue_id
+  belongs_to :priority,
+    class_name: 'MediaPriority',
+    foreign_key: :media_priority_id,
+    optional: true
 
   validates :url, presence: true
 

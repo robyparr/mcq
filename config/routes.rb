@@ -8,4 +8,6 @@ Rails.application.routes.draw do
   end
 
   resources :media_queues, as: :queues, path: 'queues'
+
+  resources :media_priorities, only: %i[index create]
 end

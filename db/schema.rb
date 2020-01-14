@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_07_132244) do
+ActiveRecord::Schema.define(version: 2020_01_07_150817) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,15 @@ ActiveRecord::Schema.define(version: 2020_01_07_132244) do
     t.index ["user_id"], name: "index_media_items_on_user_id"
   end
 
+  create_table "media_priorities", force: :cascade do |t|
+    t.string "title", null: false
+    t.integer "priority", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id", "priority"], name: "index_media_priorities_on_user_id_and_priority", unique: true
+    t.index ["user_id", "title"], name: "index_media_priorities_on_user_id_and_title", unique: true
+    t.index ["user_id"], name: "index_media_priorities_on_user_id"
+  end
+
   create_table "media_queues", force: :cascade do |t|
     t.string "name", null: false
     t.string "color", null: false
@@ -58,5 +67,6 @@ ActiveRecord::Schema.define(version: 2020_01_07_132244) do
 
   add_foreign_key "media_items", "media_queues"
   add_foreign_key "media_items", "users"
+  add_foreign_key "media_priorities", "users"
   add_foreign_key "media_queues", "users"
 end

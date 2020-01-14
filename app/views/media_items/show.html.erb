@@ -1,6 +1,11 @@
-<h2 class="page-header"><%= @media_item.title_or_url %></h1>
+<h2 class="page-header" title="<%= @media_item.url %>"><%= @media_item.title_or_url %></h1>
+<div class="media-item -mt-4 text-muted">
+  <i class="fas fa-inbox"></i>
+  <%= link_to @media_item.queue.name, queue_path(@media_item.queue), class: 'text-muted' %>
+</div>
 
-<div class="toolbar">
+<div class="toolbar mt-4">
+  <%= link_to 'Edit', edit_media_item_path(@media_item), class: 'button' %>
   <%= link_to 'Open Media', @media_item.url, class: 'button' %>
   <%= button_tag 'Open Viewer', class: 'button', data: { url_viewer: '#url-viewer' } %>
 
@@ -9,13 +14,6 @@
       class: 'button',
       method: :post %>
   <% end %>
-</div>
-
-<div class="row mt-4">
-  <div class="column md12 pl-0">
-    <i class="fas fa-inbox mr-4 text-xl"></i>
-    <%= @media_item.queue.name %>
-  </div>
 </div>
 
 <div id="url-viewer" style="width: 0;">

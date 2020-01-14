@@ -1,0 +1,44 @@
+<h2 class="page-header">Media Priorities</h1>
+
+<% if @media_priority.errors.any? %>
+  <div class="alert error">
+    There were some errors submitting your priority:
+
+    <ul class="list">
+      <% @media_priority.errors.full_messages.each do |error_message| %>
+        <li><%= error_message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with model: @media_priority, local: true do |f| %>
+  <div class="row">
+    <div class="column md8">
+      <%= f.text_field :title, placeholder: 'Title' %>
+    </div>
+    <div class="column md2">
+      <%= f.number_field :priority, placeholder: 'Priority' %>
+    </div>
+    <div class="column md2">
+      <%= f.submit class: 'button' %>
+    </div>
+  </div>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Priority</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @media_priorities.each do |priority| %>
+      <tr>
+        <td><%= priority.title %></td>
+        <td><%= priority.priority %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

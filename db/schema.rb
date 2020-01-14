@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_07_132244) do
+ActiveRecord::Schema.define(version: 2020_01_14_142102) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,8 +32,19 @@ ActiveRecord::Schema.define(version: 2020_01_07_132244) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "media_queue_id", null: false
     t.boolean "complete", default: false, null: false
+    t.bigint "media_priority_id"
+    t.index ["media_priority_id"], name: "index_media_items_on_media_priority_id"
     t.index ["media_queue_id"], name: "index_media_items_on_media_queue_id"
     t.index ["user_id"], name: "index_media_items_on_user_id"
+  end
+
+  create_table "media_priorities", force: :cascade do |t|
+    t.string "title", null: false
+    t.integer "priority", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id", "priority"], name: "index_media_priorities_on_user_id_and_priority", unique: true
+    t.index ["user_id", "title"], name: "index_media_priorities_on_user_id_and_title", unique: true
+    t.index ["user_id"], name: "index_media_priorities_on_user_id"
   end
 
   create_table "media_queues", force: :cascade do |t|
@@ -56,7 +67,9 @@ ActiveRecord::Schema.define(version: 2020_01_07_132244) do
     t.index ["remember_token"], name: "index_users_on_remember_token"
   end
 
+  add_foreign_key "media_items", "media_priorities"
   add_foreign_key "media_items", "media_queues"
   add_foreign_key "media_items", "users"
+  add_foreign_key "media_priorities", "users"
   add_foreign_key "media_queues", "users"
 end

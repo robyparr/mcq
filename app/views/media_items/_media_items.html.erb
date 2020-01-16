@@ -23,7 +23,7 @@
         <td><%= media_item.priority.try(:title) || 'None' %></td>
         <td>
           <% if media_item.consumption_difficulty %>
-            <%= render 'consumption_difficulty', consumption_difficulty: media_item.consumption_difficulty %>
+            <%= render 'media_items/consumption_difficulty', consumption_difficulty: media_item.consumption_difficulty %>
           <% else %>
             -
           <% end %>

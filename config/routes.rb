@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root to: 'media_items#index'
+  root to: 'media_queues#index'
 
   resources :media_items, path: 'media' do
     member do

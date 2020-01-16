@@ -11,8 +11,26 @@
     </div>
 
     <div class="column md4">
+      <%= f.label :media_queue_id %>
       <%= f.select :media_queue_id,
         options_from_collection_for_select(current_user.queues, :id, :name, @media_item.media_queue_id) %>
+
+      <%= f.label :media_priority_id %>
+      <%= f.select :media_priority_id,
+        options_from_collection_for_select(
+          current_user.media_priorities,
+          :id,
+          :title,
+          @media_item.media_priority_id
+        ) %>
+
+      <%= f.label :consumption_difficulty %>
+      <%= f.select :consumption_difficulty,
+        enum_for_select(
+          MediaItem.consumption_difficulties,
+          @media_item.consumption_difficulty,
+          empty_value: 'Select a difficulty'
+        ) %>
     </div>
   </div>
 <% end %>

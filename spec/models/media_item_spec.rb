@@ -7,6 +7,15 @@ RSpec.describe MediaItem, type: :model do
 
   describe 'associations' do
     it { is_expected.to belong_to(:user) }
+    it { is_expected.to belong_to(:queue).class_name('MediaQueue').with_foreign_key(:media_queue_id) }
+    it do
+      is_expected.to belong_to(:priority)
+        .class_name('MediaPriority')
+        .with_foreign_key(:media_priority_id)
+        .optional
+    end
+
+    it { is_expected.to have_many(:notes).class_name('MediaNote').dependent(:destroy) }
   end
 
   describe 'behaviours' do

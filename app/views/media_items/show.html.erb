@@ -1,7 +1,22 @@
-<h2 class="page-header" title="<%= @media_item.url %>"><%= @media_item.title_or_url %></h1>
-<div class="media-item -mt-4 text-muted">
-  <i class="fas fa-inbox"></i>
-  <%= link_to @media_item.queue.name, queue_path(@media_item.queue), class: 'text-muted' %>
+<h2 class="page-header" title="<%= @media_item.url %>">
+  <%= @media_item.title_or_url %>
+</h1>
+
+<div class="toolbar text-muted -mt-4">
+  <div class="media-item">
+    <i class="fas fa-inbox"></i>
+    <%= link_to @media_item.queue.name, queue_path(@media_item.queue), class: 'text-muted' %>
+  </div>
+
+  <% if @media_item.priority %>
+    <span class="font-bold">
+      <%= @media_item.priority.title %>
+    </span>
+  <% end %>
+
+  <% if @media_item.consumption_difficulty %>
+    <%= render 'consumption_difficulty', consumption_difficulty: @media_item.consumption_difficulty %>
+  <% end %>
 </div>
 
 <div class="toolbar mt-4">
@@ -14,6 +29,29 @@
       class: 'button',
       method: :post %>
   <% end %>
+</div>
+
+<h3 class="section-header">Notes</h3>
+
+<div class="row">
+  <div id="notes" class="column md4 pl-0">
+    <%= form_with scope: :media_note,
+                  url: media_item_notes_path(@media_item, format: :js) do |f| %>
+      <%= f.text_field :title, placeholder: 'Title...' %>
+      <%= f.text_area :content, placeholder: 'Start typing your new note here...' %>
+      <%= f.submit class: 'button' %>
+    <% end %>
+
+    <% if @media_item.notes.any? %>
+      <% @media_item.notes.each do |note| %>
+        <div id="note-<%= note.id %>" class="row">
+          <div class="column md12">
+            <%= render 'media_notes/note', note: note %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
 </div>
 
 <div id="url-viewer" style="width: 0;">

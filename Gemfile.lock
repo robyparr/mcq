@@ -63,6 +63,9 @@ GEM
     bootsnap (1.4.5)
       msgpack (~> 1.0)
     builder (3.2.3)
+    bullet (6.1.0)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.11)
     byebug (11.0.1)
     capybara (3.29.0)
       addressable
@@ -204,11 +207,13 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    test-prof (0.10.2)
     thor (0.20.3)
     thread_safe (0.3.6)
     tilt (2.0.10)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
+    uniform_notifier (1.13.0)
     web-console (4.0.1)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -234,6 +239,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap (>= 1.4.2)
+  bullet (~> 6.1)
   byebug
   capybara (~> 3.29)
   clearance (~> 2.0)
@@ -250,6 +256,7 @@ DEPENDENCIES
   shoulda-matchers (~> 4.1, >= 4.1.2)
   spring
   spring-watcher-listen (~> 2.0.0)
+  test-prof (~> 0.10.2)
   tzinfo-data
   web-console (>= 3.3.0)
   webdrivers (~> 4.1, >= 4.1.3)

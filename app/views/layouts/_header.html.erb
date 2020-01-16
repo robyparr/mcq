@@ -4,6 +4,9 @@
   <div class="flex items-center">
     <% if signed_in? %>
       <%= current_user.email %>
+      <%= link_to media_priorities_path do %>
+        <i class="fas fa-cog text-black ml-4"></i>
+      <% end %>
       <%= button_to 'Sign out', sign_out_path, method: :delete, class: 'button ml-4' %>
     <% else %>
       <%= link_to 'Sign in', sign_in_path %>

@@ -17,11 +17,21 @@ RSpec.describe "media queue CRUD", type: :system do
   end
 
   describe 'showing a queue' do
-    let!(:queue) { create :queue, name: 'queue 1', user: current_user }
+    let!(:queue)                { create :queue, name: 'queue 1', user: current_user }
+    let!(:non_queue_media_item) { create :media_item, title: 'Non-Queue Media Item' }
+
+    let!(:queue_media_item) do
+      create :media_item, queue: queue,
+                          title: 'Queue Media Item',
+                          consumption_difficulty: 'easy'
+    end
 
     it 'shows queue' do
       visit queue_path(queue, as: current_user)
       expect(page).to have_css 'h2.page-header', text: queue.name
+
+      expect(page).to have_css 'td', text: queue_media_item.title
+      expect(page).not_to have_css 'td', text: non_queue_media_item.title
     end
   end
 

@@ -21,6 +21,7 @@ group :development, :test do
   gem 'capybara', '~> 3.29'
   gem 'selenium-webdriver', '~> 3.142', '>= 3.142.6'
   gem 'webdrivers', '~> 4.1', '>= 4.1.3'
+  gem 'test-prof', '~> 0.10.2'
 end
 
 group :development do
@@ -28,6 +29,7 @@ group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'bullet', '~> 6.1'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

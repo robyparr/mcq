@@ -1,7 +1,22 @@
-<h2 class="page-header" title="<%= @media_item.url %>"><%= @media_item.title_or_url %></h1>
-<div class="media-item -mt-4 text-muted">
-  <i class="fas fa-inbox"></i>
-  <%= link_to @media_item.queue.name, queue_path(@media_item.queue), class: 'text-muted' %>
+<h2 class="page-header" title="<%= @media_item.url %>">
+  <%= @media_item.title_or_url %>
+</h1>
+
+<div class="toolbar text-muted -mt-4">
+  <div class="media-item">
+    <i class="fas fa-inbox"></i>
+    <%= link_to @media_item.queue.name, queue_path(@media_item.queue), class: 'text-muted' %>
+  </div>
+
+  <% if @media_item.priority %>
+    <span class="font-bold">
+      <%= @media_item.priority.title %>
+    </span>
+  <% end %>
+
+  <% if @media_item.consumption_difficulty %>
+    <%= render 'consumption_difficulty', consumption_difficulty: @media_item.consumption_difficulty %>
+  <% end %>
 </div>
 
 <div class="toolbar mt-4">

@@ -23,6 +23,14 @@
           :title,
           @media_item.media_priority_id
         ) %>
+
+      <%= f.label :consumption_difficulty %>
+      <%= f.select :consumption_difficulty,
+        enum_for_select(
+          MediaItem.consumption_difficulties,
+          @media_item.consumption_difficulty,
+          empty_value: 'Select a difficulty'
+        ) %>
     </div>
   </div>
 <% end %>

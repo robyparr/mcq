@@ -4,6 +4,7 @@
       <th>Media</th>
       <th>Queue</th>
       <th>Priority</th>
+      <th>Consumption Difficulty</th>
       <th>Created</th>
       <th></th>
     </tr>
@@ -20,6 +21,13 @@
         </td>
         <td><%= media_item.queue.name %></td>
         <td><%= media_item.priority.try(:title) || 'None' %></td>
+        <td>
+          <% if media_item.consumption_difficulty %>
+            <%= render 'media_items/consumption_difficulty', consumption_difficulty: media_item.consumption_difficulty %>
+          <% else %>
+            -
+          <% end %>
+        </td>
         <td><%= time_ago_in_words media_item.created_at %> ago</td>
         <td class="actions">
           <%= link_to 'Edit', edit_media_item_path(media_item) %>

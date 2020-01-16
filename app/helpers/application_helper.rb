@@ -32,4 +32,11 @@ module ApplicationHelper
     current_page_path = URI::parse(request.original_url).path
     current_page_path.start_with?(url)
   end
+
+  def enum_for_select(enum_items, selected = nil, empty_value: '')
+    options = [[empty_value, nil]]
+    options.concat enum_items.map { |key, value| [key.capitalize, value] }
+
+    options_for_select(options, selected)
+  end
 end

@@ -1,6 +1,6 @@
 class MediaItemsController < ApplicationController
   def index
-    @media_items = current_user.media_items.includes(:queue)
+    @media_items = current_user.media_items.includes(:queue, :priority)
   end
 
   def show
@@ -59,6 +59,12 @@ class MediaItemsController < ApplicationController
   private
 
   def media_item_params
-    params.require(:media_item).permit(:url, :title, :media_queue_id, :media_priority_id)
+    params.require(:media_item).permit(
+      :url,
+      :title,
+      :media_queue_id,
+      :media_priority_id,
+      :consumption_difficulty,
+    )
   end
 end

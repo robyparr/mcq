@@ -1,6 +1,12 @@
 class MediaItem < ApplicationRecord
   include Loggable
 
+  enum consumption_difficulty: {
+    easy:   'easy',
+    medium: 'medium',
+    hard:   'hard'
+  }
+
   belongs_to :user
   belongs_to :queue, class_name: 'MediaQueue', foreign_key: :media_queue_id
   belongs_to :priority,

@@ -12,6 +12,7 @@
 @import "./components/grid.css";
 @import "./components/media_item.css";
 @import "./components/list.css";
+@import "./components/badge.css";
 
 @import "./components/sidebar_nav.css";
 @import "./components/url_viewer.css";

@@ -1,0 +1,7 @@
+.badge {
+  @apply border rounded px-4 py-2 bg-gray-600 text-white font-bold;
+
+  &.small {
+    @apply px-2 py-1;
+  }
+}

@@ -59,6 +59,12 @@ class MediaItemsController < ApplicationController
   private
 
   def media_item_params
-    params.require(:media_item).permit(:url, :title, :media_queue_id, :media_priority_id)
+    params.require(:media_item).permit(
+      :url,
+      :title,
+      :media_queue_id,
+      :media_priority_id,
+      :consumption_difficulty,
+    )
   end
 end

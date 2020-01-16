@@ -20,7 +20,7 @@
         </td>
         <td><%= media_item.queue.name %></td>
         <td><%= media_item.priority.try(:title) || 'None' %></td>
-        <td><%= media_item.created_at %></td>
+        <td><%= time_ago_in_words media_item.created_at %> ago</td>
         <td class="actions">
           <%= link_to 'Edit', edit_media_item_path(media_item) %>
           <%= link_to 'Delete', media_item_path(media_item),

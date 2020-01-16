@@ -1,6 +1,6 @@
 class MediaItemsController < ApplicationController
   def index
-    @media_items = current_user.media_items.includes(:queue)
+    @media_items = current_user.media_items.includes(:queue, :priority)
   end
 
   def show

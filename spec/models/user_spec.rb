@@ -5,5 +5,6 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_many(:media_items).dependent(:destroy) }
     it { is_expected.to have_many(:queues).class_name('MediaQueue').dependent(:destroy) }
     it { is_expected.to have_many(:media_priorities).dependent(:destroy) }
+    it { is_expected.to have_many(:notes).through(:media_items) }
   end
 end

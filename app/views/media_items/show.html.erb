@@ -31,6 +31,29 @@
   <% end %>
 </div>
 
+<h3 class="section-header">Notes</h3>
+
+<div class="row">
+  <div id="notes" class="column md4 pl-0">
+    <%= form_with scope: :media_note,
+                  url: media_item_notes_path(@media_item, format: :js) do |f| %>
+      <%= f.text_field :title, placeholder: 'Title...' %>
+      <%= f.text_area :content, placeholder: 'Start typing your new note here...' %>
+      <%= f.submit class: 'button' %>
+    <% end %>
+
+    <% if @media_item.notes.any? %>
+      <% @media_item.notes.each do |note| %>
+        <div id="note-<%= note.id %>" class="row">
+          <div class="column md12">
+            <%= render 'media_notes/note', note: note %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
 <div id="url-viewer" style="width: 0;">
   <url-viewer url="<%= @media_item.url %>"></url-viewer>
 </div>

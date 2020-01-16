@@ -4,7 +4,7 @@ class MediaItemsController < ApplicationController
   end
 
   def show
-    @media_item = current_user.media_items.find(params[:id])
+    @media_item = current_user.media_items.includes(:notes).find(params[:id])
   end
 
   def new

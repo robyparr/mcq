@@ -14,6 +14,8 @@ class MediaItem < ApplicationRecord
     foreign_key: :media_priority_id,
     optional: true
 
+  has_many :notes, class_name: 'MediaNote', dependent: :destroy
+
   validates :url, presence: true
 
   after_create :log_creation!

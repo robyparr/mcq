@@ -14,6 +14,8 @@ RSpec.describe MediaItem, type: :model do
         .with_foreign_key(:media_priority_id)
         .optional
     end
+
+    it { is_expected.to have_many(:notes).class_name('MediaNote').dependent(:destroy) }
   end
 
   describe 'behaviours' do

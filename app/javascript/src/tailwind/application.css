@@ -16,6 +16,7 @@
 
 @import "./components/sidebar_nav.css";
 @import "./components/url_viewer.css";
+@import "./components/markdown_editor.css";
 
 @import "tailwindcss/utilities";
 

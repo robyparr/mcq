@@ -8,6 +8,13 @@
     <%= link_to @media_item.queue.name, queue_path(@media_item.queue), class: 'text-muted' %>
   </div>
 
+  <% if @media_item.estimated_consumption_time %>
+    <div class="media-item">
+      <i class="far fa-clock"></i>
+      <%= pluralize @media_item.estimated_consumption_time, 'minute' %>
+    </div>
+  <% end %>
+
   <% if @media_item.priority %>
     <span class="font-bold">
       <%= @media_item.priority.title %>

@@ -11,6 +11,7 @@ gem 'webpacker', '~> 4.0'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'clearance', '~> 2.0'
 gem 'rainbow', '~> 3.0'
+gem 'ruby-readability', '~> 0.7.0'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

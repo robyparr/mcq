@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_16_122158) do
+ActiveRecord::Schema.define(version: 2020_02_04_122410) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 2020_01_16_122158) do
     t.boolean "complete", default: false, null: false
     t.bigint "media_priority_id"
     t.string "consumption_difficulty"
+    t.integer "estimated_consumption_time"
     t.index ["media_priority_id"], name: "index_media_items_on_media_priority_id"
     t.index ["media_queue_id"], name: "index_media_items_on_media_queue_id"
     t.index ["user_id"], name: "index_media_items_on_user_id"

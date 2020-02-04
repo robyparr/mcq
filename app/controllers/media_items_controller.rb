@@ -14,7 +14,13 @@ class MediaItemsController < ApplicationController
   def create
     @media_item = current_user.media_items.build(media_item_params)
 
-    if @media_item.save
+    if @media_item.valid?
+      @media_item.estimate_consumption_time!
+      if @media_item.consumption_difficulty.blank?
+        @media_item.estimate_consumption_difficulty!
+      end
+      @media_item.save
+
       redirect_to media_item_path(@media_item), notice: 'Added the media.'
     else
       flash[:error] = 'There was an error adding the media.'

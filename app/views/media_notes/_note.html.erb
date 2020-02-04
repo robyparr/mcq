@@ -2,11 +2,15 @@
   <div class="card-header">
     <span class="card-title"><%= note.title %></span>
 
-    <span>
+    <span class="card-actions">
+      <%= link_to edit_note_path(note), class: 'card-action' do %>
+        <i class="far fa-edit text-black"></i>
+      <% end %>
       <%= button_to note_path(note, format: :js),
                     method: :delete,
                     remote: true,
-                    data: { confirm: 'Are you sure?' } do %>
+                    data: { confirm: 'Are you sure?' },
+                    class: 'card-action' do %>
         <i class="fas fa-trash-alt"></i>
       <% end %>
     </span>

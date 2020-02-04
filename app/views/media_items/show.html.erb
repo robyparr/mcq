@@ -34,7 +34,7 @@
 <h3 class="section-header">Notes</h3>
 
 <div class="row">
-  <div id="notes" class="column md6 pl-0">
+  <div id="notes" class="column md4 pl-0">
     <%= form_with scope: :media_note,
                   url: media_item_notes_path(@media_item, format: :js) do |f| %>
       <%= f.text_field :title, placeholder: 'Title...' %>
@@ -44,8 +44,8 @@
 
     <% if @media_item.notes.any? %>
       <% @media_item.notes.each do |note| %>
-        <div id="note-<%= note.id %>" class="row">
-          <div class="column md12">
+        <div id="note-<%= note.id %>" class="row mt-4">
+          <div class="column md12 pl-0">
             <%= render 'media_notes/note', note: note %>
           </div>
         </div>
@@ -71,5 +71,5 @@
     viewer.style.width = '50%';
   });
 
-  renderRichEditor('#notes')
+  renderRichEditor('#notes');
 </script>

@@ -4,8 +4,6 @@
 .editor {
   @apply relative border mb-2;
 
-  max-width: 30rem;
-
   .menubar {
     @apply p-2;
 

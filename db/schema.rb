@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 2020_02_04_122410) do
     t.bigint "media_priority_id"
     t.string "consumption_difficulty"
     t.integer "estimated_consumption_time"
+
     t.index ["media_priority_id"], name: "index_media_items_on_media_priority_id"
     t.index ["media_queue_id"], name: "index_media_items_on_media_queue_id"
     t.index ["user_id"], name: "index_media_items_on_user_id"

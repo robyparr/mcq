@@ -2,12 +2,13 @@
    https://github.com/scrumpy/tiptap/blob/master/examples/assets/sass/editor.scss
 */
 .editor {
-  position: relative;
+  @apply relative border mb-2;
+
   max-width: 30rem;
-  margin: 0 auto 5rem auto;
 
   .menubar {
-    margin-bottom: 1rem;
+    @apply p-2;
+
     transition: visibility 0.2s 0.4s, opacity 0.2s 0.4s;
 
     &.is-hidden {
@@ -51,9 +52,13 @@
     word-wrap: break-word;
     word-break: break-word;
 
-    * {
-      caret-color: currentColor;
+    [contenteditable="true"] {
+      @apply bg-white p-2 outline-none;
+
+      min-height: 150px;
     }
+
+    * { caret-color: currentColor; }
 
     pre {
       padding: 0.7rem 1rem;

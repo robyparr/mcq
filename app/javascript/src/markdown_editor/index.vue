@@ -84,14 +84,6 @@
         <button class="menubar__button" @click="commands.horizontal_rule">
           hr
         </button>
-
-        <button class="menubar__button" @click="commands.undo">
-          <i class="fas fa-undo"></i>
-        </button>
-
-        <button class="menubar__button" @click="commands.redo">
-          <i class="fas fa-redo"></i>
-        </button>
       </div>
     </editor-menu-bar>
 
@@ -118,7 +110,6 @@ import {
   Link,
   Strike,
   Underline,
-  History,
 } from 'tiptap-extensions'
 
 export default {
@@ -130,6 +121,7 @@ export default {
     return {
       html: '',
       editor: new Editor({
+        content: this.html || 'Type your note here...',
         extensions: [
           new Blockquote(),
           new BulletList(),
@@ -147,33 +139,10 @@ export default {
           new Italic(),
           new Strike(),
           new Underline(),
-          new History(),
         ],
         onUpdate: ({ getJSON, getHTML }) => {
           this.html = getHTML()
         },
-        content: `
-          <h2>
-            Hi there,
-          </h2>
-          <p>
-            this is a very <em>basic</em> example of tiptap.
-          </p>
-          <pre><code>body { display: none; }</code></pre>
-          <ul>
-            <li>
-              A regular list
-            </li>
-            <li>
-              With regular items
-            </li>
-          </ul>
-          <blockquote>
-            It's amazing 👏
-            <br />
-            – mom
-          </blockquote>
-        `,
       }),
     }
   },

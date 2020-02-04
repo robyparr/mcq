@@ -38,8 +38,7 @@
     <%= form_with scope: :media_note,
                   url: media_item_notes_path(@media_item, format: :js) do |f| %>
       <%= f.text_field :title, placeholder: 'Title...' %>
-      <%= f.text_area :content, placeholder: 'Start typing your new note here...' %>
-      <div id="markdown-editor"><markdown-editor></markdown-editor></div>
+      <markdown-editor></markdown-editor>
       <%= f.submit class: 'button' %>
     <% end %>
 
@@ -71,4 +70,6 @@
 
     viewer.style.width = '50%';
   });
+
+  renderMarkdownEditor('#notes')
 </script>

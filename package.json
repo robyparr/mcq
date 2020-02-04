@@ -8,6 +8,8 @@
     "@rails/webpacker": "^4.2.0",
     "postcss-nested": "^4.2.1",
     "tailwindcss": "^1.1.4",
+    "tiptap": "^1.26.6",
+    "tiptap-extensions": "^1.28.6",
     "vue": "^2.6.11",
     "vue-loader": "^15.8.3",
     "vue-template-compiler": "^2.6.11"
@@ -15,5 +17,8 @@
   "version": "0.1.0",
   "devDependencies": {
     "webpack-dev-server": "^3.9.0"
+  },
+  "resolutions": {
+    "prosemirror-model": "1.8.2"
   }
 }

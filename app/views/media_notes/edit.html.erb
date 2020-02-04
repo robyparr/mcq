@@ -1,0 +1,17 @@
+<h2 class="page-header">Edit Note</h2>
+
+<%= form_with id: 'edit-notes',
+              model: @media_note,
+              url: note_path(@media_note),
+              local: true do |f| %>
+  <%= f.text_field :title, placeholder: 'Title...' %>
+  <rich-editor content="<%= @media_note.content %>"></rich-editor>
+
+  <%= f.submit class: 'button' %>
+<% end %>
+
+<%= javascript_pack_tag 'rich_editor' %>
+
+<script>
+  renderRichEditor('#edit-notes');
+</script>

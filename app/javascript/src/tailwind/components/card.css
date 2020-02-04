@@ -2,9 +2,22 @@
   @apply bg-white border rounded;
 
   .card-header {
-    @apply flex justify-between items-center px-4 py-4 pb-2;
+    @apply flex justify-between px-4 pt-4;
 
     .card-title { @apply text-2xl; }
+
+    .card-actions {
+      @apply flex pt-2;
+
+      .card-action {
+        @apply -mr-2;
+
+        i {
+          height: 24px;
+          width: 25px;
+        }
+      }
+    }
   }
 
   .card-content {

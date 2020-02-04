@@ -6,7 +6,10 @@ Rails.application.routes.draw do
       post '/complete', action: :complete
     end
 
-    resources :media_notes, as: :notes, path: :notes, only: %i[create destroy], shallow: true
+    resources :media_notes, as: :notes,
+                            path: :notes,
+                            only: %i[create edit update destroy],
+                            shallow: true
   end
 
   resources :media_queues, as: :queues, path: 'queues'

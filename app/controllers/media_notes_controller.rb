@@ -9,6 +9,20 @@ class MediaNotesController < ApplicationController
     end
   end
 
+  def edit
+    @media_note = current_user.notes.find(params[:id])
+  end
+
+  def update
+    @media_note = current_user.notes.find(params[:id])
+
+    if @media_note.update(media_note_params)
+      redirect_to media_item_path(@media_note.media_item_id)
+    else
+      render :edit
+    end
+  end
+
   def destroy
     @media_note = current_user.notes.find(params[:id])
     @media_note.destroy

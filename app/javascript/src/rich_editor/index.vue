@@ -1,6 +1,6 @@
 <template>
   <div class="editor">
-    <input type="hidden" name="media_note[content]" v-model="html" />
+    <input type="hidden" name="media_note[content]" v-model="html" data-target="edit-note.contentInput" />
     <editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
       <div class="menubar">
         <button type="button"

@@ -9,4 +9,8 @@ input:not([type="submit"]):not([type="color"]), textarea {
   &:focus {
     @apply outline-none bg-white;
   }
+
+  &.small {
+    @apply py-1 px-2;
+  }
 }

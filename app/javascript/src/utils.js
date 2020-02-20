@@ -12,7 +12,6 @@ export default {
         'Content-Type': 'application/json',
         'X-CSRF-Token': this.getAuthenticityToken()
       },
-
     })
 
     if (options.body)

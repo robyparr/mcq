@@ -5,7 +5,8 @@
         <%= text_field_tag :title,
                            note.title,
                            placeholder: 'Title...',
-                           data: { target: 'edit-note.titleInput'} %>
+                           class: 'small',
+                           data: { target: 'edit-note.titleInput' } %>
       </div>
       <div data-target="inline-edit.display edit-note.title">
         <%= note.title %>
@@ -17,13 +18,13 @@
               class="card-action"
               data-target="inline-edit.display"
               data-action="inline-edit#toggleEditMode">
-        <i class="far fa-edit text-black"></i>
+        <i class="far fa-edit"></i>
       </button>
       <button type="button"
               class="card-action"
               data-target="inline-edit.editor"
               data-action="inline-edit#toggleDisplayMode edit-note#save">
-        <i class="far fa-save text-black"></i>
+        <i class="far fa-save"></i>
       </button>
       <%= button_to note_path(note, format: :js),
                     method: :delete,

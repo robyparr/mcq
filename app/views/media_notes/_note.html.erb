@@ -37,9 +37,12 @@
   </div>
   <div class="card-content">
     <div data-target="inline-edit.editor">
-      <rich-editor content="<%= note.content %>"></rich-editor>
+      <div data-controller="rich-editor"
+           data-rich-editor-input-name="media_note[content]"
+           data-rich-editor-content="<%= note.content %>"
+           data-rich-editor-input-targets="edit-note.contentInput"></div>
     </div>
-    <div data-target="inline-edit.display edit-note.content">
+    <div class="rich-content" data-target="inline-edit.display edit-note.content">
       <%= raw note.content %>
     </div>
   </div>

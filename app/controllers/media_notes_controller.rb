@@ -9,17 +9,13 @@ class MediaNotesController < ApplicationController
     end
   end
 
-  def edit
-    @media_note = current_user.notes.find(params[:id])
-  end
-
   def update
     @media_note = current_user.notes.find(params[:id])
 
     if @media_note.update(media_note_params)
-      redirect_to media_item_path(@media_note.media_item_id)
+      render json: @media_note.to_json
     else
-      render :edit
+      render json: { errors: @media_note.errors.full_messages }, status: :unprocessable_entity
     end
   end
 

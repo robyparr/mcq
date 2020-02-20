@@ -1,11 +1,31 @@
-<div class="card">
+<div class="card" data-controller="inline-edit edit-note" data-note-id="<%= note.id %>">
   <div class="card-header">
-    <span class="card-title"><%= note.title %></span>
+    <span class="card-title">
+      <div data-target="inline-edit.editor">
+        <%= text_field_tag :title,
+                           note.title,
+                           placeholder: 'Title...',
+                           class: 'small',
+                           data: { target: 'edit-note.titleInput' } %>
+      </div>
+      <div data-target="inline-edit.display edit-note.title">
+        <%= note.title %>
+      </div>
+    </span>
 
     <span class="card-actions">
-      <%= link_to edit_note_path(note), class: 'card-action' do %>
-        <i class="far fa-edit text-black"></i>
-      <% end %>
+      <button type="button"
+              class="card-action"
+              data-target="inline-edit.display"
+              data-action="inline-edit#toggleEditMode">
+        <i class="far fa-edit"></i>
+      </button>
+      <button type="button"
+              class="card-action"
+              data-target="inline-edit.editor"
+              data-action="inline-edit#toggleDisplayMode edit-note#save">
+        <i class="far fa-save"></i>
+      </button>
       <%= button_to note_path(note, format: :js),
                     method: :delete,
                     remote: true,
@@ -16,6 +36,11 @@
     </span>
   </div>
   <div class="card-content">
-    <%= raw note.content %>
+    <div data-target="inline-edit.editor">
+      <rich-editor content="<%= note.content %>"></rich-editor>
+    </div>
+    <div data-target="inline-edit.display edit-note.content">
+      <%= raw note.content %>
+    </div>
   </div>
 </div>

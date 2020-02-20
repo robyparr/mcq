@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
     resources :media_notes, as: :notes,
                             path: :notes,
-                            only: %i[create edit update destroy],
+                            only: %i[create update destroy],
                             shallow: true
   end
 

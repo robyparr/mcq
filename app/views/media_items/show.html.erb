@@ -52,11 +52,7 @@
 
     <% if @media_item.notes.any? %>
       <% @media_item.notes.each do |note| %>
-        <div id="note-<%= note.id %>" class="row mt-4">
-          <div class="column md12 pl-0">
-            <%= render 'media_notes/note', note: note %>
-          </div>
-        </div>
+        <%= render 'note', note: note %>
       <% end %>
     <% end %>
   </div>

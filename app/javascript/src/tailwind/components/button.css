@@ -2,4 +2,8 @@
   @apply border px-6 py-2 rounded bg-gray-300 cursor-pointer text-black;
 
   &:hover { @apply text-black bg-gray-400; }
+
+  &.icon-only {
+    @apply px-1 py-0;
+  }
 }

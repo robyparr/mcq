@@ -15,8 +15,9 @@
 @import "./components/badge.css";
 
 @import "./components/sidebar_nav.css";
-@import "./components/url_viewer.css";
 @import "./components/rich_editor.css";
+@import "./components/sidebar.css";
+@import "./components/utils.css";
 
 @import "./rich_content.css";
 

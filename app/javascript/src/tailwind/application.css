@@ -18,6 +18,8 @@
 @import "./components/url_viewer.css";
 @import "./components/rich_editor.css";
 
+@import "./rich_content.css";
+
 @import "tailwindcss/utilities";
 
 body {

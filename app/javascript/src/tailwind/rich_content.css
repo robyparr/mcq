@@ -1,0 +1,53 @@
+/* Based on default styling applied to
+   rich text in Quill's editor. */
+.rich-content {
+  h1 { font-size: 2em; }
+  h2 { font-size: 1.5em; }
+  h3 { font-size: 1.17em; }
+
+  strong { font-weight: bolder; }
+  em { font-style: italic; }
+
+  code, pre {
+    background-color: #f0f0f0;
+    border-radius: 3px;
+  }
+
+  code {
+    font-size: 85%;
+    padding: 2px 4px;
+  }
+
+  pre {
+    white-space: pre-wrap;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    padding: 5px 10px;
+  }
+
+  pre.ql-syntax {
+    background-color: #23241f;
+    color: #f8f8f2;
+    overflow: visible;
+  }
+
+  ol, ul {
+    margin: 0;
+    padding: 0;
+
+    li {
+      margin-left: 1.5em;
+      padding-left: 0.25em;
+    }
+  }
+
+  ul li { @apply list-disc; }
+  ol li { @apply list-decimal; }
+
+  blockquote {
+    border-left: 4px solid #ccc;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    padding-left: 16px;
+  }
+}

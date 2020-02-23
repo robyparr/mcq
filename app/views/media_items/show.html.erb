@@ -70,24 +70,10 @@
 
   <div data-target="media-viewer.viewerWrap"
         class="sidebar hidden"></div>
-
-  <div id="url-viewer" style="width: 0;">
-    <url-viewer url="<%= @media_item.url %>"></url-viewer>
-  </div>
 </div>
-
-<%= javascript_pack_tag 'url_viewer' %>
-<%= stylesheet_pack_tag 'url_viewer' %>
 
 <%= javascript_pack_tag 'rich_editor' %>
 
 <script>
-  document.querySelector('[data-url-viewer]').addEventListener('click', function(e) {
-    var viewerSelector = e.target.dataset.urlViewer;
-    var viewer         = document.querySelector(viewerSelector);
-
-    viewer.style.width = '50%';
-  });
-
   renderRichEditor('#notes');
 </script>

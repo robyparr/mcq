@@ -24,7 +24,8 @@
     <% end %>
 
     <% if @media_item.consumption_difficulty %>
-      <%= render 'consumption_difficulty', consumption_difficulty: @media_item.consumption_difficulty %>
+      <%= render 'consumption_difficulty',
+                 consumption_difficulty: @media_item.consumption_difficulty %>
     <% end %>
   </div>
 
@@ -32,15 +33,13 @@
     <%= link_to 'Edit', edit_media_item_path(@media_item), class: 'button' %>
     <%= link_to 'Open Media', @media_item.url, class: 'button' %>
     <%= button_tag 'Open Viewer',
-                  class: 'button',
-                  data: {
-                    action: 'click->media-viewer#open',
-                  } %>
+                   class: 'button',
+                   data: { action: 'click->media-viewer#open' } %>
 
     <% unless @media_item.complete? %>
       <%= button_to 'Mark Completed', complete_media_item_url(@media_item),
-        class: 'button',
-        method: :post %>
+                    class: 'button',
+                    method: :post %>
     <% end %>
   </div>
 
@@ -52,7 +51,7 @@
                     url: media_item_notes_path(@media_item, format: :js) do |f| %>
         <%= f.text_field :title, placeholder: 'Title...' %>
         <div data-controller="rich-editor"
-            data-rich-editor-input-name="media_note[content]"></div>
+             data-rich-editor-input-name="media_note[content]"></div>
         <%= f.submit class: 'button' %>
       <% end %>
 
@@ -66,5 +65,5 @@
 
 
   <div data-target="media-viewer.viewerWrap"
-        class="sidebar hidden"></div>
+       class="sidebar hidden"></div>
 </div>

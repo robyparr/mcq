@@ -3,7 +3,7 @@
 
   &:hover { @apply text-black bg-gray-400; }
 
-  .icon-only {
+  &.icon-only {
     @apply px-1 py-0;
   }
 }

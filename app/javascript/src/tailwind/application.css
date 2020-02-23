@@ -19,6 +19,8 @@
 @import "./components/sidebar.css";
 @import "./components/utils.css";
 
+@import "./rich_content.css";
+
 @import "tailwindcss/utilities";
 
 body {

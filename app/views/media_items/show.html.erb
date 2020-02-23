@@ -51,17 +51,14 @@
       <%= form_with scope: :media_note,
                     url: media_item_notes_path(@media_item, format: :js) do |f| %>
         <%= f.text_field :title, placeholder: 'Title...' %>
-        <rich-editor></rich-editor>
+        <div data-controller="rich-editor"
+            data-rich-editor-input-name="media_note[content]"></div>
         <%= f.submit class: 'button' %>
       <% end %>
 
       <% if @media_item.notes.any? %>
         <% @media_item.notes.each do |note| %>
-          <div id="note-<%= note.id %>" class="row mt-4">
-            <div class="column md12 pl-0">
-              <%= render 'media_notes/note', note: note %>
-            </div>
-          </div>
+          <%= render 'note', note: note %>
         <% end %>
       <% end %>
     </div>
@@ -71,9 +68,3 @@
   <div data-target="media-viewer.viewerWrap"
         class="sidebar hidden"></div>
 </div>
-
-<%= javascript_pack_tag 'rich_editor' %>
-
-<script>
-  renderRichEditor('#notes');
-</script>

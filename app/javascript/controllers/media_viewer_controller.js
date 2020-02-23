@@ -11,7 +11,7 @@ export default class extends ApplicationController {
     default: `
       <div class="w-full h-full relative">
         <div class="toolbar mb-0 justify-end py-1 px-4">
-          <button data-action="click->media-viewer#close">
+          <button data-action="click->media-viewer#close" class="button icon-only">
             <i class="fas fa-times"></i>
           </button>
         </div>

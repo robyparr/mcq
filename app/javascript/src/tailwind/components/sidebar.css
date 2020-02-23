@@ -1,0 +1,4 @@
+.sidebar {
+  @apply fixed right-0 bottom-0 bg-white border shadow-xl w-1/2;
+  top: 75px;
+}

@@ -1,3 +1,7 @@
 .ql-toolbar, .ql-container {
   @apply bg-white;
 }
+
+.ql-editor {
+  min-height: 100px !important;
+}

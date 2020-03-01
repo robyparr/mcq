@@ -14,10 +14,12 @@
       <tr>
         <td>
           <span class="text-lg">
-            <%= link_to truncate(media_item.title_or_url, length: 75), media_item_path(media_item) %>
+            <%= link_to truncate(media_item.title_or_url, length: 50),
+                        media_item_path(media_item) %>
           </span>
-          <%= external_link_to truncate(media_item.url, length: 75), media_item.url,
-              class: 'text-muted block' %>
+          <%= external_link_to truncate(media_item.url, length: 50),
+                               media_item.url,
+                               class: 'text-muted block' %>
         </td>
         <td><%= media_item.queue.name %></td>
         <td><%= media_item.priority.try(:title) || 'None' %></td>

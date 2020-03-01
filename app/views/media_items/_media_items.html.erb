@@ -18,13 +18,7 @@
     <% media_items.each do |media_item| %>
       <tr>
         <% not_within_path('/queues') do %>
-          <td class="pr-0">
-            <% if media_item.complete? %>
-              <i class="far fa-envelope-open fa-2x"></i>
-            <% else %>
-              <i class="far fa-envelope fa-2x"></i>
-            <% end %>
-          </td>
+          <td class="pr-0"><%= render 'media_icon', media_item: media_item %></td>
         <% end %>
         <td>
           <span class="text-lg">

@@ -1,7 +1,13 @@
 .media-item {
   @apply flex items-center;
 
-  :first-child {
-    @apply mr-1;
+  :first-child { @apply mr-4; }
+
+  &.small {
+    :first-child { @apply mr-1; }
+  }
+
+  .media-text {
+    @apply flex-col;
   }
 }

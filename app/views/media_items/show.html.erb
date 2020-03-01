@@ -1,32 +1,39 @@
 <div data-controller="media-viewer"
      data-media-viewer-url="<%= @media_item.url %>">
-  <h2 class="page-header" title="<%= @media_item.url %>">
-    <%= @media_item.title_or_url %>
-  </h1>
 
-  <div class="toolbar text-muted -mt-4">
-    <div class="media-item">
-      <i class="fas fa-inbox"></i>
-      <%= link_to @media_item.queue.name, queue_path(@media_item.queue), class: 'text-muted' %>
-    </div>
+  <div class="media-item -ml-12">
+    <%= render 'media_icon', media_item: @media_item %>
 
-    <% if @media_item.estimated_consumption_time %>
-      <div class="media-item">
-        <i class="far fa-clock"></i>
-        <%= pluralize @media_item.estimated_consumption_time, 'minute' %>
+    <div class="media-text">
+      <h2 class="page-header mb-0" title="<%= @media_item.url %>">
+        <%= @media_item.title_or_url %>
+      </h1>
+
+      <div class="toolbar text-muted -mt-2 mb-0">
+        <div class="small media-item">
+          <i class="fas fa-inbox"></i>
+          <%= link_to @media_item.queue.name, queue_path(@media_item.queue), class: 'text-muted' %>
+        </div>
+
+        <% if @media_item.estimated_consumption_time %>
+          <div class="small media-item">
+            <i class="far fa-clock"></i>
+            <%= pluralize @media_item.estimated_consumption_time, 'minute' %>
+          </div>
+        <% end %>
+
+        <% if @media_item.priority %>
+          <span class="font-bold">
+            <%= @media_item.priority.title %>
+          </span>
+        <% end %>
+
+        <% if @media_item.consumption_difficulty %>
+          <%= render 'consumption_difficulty',
+                    consumption_difficulty: @media_item.consumption_difficulty %>
+        <% end %>
       </div>
-    <% end %>
-
-    <% if @media_item.priority %>
-      <span class="font-bold">
-        <%= @media_item.priority.title %>
-      </span>
-    <% end %>
-
-    <% if @media_item.consumption_difficulty %>
-      <%= render 'consumption_difficulty',
-                 consumption_difficulty: @media_item.consumption_difficulty %>
-    <% end %>
+    </div>
   </div>
 
   <div class="toolbar mt-4">

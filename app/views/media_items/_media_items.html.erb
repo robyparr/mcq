@@ -32,10 +32,19 @@
         <% not_within_path('/queues') do %>
           <td><%= media_item.queue.name %></td>
         <% end %>
-        <td><%= media_item.priority.try(:title) || 'None' %></td>
+        <td><%= media_item.priority.try(:title) || '-' %></td>
         <td>
           <% if media_item.consumption_difficulty %>
-            <%= render 'media_items/consumption_difficulty', consumption_difficulty: media_item.consumption_difficulty %>
+            <div>
+              <%= render 'media_items/consumption_difficulty',
+                         consumption_difficulty: media_item.consumption_difficulty %>
+            </div>
+            <% if media_item.estimated_consumption_time %>
+              <div class="small media-item text-muted">
+                <i class="far fa-clock fa-lg"></i>
+                <%= pluralize media_item.estimated_consumption_time, 'minute' %>
+              </div>
+            <% end %>
           <% else %>
             -
           <% end %>

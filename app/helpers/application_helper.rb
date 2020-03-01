@@ -39,4 +39,10 @@ module ApplicationHelper
 
     options_for_select(options, selected)
   end
+
+  def not_within_path(path, &block)
+    return if request.path.start_with?(path)
+
+    block.call
+  end
 end

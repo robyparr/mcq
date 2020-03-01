@@ -1,7 +1,12 @@
 .toolbar {
   @apply flex items-center mb-4;
 
-  *:not(:last-child) {
-    @apply mr-4;
+  *:not(:last-child){
+    @apply mr-5;
+  }
+
+  .button-group {
+    &:not(:last-child) { @apply mr-5; }
+    .button { @apply m-0; }
   }
 }

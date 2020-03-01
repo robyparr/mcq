@@ -1,9 +1,9 @@
 module MediaItemHelper
   def consumption_difficulty_classes(difficulty)
     case difficulty
-    when 'easy'   then 'bg-green-600'
-    when 'medium' then 'bg-yellow-500'
-    when 'hard'   then 'bg-red-600'
+    when 'easy'   then 'text-green-600'
+    when 'medium' then 'text-yellow-600'
+    when 'hard'   then 'text-red-600'
     else ''
     end
   end

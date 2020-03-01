@@ -1,6 +1,5 @@
 <div data-controller="media-viewer"
      data-media-viewer-url="<%= @media_item.url %>">
-
   <div class="media-item -ml-12">
     <%= render 'media_icon', media_item: @media_item %>
 
@@ -9,23 +8,24 @@
         <%= @media_item.title_or_url %>
       </h1>
 
-      <div class="toolbar text-muted -mt-2 mb-0">
+      <div class="toolbar text-muted mb-0">
         <div class="small media-item">
-          <i class="fas fa-inbox"></i>
+          <i class="fas fa-inbox fa-lg"></i>
           <%= link_to @media_item.queue.name, queue_path(@media_item.queue), class: 'text-muted' %>
         </div>
 
         <% if @media_item.estimated_consumption_time %>
           <div class="small media-item">
-            <i class="far fa-clock"></i>
+            <i class="far fa-clock fa-lg"></i>
             <%= pluralize @media_item.estimated_consumption_time, 'minute' %>
           </div>
         <% end %>
 
         <% if @media_item.priority %>
-          <span class="font-bold">
+          <div class="small media-item">
+            <i class="far fa-flag fa-lg"></i>
             <%= @media_item.priority.title %>
-          </span>
+          </div>
         <% end %>
 
         <% if @media_item.consumption_difficulty %>
@@ -37,17 +37,19 @@
   </div>
 
   <div class="toolbar mt-4">
-    <%= link_to 'Edit', edit_media_item_path(@media_item), class: 'button' %>
-    <%= link_to 'Open Media', @media_item.url, class: 'button' %>
-    <%= button_tag 'Open Viewer',
-                   class: 'button',
-                   data: { action: 'click->media-viewer#open' } %>
-
-    <% unless @media_item.complete? %>
+    <div class="button-group">
+      <%= link_to 'Edit', edit_media_item_path(@media_item), class: 'button' %>
       <%= button_to 'Mark Completed', complete_media_item_url(@media_item),
                     class: 'button',
-                    method: :post %>
-    <% end %>
+                    method: :post,
+                    disabled: @media_item.complete? %>
+    </div>
+    <div class="button-group">
+      <%= link_to 'Open Media', @media_item.url, class: 'button' %>
+      <%= button_tag 'Open Viewer',
+                    class: 'button',
+                    data: { action: 'click->media-viewer#open' } %>
+    </div>
   </div>
 
   <h3 class="section-header">Notes</h3>

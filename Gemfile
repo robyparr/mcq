@@ -12,6 +12,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'clearance', '~> 2.0'
 gem 'rainbow', '~> 3.0'
 gem 'ruby-readability', '~> 0.7.0'
+gem 'httparty', '~> 0.17.3'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

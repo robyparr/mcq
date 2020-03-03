@@ -1,4 +1,6 @@
 class MediaPrioritiesController < ApplicationController
+  layout 'settings'
+
   def index
     @media_priority   = MediaPriority.new
     @media_priorities = current_user.media_priorities

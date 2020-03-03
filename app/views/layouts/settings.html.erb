@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <%= render 'layouts/head' %>
+    <%= render 'layouts/shared/head' %>
   </head>
 
   <body>
@@ -10,7 +10,7 @@
         <%= render 'layouts/settings/sidebar' %>
       </div>
       <div class="w-10/12">
-        <%= render 'layouts/header' %>
+        <%= render 'layouts/shared/header' %>
 
         <main class="py-8 px-20">
           <% flash.each do |key, value| %>

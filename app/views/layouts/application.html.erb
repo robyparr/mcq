@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <%= render 'layouts/head' %>
+    <%= render 'layouts/shared/head' %>
   </head>
 
   <body>
     <div class="flex relative w-screen h-screen">
       <div class="w-2/12">
-        <%= render 'layouts/sidebar' %>
+        <%= render 'layouts/shared/sidebar' %>
       </div>
       <div class="w-10/12">
-        <%= render 'layouts/header' %>
+        <%= render 'layouts/shared/header' %>
 
         <main class="py-8 px-20">
           <% flash.each do |key, value| %>

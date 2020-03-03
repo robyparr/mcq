@@ -24,7 +24,7 @@ class IntegrationsController < ApplicationController
       redirect_token: params[:redirect_token],
       created_at: 5.minutes.ago...Time.current
     )
-    response = integration_client(integration.service).authorize(integration.request_token)
+    response = integration_client(service: integration.service).authorize(integration.request_token)
 
     integration_attrs = auth_params_for_integration(integration.service, response).merge(
       redirect_token: nil,
@@ -35,13 +35,34 @@ class IntegrationsController < ApplicationController
     redirect_to integrations_path
   end
 
+  def synchronize
+    integration = current_user.integrations.find(params[:integration_id])
+    items = integration_client(integration: integration).items
+
+    inbox_queue = current_user.queues.find_or_initialize_by(name: 'Inbox') do |queue|
+      queue.color = '#eee'
+    end
+    inbox_queue.save unless inbox_queue.persisted?
+
+    items.each do |item|
+      current_user.media_items.create(
+        queue: inbox_queue,
+        title: item[:given_title] || item[:resolved_title],
+        url: item[:given_url],
+        estimated_consumption_time: item[:time_to_read],
+      )
+    end
+
+    redirect_to media_items_path
+  end
+
   private
 
-  def integration_client(service = nil)
-    service ||= params[:service]
+  def integration_client(service: nil, integration: nil)
+    service ||= integration.try(:service) || params[:service]
     @integration_client ||=
       case service
-      when 'Pocket' then Pocket::Client.new
+      when 'Pocket' then Pocket::Client.new(integration)
       else
         raise "Unsupported service #{service}"
       end

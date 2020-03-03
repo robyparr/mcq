@@ -3,6 +3,12 @@ module Pocket
     include HTTParty
     base_uri 'https://getpocket.com/v3'
 
+    include Pocket::Items
+
+    def initialize(integration = nil)
+      @integration = integration
+    end
+
     def generate_request_token(redirect_url)
       response = post '/oauth/request', body: {
         consumer_key: consumer_key,
@@ -37,6 +43,13 @@ module Pocket
     def default_headers
       {
         'X-Accept' => 'application/json',
+      }
+    end
+
+    def default_params
+      {
+        consumer_key: consumer_key,
+        access_token: @integration.auth_token
       }
     end
   end

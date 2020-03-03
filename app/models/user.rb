@@ -6,4 +6,8 @@ class User < ApplicationRecord
   has_many :media_priorities, dependent: :destroy
   has_many :notes, through: :media_items
   has_many :integrations, dependent: :destroy
+
+  has_one :pocket_integration,
+    -> { where(service: 'Pocket') },
+    class_name: 'Integration'
 end

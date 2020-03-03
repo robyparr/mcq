@@ -2,6 +2,13 @@
 
 <div class="flex mb-4">
   <%= link_to 'Add Media', new_media_item_path, class: 'button' %>
+
+  <% if current_user.pocket_integration.present? %>
+    <%= link_to 'Synchronize Pocket',
+                synchronize_integrations_path(integration_id: current_user.pocket_integration.id),
+                class: 'button',
+                method: :post %>
+  <% end %>
 </div>
 
 <%= render 'media_items', media_items: @media_items %>

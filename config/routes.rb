@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :integrations, only: %i[index new] do
     collection do
       get :authentication_redirect
+      post :synchronize
     end
   end
 end

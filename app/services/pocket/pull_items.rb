@@ -15,6 +15,9 @@ module Pocket
 
     private
 
+    attr_reader :user,
+                :integration_id
+
     def pocket_client
       @pocket_client ||= Pocket::Client.new(pocket_integration)
     end
@@ -33,10 +36,9 @@ module Pocket
         title: pocket_item[:given_title] || pocket_item[:resolved_title],
         url: pocket_item[:given_url],
         estimated_consumption_time: pocket_item[:time_to_read],
+        service_id: pocket_item[:item_id],
+        service_type: 'Pocket',
       }
     end
-
-    attr_reader :user,
-                :integration_id
   end
 end

@@ -41,6 +41,9 @@ Rails.application.configure do
     port: 3000
   }
 
+  Rails.application.routes.default_url_options =
+    config.action_mailer.default_url_options
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 

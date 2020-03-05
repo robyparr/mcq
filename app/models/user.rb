@@ -10,4 +10,10 @@ class User < ApplicationRecord
   has_one :pocket_integration,
     -> { where(service: 'Pocket') },
     class_name: 'Integration'
+
+  def inbox_queue
+    @inbox_queue ||= queues.find_or_create_by(name: 'Inbox') do |queue|
+      queue.color = '#eee'
+    end
+  end
 end

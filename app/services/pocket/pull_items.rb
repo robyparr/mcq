@@ -7,9 +7,14 @@ module Pocket
 
     def call
       pocket_integration.with_log(:pull_items) do
+        created_pocket_item_ids = []
+
         pocket_client.items.each do |item|
           create_media_item_from_pocket_item! item
+          created_pocket_item_ids.push item[:item_id]
         end
+
+        archive_and_tag_pocket_items created_pocket_item_ids
       end
     end
 
@@ -39,6 +44,12 @@ module Pocket
         service_id: pocket_item[:item_id],
         service_type: 'Pocket',
       }
+    end
+
+    def archive_and_tag_pocket_items(pocket_item_ids)
+      return unless pocket_item_ids.present?
+
+      pocket_client.archive_and_tag_items pocket_item_ids, 'mcq-pulled'
     end
   end
 end

@@ -1,12 +1,34 @@
 module Pocket
   module Items
     def items
-      response = post(
-        '/get',
-        body: default_params.merge({ 'contentType' => 'article' })
+      body = default_params.merge(
+        contentType: 'article',
       )
+      body.merge!(count: 1, tag: 'mcq-test') if Rails.env.development?
 
-      response[:list].values.map(&:symbolize_keys)
+      response = post('/get', body: body)
+
+      if response[:list].present?
+        response[:list].values.map(&:symbolize_keys)
+      else
+        []
+      end
+    end
+
+    def archive_and_tag_items(item_ids, tag)
+      body = %i[tags_add archive].flat_map do |action|
+        item_ids.map do |item_id|
+          action_attrs = {
+            action:  action.to_s,
+            item_id: item_id.to_i,
+          }
+          action_attrs[:tags] = tag if action == :tags_add
+
+          action_attrs
+        end
+      end
+
+      post '/send', body: default_params.merge(actions: body.to_json).to_param
     end
   end
 end

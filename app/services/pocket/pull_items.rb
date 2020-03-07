@@ -8,6 +8,11 @@ module Pocket
     end
 
     def call
+      if pocket_client.hit_rate_limit?
+        @pulled_item_count = 0
+        return
+      end
+
       pocket_integration.with_log(:pull_items) do
         pulled_pocket_item_ids = []
 

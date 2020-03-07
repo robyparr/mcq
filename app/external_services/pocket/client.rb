@@ -8,8 +8,14 @@ module Pocket
 
     include Pocket::Items
 
+    RATE_LIMIT_THRESHOLD = 100
+    EXPECTED_RATE_LIMIT  = 10_000
+
     def initialize(auth_token = nil)
       @auth_token = auth_token
+
+      @@rate_limit = EXPECTED_RATE_LIMIT
+      @@remaining_rate_limit = [@@rate_limit, Time.current]
     end
 
     def generate_request_token(redirect_url)
@@ -32,12 +38,20 @@ module Pocket
       }
     end
 
+    def hit_rate_limit?
+      remaining_rate_limit <= RATE_LIMIT_THRESHOLD
+    end
+
     private
 
     attr_reader :auth_token
 
     def post(url, body:)
+      return if hit_rate_limit?
+
       response = self.class.post(url, body: body, format: :plain)
+      update_remaining_rate_limit response.headers
+
       JSON.parse response, symbolize_names: true
     end
 
@@ -50,6 +64,27 @@ module Pocket
         consumer_key: consumer_key,
         access_token: auth_token,
       }
+    end
+
+    def update_remaining_rate_limit(headers)
+      limit            = headers['x-limit-key-limit'].to_i
+      remaining_limit  = headers['x-limit-key-remaining'].to_i
+      secs_until_reset = headers['x-limit-key-reset'].to_i
+
+      time_until_reset = Time.current + secs_until_reset.seconds
+
+      @@rate_limit = limit
+      @@remaining_rate_limit = [remaining_limit, time_until_reset]
+    end
+
+    def remaining_rate_limit
+      remaining, expiry = @@remaining_rate_limit
+
+      if expiry.past?
+        @@rate_limit
+      else
+        remaining
+      end
     end
   end
 end

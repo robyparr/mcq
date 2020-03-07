@@ -1,5 +1,7 @@
 module Pocket
   class PullItems < ApplicationService
+    attr_reader :pulled_item_count
+
     def initialize(user, integration_id)
       @user = user
       @integration_id = integration_id
@@ -7,14 +9,17 @@ module Pocket
 
     def call
       pocket_integration.with_log(:pull_items) do
-        created_pocket_item_ids = []
+        pulled_pocket_item_ids = []
 
         pocket_client.items.each do |item|
-          create_media_item_from_pocket_item! item
-          created_pocket_item_ids.push item[:item_id]
+          media_item = build_media_item_from_pocket_item item
+          if media_item.save
+            pulled_pocket_item_ids.push item[:id]
+          end
         end
 
-        archive_and_tag_pocket_items created_pocket_item_ids
+        @pulled_item_count = pulled_pocket_item_ids.count
+        archive_and_tag_pocket_items pulled_pocket_item_ids
       end
     end
 
@@ -24,24 +29,24 @@ module Pocket
                 :integration_id
 
     def pocket_client
-      @pocket_client ||= Pocket::Client.new(pocket_integration)
+      @pocket_client ||= Pocket::Client.new(pocket_integration.auth_token)
     end
 
     def pocket_integration
       @pocket_integration ||= user.integrations.find(integration_id)
     end
 
-    def create_media_item_from_pocket_item!(pocket_item)
+    def build_media_item_from_pocket_item(pocket_item)
       attrs = media_item_attrs(pocket_item).merge(queue: user.inbox_queue)
-      user.media_items.create! attrs
+      user.media_items.build attrs
     end
 
     def media_item_attrs(pocket_item)
       {
-        title: pocket_item[:given_title] || pocket_item[:resolved_title],
-        url: pocket_item[:given_url],
+        title: pocket_item[:title],
+        url: pocket_item[:url],
         estimated_consumption_time: pocket_item[:time_to_read],
-        service_id: pocket_item[:item_id],
+        service_id: pocket_item[:id],
         service_type: 'Pocket',
       }
     end

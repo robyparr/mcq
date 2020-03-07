@@ -16,7 +16,9 @@ class IntegrationsController < ApplicationController
   end
 
   def synchronize
-    Pocket::PullItems.call current_user, params[:integration_id]
+    pull_items = Pocket::PullItems.call(current_user, params[:integration_id])
+
+    flash[:notice] = "Pulled #{pull_items.pulled_item_count} items from Pocket."
     redirect_to media_items_path
   end
 end

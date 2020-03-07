@@ -3,13 +3,16 @@ module Pocket
     def items
       body = default_params.merge(
         contentType: 'article',
+        state: 'unread',
+        count: 50,
+        detailType: 'simple',
       )
       body.merge!(count: 1, tag: 'mcq-test') if Rails.env.development?
 
       response = post('/get', body: body)
 
       if response[:list].present?
-        response[:list].values.map(&:symbolize_keys)
+        Pocket::Mapper.map_items response[:list].values
       else
         []
       end

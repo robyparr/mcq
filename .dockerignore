@@ -1,0 +1,10 @@
+.git/
+node_modules/
+
+log/development.log
+log/test.log
+log/cron.log
+
+tmp/cache/
+tmp/screenshots/
+tmp/sockets

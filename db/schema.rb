@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_04_122410) do
+ActiveRecord::Schema.define(version: 2020_03_07_091304) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,33 @@ ActiveRecord::Schema.define(version: 2020_02_04_122410) do
     t.string "action"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer "priority", default: 0, null: false
+    t.integer "attempts", default: 0, null: false
+    t.text "handler", null: false
+    t.text "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string "locked_by"
+    t.string "queue"
+    t.datetime "created_at", precision: 6
+    t.datetime "updated_at", precision: 6
+    t.index ["priority", "run_at"], name: "delayed_jobs_priority"
+  end
+
+  create_table "integrations", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "service"
+    t.string "request_token"
+    t.string "auth_token"
+    t.string "redirect_token"
+    t.string "username"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_integrations_on_user_id"
   end
 
   create_table "media_items", force: :cascade do |t|
@@ -35,7 +62,8 @@ ActiveRecord::Schema.define(version: 2020_02_04_122410) do
     t.bigint "media_priority_id"
     t.string "consumption_difficulty"
     t.integer "estimated_consumption_time"
-
+    t.string "service_id"
+    t.string "service_type"
     t.index ["media_priority_id"], name: "index_media_items_on_media_priority_id"
     t.index ["media_queue_id"], name: "index_media_items_on_media_queue_id"
     t.index ["user_id"], name: "index_media_items_on_user_id"
@@ -79,6 +107,7 @@ ActiveRecord::Schema.define(version: 2020_02_04_122410) do
     t.index ["remember_token"], name: "index_users_on_remember_token"
   end
 
+  add_foreign_key "integrations", "users"
   add_foreign_key "media_items", "media_priorities"
   add_foreign_key "media_items", "media_queues"
   add_foreign_key "media_items", "users"

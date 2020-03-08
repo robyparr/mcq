@@ -12,6 +12,10 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'clearance', '~> 2.0'
 gem 'rainbow', '~> 3.0'
 gem 'ruby-readability', '~> 0.7.0'
+gem 'httparty', '~> 0.17.3'
+gem 'whenever', '~> 1.0'
+gem 'delayed_job_active_record'
+gem 'daemons', '~> 1.3', '>= 1.3.1'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -23,6 +27,7 @@ group :development, :test do
   gem 'selenium-webdriver', '~> 3.142', '>= 3.142.6'
   gem 'webdrivers', '~> 4.1', '>= 4.1.3'
   gem 'test-prof', '~> 0.10.2'
+  gem 'webmock', '~> 3.8', '>= 3.8.2'
 end
 
 group :development do

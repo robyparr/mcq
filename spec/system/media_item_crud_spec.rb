@@ -10,7 +10,7 @@ RSpec.describe "media item CRUD", type: :system do
     it 'shows media items for the current user' do
       visit media_items_path(as: current_user)
 
-      expect(page).to have_css 'h1', text: 'Media'
+      expect(page).to have_css 'h2.page-header', text: 'Media'
       expect(page).to have_css 'td', text: users_media_items.title
       expect(page).not_to have_css 'td', text: another_users_media_items.title
     end
@@ -27,11 +27,12 @@ RSpec.describe "media item CRUD", type: :system do
 
   describe 'adding a media item' do
     let!(:queue) { create :queue, user: current_user }
+    let!(:media_info_request) { stub_request(:get, 'https://example.com/') }
 
     it 'Adds the media item' do
       visit new_media_item_path(as: current_user)
 
-      expect(page).to have_css 'h1', text: 'Add Media'
+      expect(page).to have_css 'h2.page-header', text: 'Add Media'
 
       fill_in 'https://...', with: 'https://example.com'
       fill_in 'Title', with: 'New Media'
@@ -41,6 +42,7 @@ RSpec.describe "media item CRUD", type: :system do
       expect(page).to have_current_path media_item_path(current_user.media_items.last)
       expect(page).to have_css '.alert.notice', text: 'Added the media.'
       expect(page).to have_css 'h2.page-header', text: 'New Media'
+      expect(media_info_request).to have_been_made.once
     end
   end
 

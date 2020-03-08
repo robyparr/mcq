@@ -45,4 +45,11 @@ module ApplicationHelper
 
     block.call
   end
+
+  def integration_icon_class(integration_service)
+    case integration_service
+    when 'Pocket' then 'fab fa-get-pocket'
+    else ''
+    end
+  end
 end

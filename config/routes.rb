@@ -14,4 +14,10 @@ Rails.application.routes.draw do
 
   resources :media_queues, as: :queues, path: 'queues'
   resources :media_priorities, only: %i[index create]
+  resources :integrations, only: %i[index new] do
+    collection do
+      get :authentication_redirect
+      post :synchronize
+    end
+  end
 end

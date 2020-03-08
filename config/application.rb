@@ -37,5 +37,7 @@ module Mcq
       Clearance::SessionsController.layout  'layouts/guest'
       Clearance::UsersController.layout     'layouts/guest'
     end
+
+    config.active_job.queue_adapter = :delayed_job
   end
 end

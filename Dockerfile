@@ -1,6 +1,6 @@
 FROM ruby:2.6.4
 RUN apt-get update -qq \
-  && apt-get install -y build-essential libpq-dev \
+  && apt-get install -y build-essential libpq-dev cron \
   && rm -rf /var/lib/apt/lists/*
 
 # For webpacker
@@ -25,5 +25,7 @@ ENV SECRET_KEY_BASE super_secret_key
 
 COPY . ./
 
+RUN bundle exec whenever --update-crontab
 RUN bundle exec rake assets:precompile
-CMD ["rails", "server", "-b", "0.0.0.0"]
+
+CMD cron -f & bin/delayed_job start & bundle exec puma -C config/puma.rb

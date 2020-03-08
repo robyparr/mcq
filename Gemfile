@@ -27,6 +27,7 @@ group :development, :test do
   gem 'selenium-webdriver', '~> 3.142', '>= 3.142.6'
   gem 'webdrivers', '~> 4.1', '>= 4.1.3'
   gem 'test-prof', '~> 0.10.2'
+  gem 'webmock', '~> 3.8', '>= 3.8.2'
 end
 
 group :development do

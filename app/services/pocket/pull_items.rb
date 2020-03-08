@@ -25,6 +25,8 @@ module Pocket
 
         @pulled_item_count = pulled_pocket_item_ids.count
         archive_and_tag_pocket_items pulled_pocket_item_ids
+
+        true
       end
     end
 

@@ -1,4 +1,4 @@
-set :output, 'log/cron.log'
+set :output, "#{Whenever.path}/log/cron.log"
 
 every 1.hour do
   runner 'PullPocketItemsJob.perform_later'

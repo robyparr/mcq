@@ -26,6 +26,7 @@ RUN gem install bundler \
 ENV RAILS_ENV production
 ENV RACK_ENV production
 ENV NODE_ENV production
+ENV RAILS_LOG_TO_STDOUT true
 
 COPY . ./
 

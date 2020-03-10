@@ -13,7 +13,7 @@
     <div class="column md4">
       <%= f.label :media_queue_id %>
       <%= f.select :media_queue_id,
-        options_from_collection_for_select(current_user.queues, :id, :name, @media_item.media_queue_id) %>
+        options_from_collection_for_select(current_user.queues, :id, :name, queue_id) %>
 
       <%= f.label :media_priority_id %>
       <%= f.select :media_priority_id,

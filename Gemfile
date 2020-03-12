@@ -13,9 +13,9 @@ gem 'clearance', '~> 2.0'
 gem 'rainbow', '~> 3.0'
 gem 'ruby-readability', '~> 0.7.0'
 gem 'httparty', '~> 0.17.3'
-gem 'whenever', '~> 1.0'
 gem 'delayed_job_active_record'
 gem 'daemons', '~> 1.3', '>= 1.3.1'
+gem 'clockwork', '~> 2.0', '>= 2.0.4'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

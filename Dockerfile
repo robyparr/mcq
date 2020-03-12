@@ -8,7 +8,6 @@ RUN apt-get update -qq \
   && apt-get install -y --no-install-recommends \
     build-essential \
     libpq-dev \
-    cron \
     nodejs \
     yarn \
   && rm -rf /var/lib/apt/lists/*
@@ -30,7 +29,8 @@ ENV RAILS_LOG_TO_STDOUT true
 
 COPY . ./
 
-RUN bundle exec whenever --update-crontab
 RUN bundle exec rake assets:precompile
 
-CMD cron -f & bin/delayed_job start & bundle exec puma -C config/puma.rb
+CMD bin/delayed_job start \
+  & bundle exec clockwork clock.rb \
+  & bundle exec puma -C config/puma.rb

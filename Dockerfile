@@ -26,6 +26,7 @@ ENV RAILS_ENV production
 ENV RACK_ENV production
 ENV NODE_ENV production
 ENV RAILS_LOG_TO_STDOUT true
+ENV SECRET_KEY_BASE super-secret-key
 
 COPY . ./
 

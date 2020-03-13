@@ -32,6 +32,6 @@ COPY . ./
 
 RUN bundle exec rake assets:precompile
 
-CMD bin/delayed_job start \
+CMD bundle exec bin/delayed_job start \
   & bundle exec clockwork clock.rb \
   & bundle exec puma -C config/puma.rb

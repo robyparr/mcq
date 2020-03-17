@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Pocket::FinishAuthProcess do
+  before do
+    allow_any_instance_of(Pocket::Client)
+      .to receive(:consumer_key).and_return('fake-key')
+  end
+
   describe '::REDIRECT_TOKEN_EXPIRY_LENGTH' do
     it do
       expect(described_class::REDIRECT_TOKEN_EXPIRY_LENGTH).to eq(5.minutes)

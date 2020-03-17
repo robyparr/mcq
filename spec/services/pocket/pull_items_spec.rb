@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Pocket::PullItems do
+  before do
+    allow_any_instance_of(Pocket::Client)
+      .to receive(:consumer_key).and_return('fake-key')
+  end
+
   describe '.call' do
     let!(:user) { create :user }
     let!(:integration) { create :integration, :pocket, user: user }

@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Pocket::BeginAuthProcess do
+  before do
+    allow_any_instance_of(Pocket::Client)
+      .to receive(:consumer_key).and_return('fake-key')
+  end
+
   describe '.call' do
     let(:user) { create :user }
 

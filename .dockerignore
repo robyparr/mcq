@@ -8,3 +8,5 @@ log/cron.log
 tmp/cache/
 tmp/screenshots/
 tmp/sockets
+
+config/master.key

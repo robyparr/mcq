@@ -1,11 +1,15 @@
-<h2 class="page-header pl-2" style="border-left: 3px solid <%= @queue.color %>">
-  <%= @queue.name %>
-</h2>
+<div data-controller="bulk-actions">
+  <h2 class="page-header pl-2" style="border-left: 3px solid <%= @queue.color %>">
+    <%= @queue.name %>
+  </h2>
 
-<div class="toolbar">
-  <%= link_to 'Edit', edit_queue_path(@queue), class: 'button' %>
-  <%= link_to 'Add Media', new_media_item_path(queue: @queue), class: 'button' %>
+  <div class="toolbar">
+    <%= link_to 'Edit', edit_queue_path(@queue), class: 'button' %>
+    <%= link_to 'Add Media', new_media_item_path(queue: @queue), class: 'button' %>
+
+    <%= render 'media_items/bulk_actions', queues: @queues %>
+  </div>
+
+  <h3 class="section-header">Media</h3>
+  <%= render 'media_items/media_items', media_items: @queue.active_media_items %>
 </div>
-
-<h3 class="section-header">Media</h3>
-<%= render 'media_items/media_items', media_items: @queue.active_media_items %>

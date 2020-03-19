@@ -6,6 +6,12 @@ Rails.application.routes.draw do
       post '/complete', action: :complete
     end
 
+    collection do
+      put '/bulk_change_queue', action: :bulk_change_queue
+      put '/bulk_mark_completed', action: :bulk_mark_completed
+      delete '/bulk_destroy', action: :bulk_destroy
+    end
+
     resources :media_notes, as: :notes,
                             path: :notes,
                             only: %i[create update destroy],

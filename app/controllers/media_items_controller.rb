@@ -1,5 +1,6 @@
 class MediaItemsController < ApplicationController
   def index
+    @queues      = current_user.queues
     @media_items = current_user.media_items.includes(:queue, :priority)
   end
 
@@ -62,6 +63,31 @@ class MediaItemsController < ApplicationController
     end
   end
 
+  def bulk_change_queue
+    queue = current_user.queues.find(params[:queue_id])
+    updated_items = current_user.media_items.where(id: bulk_ids).update_all media_queue_id: queue.id
+
+    flash[:notice] = "Moved #{updated_items} media items to '#{queue.name}'."
+    redirect_ajax_to bulk_action_redirect_location(fallback: media_items_url)
+  end
+
+  def bulk_mark_completed
+    media_items = current_user.media_items.not_completed.where(id: bulk_ids)
+    ActiveRecord::Base.transaction do
+      media_items.each { |media_item| media_item.mark_complete }
+    end
+
+    flash[:notice] = "Marked #{media_items.size} media items as completed."
+    redirect_ajax_to bulk_action_redirect_location(fallback: media_items_url)
+  end
+
+  def bulk_destroy
+    destroyed_items = current_user.media_items.where(id: bulk_ids).destroy_all
+
+    flash[:notice] = "Deleted #{destroyed_items.size} media items."
+    redirect_ajax_to bulk_action_redirect_location(fallback: media_items_url)
+  end
+
   private
 
   def media_item_params
@@ -72,5 +98,9 @@ class MediaItemsController < ApplicationController
       :media_priority_id,
       :consumption_difficulty,
     )
+  end
+
+  def bulk_ids
+    params[:ids].split(',')
   end
 end

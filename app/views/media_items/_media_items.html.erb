@@ -1,6 +1,14 @@
 <table>
   <thead>
     <tr>
+      <th>
+        <%= check_box_tag :select_all_media_items,
+                          'all',
+                          false,
+                          data: {
+                            action: 'change->bulk-actions#allItemsChanged'
+                          } %>
+      </th>
       <% not_within_path('/queues') do %>
         <th></th>
       <% end %>
@@ -17,6 +25,15 @@
   <tbody>
     <% media_items.each do |media_item| %>
       <tr>
+        <td>
+          <%= check_box_tag :select_media_item,
+                            media_item.id,
+                            false,
+                            data: {
+                              target: 'bulk-actions.item',
+                              action: 'change->bulk-actions#itemChanged'
+                            } %>
+        </td>
         <% not_within_path('/queues') do %>
           <td class="pr-0"><%= render 'media_icon', media_item: media_item %></td>
         <% end %>

@@ -26,6 +26,17 @@ RSpec.describe MediaItem, type: :model do
     it { is_expected.to callback(:log_creation!).after(:create) }
   end
 
+  describe '.not_completed' do
+    let!(:completed_media_item) { create :media_item, complete: true }
+    let!(:not_completed_media_item) { create :media_item, complete: false }
+
+    it 'only returns not completed media items' do
+      expect(described_class.not_completed.pluck(:id)).to match_array([
+        not_completed_media_item.id
+      ])
+    end
+  end
+
   describe '#title_or_url' do
     let(:media_item) { build :media_item, title: 'title', url: 'https://example.com' }
 

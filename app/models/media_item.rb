@@ -22,6 +22,8 @@ class MediaItem < ApplicationRecord
 
   after_create :log_creation!
 
+  scope :not_completed, -> { where(complete: false) }
+
   def title_or_url
     title.presence || url
   end

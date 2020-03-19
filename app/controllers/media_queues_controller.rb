@@ -4,9 +4,10 @@ class MediaQueuesController < ApplicationController
   end
 
   def show
-    @queue = current_user.queues
-                         .includes(active_media_items: %i[priority])
-                         .find(params[:id])
+    @queues = current_user.queues
+    @queue  = current_user.queues
+                          .includes(active_media_items: %i[priority])
+                          .find(params[:id])
   end
 
   def new

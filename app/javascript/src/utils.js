@@ -19,5 +19,12 @@ export default {
 
     return fetch(url, options)
       .then(response => response.json())
+      .then(json => {
+        if (json.status == 303) { // Redirect
+          window.location = json.location
+        } else {
+          return json;
+        }
+      })
   }
 }

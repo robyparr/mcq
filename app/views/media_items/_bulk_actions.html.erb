@@ -1,0 +1,28 @@
+<select class="w-auto mb-0"
+        data-target="bulk-actions.action"
+        data-action="change->bulk-actions#trigger"
+        data-url="<%= bulk_change_queue_media_items_path %>"
+        data-value-param-name="queue_id">
+  <option value="null">Select a queue</option>
+  <% queues.each do |queue| %>
+    <option value="<%= queue.id %>"><%= queue.name %></option>
+  <% end %>
+</select>
+
+<button type="button"
+        class="button"
+        data-target="bulk-actions.action"
+        data-action="click->bulk-actions#trigger"
+        data-url="<%= bulk_mark_completed_media_items_path %>">
+  Mark Completed
+</button>
+
+<button type="button"
+        class="button"
+        data-target="bulk-actions.action"
+        data-action="click->bulk-actions#trigger"
+        data-url="<%= bulk_destroy_media_items_path %>"
+        data-method="delete"
+        data-confirm-action="Are you sure?">
+  Delete
+</button>

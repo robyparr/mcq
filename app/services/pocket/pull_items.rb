@@ -18,6 +18,8 @@ module Pocket
 
         pocket_client.items.each do |item|
           media_item = build_media_item_from_pocket_item item
+          media_item.estimate_consumption_difficulty!
+
           if media_item.save
             pulled_pocket_item_ids.push item[:id]
           end

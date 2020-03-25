@@ -7,11 +7,13 @@
     <%= link_to 'Edit', edit_queue_path(@queue), class: 'button' %>
     <%= link_to 'Add Media', new_media_item_path(queue: @queue), class: 'button' %>
 
-    <%= render 'media_items/bulk_actions', queues: @queues %>
+    <%= render 'media_items/bulk_actions', queues: @media_items_presenter.queues %>
   </div>
 
-  <%= render 'media_items/filters', search_path: queue_path(@queue), priorities: @priorities %>
+  <%= render 'media_items/filters',
+             search_path: queue_path(@queue),
+             priorities: @media_items_presenter.filter_priorities %>
 
   <h3 class="section-header">Media</h3>
-  <%= render 'media_items/media_items', media_items: @media_items %>
+  <%= render 'media_items/media_items', media_items: @media_items_presenter.media_items %>
 </div>

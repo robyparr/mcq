@@ -11,10 +11,10 @@
                   method: :post %>
     <% end %>
 
-    <%= render 'bulk_actions', queues: @queues %>
+    <%= render 'bulk_actions', queues: @presenter.queues %>
   </div>
 
-  <%= render 'filters', search_path: media_items_path, priorities: @priorities %>
+  <%= render 'filters', search_path: media_items_path, priorities: @presenter.filter_priorities %>
 
-  <%= render 'media_items', media_items: @media_items %>
+  <%= render 'media_items', media_items: @presenter.media_items %>
 </div>

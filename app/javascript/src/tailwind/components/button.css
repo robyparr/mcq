@@ -1,13 +1,19 @@
 .button {
-  @apply border px-4 py-2 rounded bg-gray-300 cursor-pointer text-black;
+  @apply border px-4 py-2 rounded shadow bg-white cursor-pointer text-gray-800;
 
-  &:not(:disabled):hover { @apply text-black bg-gray-400; }
+  &:not(:disabled):hover { @apply bg-gray-200 text-gray-900; }
 
   &.icon-only {
     @apply px-1 py-0;
   }
 
   &:disabled { @apply opacity-50 cursor-not-allowed; }
+
+  &.primary {
+    @apply bg-indigo-500 text-white border-indigo-600;
+
+    &:hover { @apply bg-indigo-700 text-white; }
+  }
 }
 
 .button-group {

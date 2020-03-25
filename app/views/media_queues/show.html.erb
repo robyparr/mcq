@@ -4,8 +4,8 @@
   </h2>
 
   <div class="toolbar">
-    <%= link_to 'Edit', edit_queue_path(@queue), class: 'button' %>
-    <%= link_to 'Add Media', new_media_item_path(queue: @queue), class: 'button' %>
+    <%= link_to 'Add Media', new_media_item_path(queue: @queue), class: 'primary button' %>
+    <%= link_to 'Edit Queue', edit_queue_path(@queue), class: 'button' %>
 
     <%= render 'media_items/bulk_actions', queues: @media_items_presenter.queues %>
   </div>

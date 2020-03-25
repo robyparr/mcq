@@ -2,7 +2,7 @@
   <h2 class="page-header">Media</h2>
 
   <div class="toolbar mb-4">
-    <%= link_to 'Add Media', new_media_item_path, class: 'button' %>
+    <%= link_to 'Add Media', new_media_item_path, class: 'primary button' %>
 
     <% if current_user.pocket_integration.present? %>
       <%= link_to 'Synchronize Pocket',

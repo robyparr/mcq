@@ -1,6 +1,7 @@
+/* purgecss start ignore */
 @import "tailwindcss/base";
-
 @import "tailwindcss/components";
+
 @import "./components/link.css";
 @import "./components/button.css";
 @import "./components/typography.css";
@@ -20,6 +21,7 @@
 @import "./components/utils.css";
 
 @import "./rich_content.css";
+/* purgecss end ignore */
 
 @import "tailwindcss/utilities";
 

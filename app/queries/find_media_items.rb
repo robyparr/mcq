@@ -8,6 +8,7 @@ class FindMediaItems < ApplicationQuery
     relation
       .then(&method(:filter_by_difficulty))
       .then(&method(:filter_by_media_priority))
+      .then(&method(:search))
   end
 
   private
@@ -29,5 +30,19 @@ class FindMediaItems < ApplicationQuery
     return relation unless params[:priority].present?
 
     relation.where(media_priorities: { id: params[:priority] })
+  end
+
+  def search(relation)
+    return relation unless params[:search].present?
+
+    query_fragments = [
+      'media_items.title ILIKE :query',
+      'media_items.url ILIKE :query',
+      'media_notes.title ILIKE :query',
+      'media_notes.content ILIKE :query',
+    ]
+    relation.eager_load(:notes)
+            .where(query_fragments.join(' OR '), query: "%#{params[:search]}%")
+            .select('media_items.*')
   end
 end

@@ -39,5 +39,29 @@ RSpec.describe FindMediaItems do
       results = described_class.call(nil, { priority: low.id })
       expect(results.pluck(:id)).to match_array([low_media_item.id])
     end
+
+    context 'search' do
+      it 'searches by title and url of media items' do
+        media_item = create :media_item, title: 'media item', url: 'https://example.com'
+        create :media_item, title: 'item', url: 'https://robyparr.com'
+
+        results = described_class.call(nil, { search: 'media' })
+        expect(results.pluck(:id)).to match_array([media_item.id])
+
+        results = described_class.call(nil, { search: 'example.com' })
+        expect(results.pluck(:id)).to match_array([media_item.id])
+      end
+
+      it 'searches by title and content of notes' do
+        media_item = create :media_item
+        create :media_note, media_item: media_item, title: 'note', content: 'some contents'
+
+        results = described_class.call(nil, { search: 'note' })
+        expect(results.pluck(:id)).to match_array([media_item.id])
+
+        results = described_class.call(nil, { search: 'contents' })
+        expect(results.pluck(:id)).to match_array([media_item.id])
+      end
+    end
   end
 end

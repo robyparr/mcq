@@ -23,29 +23,31 @@
 <h3 class="section-header">Your Integrations</h3>
 
 <% if @integrations.present? %>
-  <table>
-    <thead>
-      <tr>
-        <th>Service</th>
-        <th>Username</th>
-        <th>Connected</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @integrations.each do |integration| %>
+  <div class="table-container">
+    <table>
+      <thead>
         <tr>
-          <td>
-            <div class="media-item">
-              <i class="<%= integration_icon_class(integration.service) %>"></i>
-              <%= integration.service %>
-            </div>
-          </td>
-          <td><%= integration.username %></td>
-          <td><%= time_ago_in_words integration.created_at %> ago</td>
+          <th>Service</th>
+          <th>Username</th>
+          <th>Connected</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <% @integrations.each do |integration| %>
+          <tr>
+            <td>
+              <div class="media-item">
+                <i class="<%= integration_icon_class(integration.service) %>"></i>
+                <%= integration.service %>
+              </div>
+            </td>
+            <td><%= integration.username %></td>
+            <td><%= time_ago_in_words integration.created_at %> ago</td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 <% else %>
   You don't have any integrations yet.
 <% end %>

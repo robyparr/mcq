@@ -26,19 +26,21 @@
   </div>
 <% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Priority</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @media_priorities.each do |priority| %>
+<div class="table-container">
+  <table>
+    <thead>
       <tr>
-        <td><%= priority.title %></td>
-        <td><%= priority.priority %></td>
+        <th>Title</th>
+        <th>Priority</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @media_priorities.each do |priority| %>
+        <tr>
+          <td><%= priority.title %></td>
+          <td><%= priority.priority %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

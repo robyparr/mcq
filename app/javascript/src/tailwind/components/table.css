@@ -1,9 +1,9 @@
 table {
-  @apply w-full bg-white border;
+  @apply w-full bg-white border rounded;
 
-  th { @apply border-b-2; }
+  th { @apply border-b-2 text-gray-600; }
   tr:not(:last-child) {
-    td{ @apply border-b; }
+    td { @apply border-b; }
   }
 
   th, td {
@@ -19,4 +19,10 @@ table {
       :not(:last-child) { @apply mr-4; }
     }
   }
+}
+
+.table-container {
+  @apply shadow overflow-x-auto border rounded;
+
+  table { @apply border-0; }
 }

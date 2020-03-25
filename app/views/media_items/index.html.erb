@@ -14,5 +14,7 @@
     <%= render 'bulk_actions', queues: @queues %>
   </div>
 
+  <%= render 'filters', search_path: media_items_path, priorities: @priorities %>
+
   <%= render 'media_items', media_items: @media_items %>
 </div>

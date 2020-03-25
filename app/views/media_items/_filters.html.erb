@@ -1,0 +1,9 @@
+<%= form_with url: search_path,
+              local: true,
+              method: :get,
+              class: 'toolbar mb-4' do |f| %>
+  <%= f.select :difficulty, options_for_media_item_difficulty, {}, class: 'w-auto' %>
+  <%= f.select :priority, options_for_media_item_priority(priorities), {}, class: 'w-auto' %>
+
+  <%= f.submit :filter, class: 'button' %>
+<% end %>

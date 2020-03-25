@@ -1,7 +1,9 @@
 class MediaItemsController < ApplicationController
   def index
-    @queues      = current_user.queues
-    @media_items = current_user.media_items.includes(:queue, :priority)
+    @queues        = current_user.queues
+    query_relation = current_user.media_items.includes(:queue, :priority)
+    @media_items   = FindMediaItems.call(query_relation, params)
+    @priorities    = current_user.media_priorities.pluck(:title, :id)
   end
 
   def show

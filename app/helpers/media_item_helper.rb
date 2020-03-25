@@ -7,4 +7,20 @@ module MediaItemHelper
     else ''
     end
   end
+
+  def options_for_media_item_difficulty
+    enum_for_select(
+      MediaItem.consumption_difficulties,
+      params[:difficulty],
+      empty_value: 'Select a difficulty'
+    )
+  end
+
+  def options_for_media_item_priority(priorities)
+    enum_for_select(
+      priorities,
+      params[:priority],
+      empty_value: 'Select a priority'
+    )
+  end
 end

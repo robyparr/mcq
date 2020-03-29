@@ -19,7 +19,7 @@ module.exports = {
       stage: 3
     }),
     require('tailwindcss')('./app/javascript/src/tailwind.js'),
-    purgecss,
+    ...process.env.NODE_ENV === 'production' ? [purgecss] : [],
     require('autoprefixer'),
   ]
 }

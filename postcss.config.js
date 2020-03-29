@@ -20,5 +20,6 @@ module.exports = {
     }),
     require('tailwindcss')('./app/javascript/src/tailwind.js'),
     purgecss,
+    require('autoprefixer'),
   ]
 }

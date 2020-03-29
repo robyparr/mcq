@@ -1,0 +1,8 @@
+.heading {
+  @apply flex items-center justify-between mb-4;
+
+  .page-header { @apply mb-0; }
+  .actions {
+    *:not(:last-child) { @apply mr-5; }
+  }
+}

@@ -1,9 +1,9 @@
 const purgecss = require('@fullhuman/postcss-purgecss')({
   content: [
-    './app/views/**/*.html',
-    './app/views/**/*.html.*',
-    './javascript/**/*.*',
+    './app/**/*.*',
   ],
+  whitelist: ['svg'],
+  whitelistPatterns: [/^ql\-/, /^ql\-snow$/],
   defaultExtractor: content => content.match(/[\w-/:]+(?<!:)/g) || []
 })
 
@@ -19,8 +19,6 @@ module.exports = {
       stage: 3
     }),
     require('tailwindcss')('./app/javascript/src/tailwind.js'),
-    ...process.env.NODE_ENV === 'production'
-      ? [purgecss]
-      : [],
+    purgecss,
   ]
 }

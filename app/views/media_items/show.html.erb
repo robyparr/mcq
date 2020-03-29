@@ -29,8 +29,12 @@
         <% end %>
 
         <% if @media_item.consumption_difficulty %>
-          <%= render 'consumption_difficulty',
-                    consumption_difficulty: @media_item.consumption_difficulty %>
+          <div class="small media-item">
+            <i class="fas fa-sliders-h fa-lg text-muted"></i>
+            <span class="<%= consumption_difficulty_classes(@media_item.consumption_difficulty) %>">
+              <%= @media_item.consumption_difficulty.capitalize %>
+            </span>
+          </div>
         <% end %>
       </div>
     </div>
@@ -45,7 +49,7 @@
                     disabled: @media_item.complete? %>
     </div>
     <div class="button-group">
-      <%= link_to 'Open Media', @media_item.url, class: 'button' %>
+      <%= external_link_to 'Open Media', @media_item.url, class: 'button', icon_position: :left %>
       <%= button_tag 'Open Viewer',
                     class: 'button',
                     data: { action: 'click->media-viewer#open' } %>

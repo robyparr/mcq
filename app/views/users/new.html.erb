@@ -7,8 +7,9 @@
     <%= form_for @user do |form| %>
       <%= render partial: '/users/form', object: form %>
 
-      <div class="flex items-center justify-between">
-        <%= form.submit class: 'button' %>
+      <%= form.submit class: 'button primary w-full' %>
+
+      <div class="flex items-center justify-between mt-4">
         <%= link_to t(".sign_in"), sign_in_path %>
       </div>
     <% end %>

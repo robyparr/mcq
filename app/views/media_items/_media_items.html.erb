@@ -10,9 +10,6 @@
                               action: 'change->bulk-actions#allItemsChanged'
                             } %>
         </th>
-        <% not_within_path('/queues') do %>
-          <th></th>
-        <% end %>
         <th>Media</th>
         <% not_within_path('/queues') do %>
           <th>Queue</th>
@@ -35,15 +32,19 @@
                                 action: 'change->bulk-actions#itemChanged'
                               } %>
           </td>
-          <% not_within_path('/queues') do %>
-            <td class="pr-0"><%= render 'media_icon', media_item: media_item %></td>
-          <% end %>
           <td>
-            <%= link_to truncate(media_item.title_or_url, length: 50),
-                        media_item_path(media_item) %>
-            <%= external_link_to truncate(media_item.url, length: 50),
-                                media_item.url,
-                                class: 'text-muted block' %>
+            <div class="media-item">
+              <% not_within_path('/queues') do %>
+                <%= render 'media_icon', media_item: media_item %>
+              <% end %>
+              <div class="media-text">
+                <%= link_to truncate(media_item.title_or_url, length: 50),
+                            media_item_path(media_item) %>
+                <%= external_link_to truncate(media_item.url, length: 50),
+                                     media_item.url,
+                                     class: 'text-muted block' %>
+              </div>
+            </div>
           </td>
           <% not_within_path('/queues') do %>
             <td><%= media_item.queue.name %></td>
@@ -55,8 +56,12 @@
             <% end %>
             <% if media_item.consumption_difficulty %>
               <div>
-                <%= render 'media_items/consumption_difficulty',
-                          consumption_difficulty: media_item.consumption_difficulty %>
+                <div class="small media-item">
+                  <i class="fas fa-sliders-h fa-lg text-muted"></i>
+                  <span class="<%= consumption_difficulty_classes(media_item.consumption_difficulty) %>">
+                    <%= media_item.consumption_difficulty.capitalize %>
+                  </span>
+                </div>
               </div>
             <% end %>
             <% if media_item.estimated_consumption_time %>

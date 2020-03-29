@@ -5,8 +5,14 @@ module ApplicationHelper
       rel:    'noopener noreferrer'
     )
 
+    content_fragments = [
+      sanitize(title, tags: []),
+      '<i class="fas fa-external-link-alt text-sm"></i>'
+    ]
+    content_fragments.reverse! if options[:icon_position] == :left
+
     link_to(url, link_options) do
-      sanitize(title, tags: []) + ' <i class="fas fa-external-link-alt text-sm"></i>'.html_safe
+      content_fragments.join(' ').html_safe
     end
   end
 

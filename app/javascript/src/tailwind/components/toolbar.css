@@ -1,7 +1,7 @@
 .toolbar {
   @apply flex items-center mb-4;
 
-  select, input { margin-bottom: 0 !important; }
+  .select-wrapper, select, input { margin-bottom: 0 !important; }
   *:not(:last-child) { @apply mr-5; }
 
   .button-group {

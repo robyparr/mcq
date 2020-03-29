@@ -2,8 +2,13 @@
               local: true,
               method: :get,
               class: 'toolbar mb-4' do |f| %>
-  <%= f.select :difficulty, options_for_media_item_difficulty, {}, class: 'w-auto' %>
-  <%= f.select :priority, options_for_media_item_priority(priorities), {}, class: 'w-auto' %>
+
+  <div class="select-wrapper">
+    <%= f.select :difficulty, options_for_media_item_difficulty, {}, class: 'w-auto' %>
+  </div>
+  <div class="select-wrapper">
+    <%= f.select :priority, options_for_media_item_priority(priorities), {}, class: 'w-auto' %>
+  </div>
   <%= f.text_field :search, placeholder: 'Search...', value: params[:search] %>
 
   <%= f.submit :filter, class: 'button' %>

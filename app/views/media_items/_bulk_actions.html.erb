@@ -1,13 +1,15 @@
-<select class="w-auto mb-0"
-        data-target="bulk-actions.action"
-        data-action="change->bulk-actions#trigger"
-        data-url="<%= bulk_change_queue_media_items_path %>"
-        data-value-param-name="queue_id">
-  <option value="null">Select a queue</option>
-  <% queues.each do |queue| %>
-    <option value="<%= queue.id %>"><%= queue.name %></option>
-  <% end %>
-</select>
+<div class="select-wrapper">
+  <select class="w-auto mb-0"
+          data-target="bulk-actions.action"
+          data-action="change->bulk-actions#trigger"
+          data-url="<%= bulk_change_queue_media_items_path %>"
+          data-value-param-name="queue_id">
+    <option value="null">Select a queue</option>
+    <% queues.each do |queue| %>
+      <option value="<%= queue.id %>"><%= queue.name %></option>
+    <% end %>
+  </select>
+</div>
 
 <button type="button"
         class="button"

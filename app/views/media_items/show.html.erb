@@ -43,6 +43,10 @@
   <div class="toolbar mt-4">
     <div class="button-group">
       <%= link_to 'Edit', edit_media_item_path(@media_item), class: 'button' %>
+      <%= link_to 'Delete', media_item_path(@media_item),
+                  method: :delete,
+                  data: { confirm: 'Are you sure?' },
+                  class: 'button' %>
       <%= button_to 'Mark Completed', complete_media_item_url(@media_item),
                     class: 'button',
                     method: :post,

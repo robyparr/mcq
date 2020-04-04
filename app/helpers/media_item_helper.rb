@@ -23,4 +23,11 @@ module MediaItemHelper
       empty_value: 'Select a priority'
     )
   end
+
+  def toggle_class_for_type(media_item, type)
+    return 'toggled' if media_item.new_record? && type == 'Article'
+    return 'toggled' if media_item.type == type
+
+    ''
+  end
 end

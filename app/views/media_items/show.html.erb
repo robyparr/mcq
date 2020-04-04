@@ -1,5 +1,8 @@
 <div data-controller="media-viewer"
-     data-media-viewer-url="<%= @media_item.url %>">
+     data-media-viewer-url="<%= @media_item.url %>"
+     data-media-viewer-type="<%= @media_item.type %>"
+     data-media-viewer-media-service="<%= @media_item.service_type %>"
+     data-media-viewer-media-id="<%= @media_item.service_id %>">
   <div class="media-item -ml-12">
     <%= render 'media_icon', media_item: @media_item %>
 
@@ -81,6 +84,5 @@
   </div>
 
 
-  <div data-target="media-viewer.viewerWrap"
-       class="sidebar hidden"></div>
+  <%= render 'media_viewer' %>
 </div>

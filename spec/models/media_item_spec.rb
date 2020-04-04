@@ -26,6 +26,15 @@ RSpec.describe MediaItem, type: :model do
     it { is_expected.to callback(:log_creation!).after(:create) }
   end
 
+  describe '::MEDIA_TYPES' do
+    it do
+      expect(described_class::MEDIA_TYPES).to match_array(%i[
+        Article
+        Video
+      ])
+    end
+  end
+
   describe '.not_completed' do
     let!(:completed_media_item) { create :media_item, complete: true }
     let!(:not_completed_media_item) { create :media_item, complete: false }
@@ -85,26 +94,13 @@ RSpec.describe MediaItem, type: :model do
     end
   end
 
-  describe '#estimate_consumption_time!' do
-    context 'without a url' do
-      it 'should not update the estimated consumption time' do
-        media_item = build_stubbed(:media_item, url: nil)
-        expect { media_item.estimate_consumption_time! }
-          .not_to change(media_item, :estimated_consumption_time)
-      end
-    end
+  describe '#estimated_consumption_time' do
+    let(:time_in_seconds) { 120 }
+    let(:time_in_minutes) { 2 }
 
-    context 'with a url' do
-      let(:url_content) { ('word ' * 400).chomp }
-
-      it 'should calculate estimated reading time' do
-        media_item = build_stubbed(:media_item, url: 'https://example.com')
-        allow(media_item).to receive_message_chain(:open, :read).and_return(url_content)
-
-        expected_reading_time = 2 # 400 words / (200 words per minute)
-        expect { media_item.estimate_consumption_time! }
-          .to change(media_item, :estimated_consumption_time).from(nil).to(expected_reading_time)
-      end
+    let(:media_item) { build_stubbed(:media_item, estimated_consumption_time: time_in_seconds) }
+    it 'returns time in minutes' do
+      expect(media_item.estimated_consumption_time).to eq time_in_minutes
     end
   end
 
@@ -134,23 +130,35 @@ RSpec.describe MediaItem, type: :model do
     context 'with estimated_consumption_time' do
       let(:time_to_difficulty_mapping) do
         {
-          5  => 'easy',
-          20 => 'medium',
-          30 => 'hard',
+          5.minutes  => 'easy',
+          20.minutes => 'medium',
+          30.minutes => 'hard',
         }
       end
 
       {
-        5  => 'easy',
-        20 => 'medium',
-        30 => 'hard',
+        5.minutes  => 'easy',
+        20.minutes => 'medium',
+        30.minutes => 'hard',
       }.each do |time, difficulty|
         it "should change the consumption difficulty to #{difficulty}" do
-          media_item = build_stubbed(:media_item, estimated_consumption_time: time)
+          media_item = build_stubbed(:media_item, estimated_consumption_time: time.seconds)
 
           expect { media_item.estimate_consumption_difficulty! }
             .to change(media_item, :consumption_difficulty).from(nil).to(difficulty)
         end
+      end
+    end
+  end
+
+  describe '#[type]?' do
+    described_class::MEDIA_TYPES.each do |type|
+      it "##{type.downcase}? returns `true` if type is `#{type}` or `false` otherwise" do
+        media_item = build_stubbed(:media_item, type: type)
+        expect(media_item.send("#{type.downcase}?")).to eq(true)
+
+        other_type = (described_class::MEDIA_TYPES - [type]).sample
+        expect(media_item.send("#{other_type.downcase}?")).to eq(false)
       end
     end
   end

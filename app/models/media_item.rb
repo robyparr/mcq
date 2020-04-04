@@ -3,6 +3,11 @@ require 'open-uri'
 class MediaItem < ApplicationRecord
   include Loggable
 
+  MEDIA_TYPES = %i[
+    Article
+    Video
+  ].freeze
+
   enum consumption_difficulty: {
     easy:   'easy',
     medium: 'medium',
@@ -36,16 +41,10 @@ class MediaItem < ApplicationRecord
     end
   end
 
-  def estimate_consumption_time!
-    return nil unless url.present?
+  def estimated_consumption_time
+    return super unless self[:estimated_consumption_time].present?
 
-    raw_content = open(url).read
-    document = Readability::Document.new(raw_content, tags: [], remove_empty_nodes: true)
-
-    words = document.content.squish.split(' ').size
-    minutes_to_read = (words / 200.0).ceil
-
-    self.estimated_consumption_time = minutes_to_read
+    (self[:estimated_consumption_time] / 60.0).ceil
   end
 
   def estimate_consumption_difficulty!
@@ -55,12 +54,19 @@ class MediaItem < ApplicationRecord
     difficulties = self.class.consumption_difficulties.keys
     self.consumption_difficulty =
       if estimated_consumption_time <= 5
-         difficulties[0]
+        difficulties[0]
       elsif estimated_consumption_time <= 20
         difficulties[1]
       else
         difficulties[2]
       end
+  end
+
+  def method_missing(method, *args)
+    super unless type.present?
+    super unless MEDIA_TYPES.map { |type| :"#{type.downcase}?" }.include?(method)
+
+    :"#{self.type.downcase}?" == method
   end
 
   private

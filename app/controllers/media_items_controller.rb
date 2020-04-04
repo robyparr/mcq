@@ -97,6 +97,7 @@ class MediaItemsController < ApplicationController
       :media_queue_id,
       :media_priority_id,
       :consumption_difficulty,
+      :type,
     )
   end
 

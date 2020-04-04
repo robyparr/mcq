@@ -1,5 +1,5 @@
 .fully-centered {
-  @apply flex flex-col justify-center text-center
+  @apply flex flex-col justify-center items-center
          absolute top-0 right-0 bottom-0 left-0;
 
   .text {

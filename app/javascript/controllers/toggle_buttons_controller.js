@@ -28,7 +28,7 @@ export default class extends ApplicationController {
     this.renderTemplate({
       el: this.element,
       name: 'hiddenField',
-      insertBy: 'append',
+      insertMode: 'append',
       data: {
         name: hiddenFieldName,
         value: currentlyToggledButton ? currentlyToggledButton.dataset.value : null

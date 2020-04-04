@@ -7,6 +7,8 @@ class Video < MediaItem
     youtube_video = youtube_client.video(youtube_video_id)
 
     self.estimated_consumption_time = youtube_video[:duration]
+
+    # TODO: Refactor with `estimate_consumption_time!`
     self.service_type = 'YouTube'
     self.service_id = youtube_video_id
   end

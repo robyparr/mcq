@@ -12,7 +12,7 @@ RSpec.describe Video, type: :model do
     end
 
     context 'with a url' do
-      let(:youtube_video_id) { 'hDa5PO6gZk4' }
+      let(:youtube_video_id) { 'some-random-id' }
       let(:video) { build_stubbed(:video, url: "https://youtu.be/#{youtube_video_id}") }
 
       it 'should calculate estimated reading time' do

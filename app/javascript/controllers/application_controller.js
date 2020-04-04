@@ -1,7 +1,7 @@
 import { Controller } from 'stimulus'
 
 export default class extends Controller {
-  renderTemplate({ el, name, insertBy = 'replace', data = {} }) {
+  renderTemplate({ el, name, insertMode = 'replace', data = {} }) {
     if (!this.hasTemplates())
       return
 
@@ -13,7 +13,7 @@ export default class extends Controller {
                        .value()
 
     const renderedTemplate = template(data)
-    if (insertBy === 'replace') {
+    if (insertMode === 'replace') {
       el.innerHTML = renderedTemplate
     } else {
       el.insertAdjacentHTML('beforeend', renderedTemplate)

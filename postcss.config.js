@@ -1,6 +1,7 @@
 const purgecss = require('@fullhuman/postcss-purgecss')({
   content: [
     './app/**/*.*',
+    './node_modules/quill/dist/**/*.*',
   ],
   whitelist: ['svg'],
   whitelistPatterns: [/^ql\-/, /^ql\-snow$/],

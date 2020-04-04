@@ -12,3 +12,4 @@ tmp/sockets
 config/master.key
 
 .overmind.sock
+coverage/

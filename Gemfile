@@ -30,6 +30,7 @@ group :development, :test do
   gem 'webdrivers', '~> 4.1', '>= 4.1.3'
   gem 'test-prof', '~> 0.10.2'
   gem 'webmock', '~> 3.8', '>= 3.8.2'
+  gem 'simplecov', '~> 0.18.5'
 end
 
 group :development do

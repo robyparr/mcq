@@ -13,6 +13,14 @@
 # it.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+require 'simplecov'
+SimpleCov.start :rails do
+  add_group 'Services', 'app/services/'
+  add_group 'External Services', 'app/external_services/'
+  add_group 'Queries', 'app/queries/'
+  add_group 'Presenters', 'app/presenters/'
+end
+
 require 'webmock/rspec'
 WebMock.disable_net_connect!(allow_localhost: true)
 

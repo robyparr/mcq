@@ -1,12 +1,18 @@
 <%= form_with model: media_item, local: true, url: form_url, scope: :media_item do |f| %>
   <div data-controller="toggle-buttons"
        data-toggle-buttons-field-name="media_item[type]"
-       class="mb-4">
+       class="mb-4 toolbar">
     <label>Media Type</label>
     <span class="button toggle-button toggled"
           data-target="toggle-buttons.button"
           data-value="Article">
       Article
+    </span>
+
+    <span class="button toggle-button"
+          data-target="toggle-buttons.button"
+          data-value="Video">
+      Video
     </span>
   </div>
 

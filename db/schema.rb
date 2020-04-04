@@ -97,6 +97,10 @@ ActiveRecord::Schema.define(version: 2020_03_29_103638) do
     t.index ["user_id"], name: "index_media_queues_on_user_id"
   end
 
+  create_table "task_records", id: false, force: :cascade do |t|
+    t.string "version", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

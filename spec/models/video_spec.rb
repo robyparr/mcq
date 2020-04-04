@@ -22,7 +22,7 @@ RSpec.describe Video, type: :model do
           .and_return(duration: 90)
 
         expect { video.estimate_consumption_time! }
-          .to change(video, :estimated_consumption_time).from(nil).to(90.seconds)
+          .to change(video, :estimated_consumption_time).from(nil).to(2)
       end
     end
   end

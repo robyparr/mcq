@@ -16,6 +16,8 @@ gem 'httparty', '~> 0.17.3'
 gem 'delayed_job_active_record'
 gem 'daemons', '~> 1.3', '>= 1.3.1'
 gem 'clockwork', '~> 2.0', '>= 2.0.4'
+gem 'after_party', '~> 1.11', '>= 1.11.2'
+gem 'pastel', '~> 0.7.3'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

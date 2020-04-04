@@ -41,6 +41,12 @@ class MediaItem < ApplicationRecord
     end
   end
 
+  def estimated_consumption_time
+    return super unless self[:estimated_consumption_time].present?
+
+    (self[:estimated_consumption_time] / 60.0).ceil
+  end
+
   def estimate_consumption_difficulty!
     return unless estimated_consumption_time.present?
     return if consumption_difficulty.present?

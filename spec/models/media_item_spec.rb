@@ -94,6 +94,16 @@ RSpec.describe MediaItem, type: :model do
     end
   end
 
+  describe '#estimated_consumption_time' do
+    let(:time_in_seconds) { 120 }
+    let(:time_in_minutes) { 2 }
+
+    let(:media_item) { build_stubbed(:media_item, estimated_consumption_time: time_in_seconds) }
+    it 'returns time in minutes' do
+      expect(media_item.estimated_consumption_time).to eq time_in_minutes
+    end
+  end
+
   describe '#estimate_consumption_difficulty!' do
     context 'consumption_difficulty is already defined' do
       it 'should not change the consumption difficulty' do
@@ -120,19 +130,19 @@ RSpec.describe MediaItem, type: :model do
     context 'with estimated_consumption_time' do
       let(:time_to_difficulty_mapping) do
         {
-          5  => 'easy',
-          20 => 'medium',
-          30 => 'hard',
+          5.minutes  => 'easy',
+          20.minutes => 'medium',
+          30.minutes => 'hard',
         }
       end
 
       {
-        5  => 'easy',
-        20 => 'medium',
-        30 => 'hard',
+        5.minutes  => 'easy',
+        20.minutes => 'medium',
+        30.minutes => 'hard',
       }.each do |time, difficulty|
         it "should change the consumption difficulty to #{difficulty}" do
-          media_item = build_stubbed(:media_item, estimated_consumption_time: time)
+          media_item = build_stubbed(:media_item, estimated_consumption_time: time.seconds)
 
           expect { media_item.estimate_consumption_difficulty! }
             .to change(media_item, :consumption_difficulty).from(nil).to(difficulty)

@@ -5,8 +5,9 @@ export default class extends Controller {
     if (!this.hasTemplates())
       return
 
-    const template = _(this.controllerClass().templates[name])
+    const template = _(this.controllerClass().templates)
                        .chain()
+                       .get(name)
                        .trim()
                        .template()
                        .value()
@@ -25,6 +26,10 @@ export default class extends Controller {
 
   hasTemplates() {
     return _.keys(this.controllerClass().templates).length > 0
+  }
+
+  hasTemplate(templateName) {
+    return _.has(this.controllerClass().templates, templateName)
   }
 
   controllerClass() {

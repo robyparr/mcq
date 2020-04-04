@@ -26,6 +26,15 @@ RSpec.describe MediaItem, type: :model do
     it { is_expected.to callback(:log_creation!).after(:create) }
   end
 
+  describe '::MEDIA_TYPES' do
+    it do
+      expect(described_class::MEDIA_TYPES).to match_array(%i[
+        Article
+        Video
+      ])
+    end
+  end
+
   describe '.not_completed' do
     let!(:completed_media_item) { create :media_item, complete: true }
     let!(:not_completed_media_item) { create :media_item, complete: false }
@@ -128,6 +137,18 @@ RSpec.describe MediaItem, type: :model do
           expect { media_item.estimate_consumption_difficulty! }
             .to change(media_item, :consumption_difficulty).from(nil).to(difficulty)
         end
+      end
+    end
+  end
+
+  describe '#[type]?' do
+    described_class::MEDIA_TYPES.each do |type|
+      it "##{type.downcase}? returns `true` if type is `#{type}` or `false` otherwise" do
+        media_item = build_stubbed(:media_item, type: type)
+        expect(media_item.send("#{type.downcase}?")).to eq(true)
+
+        other_type = (described_class::MEDIA_TYPES - [type]).sample
+        expect(media_item.send("#{other_type.downcase}?")).to eq(false)
       end
     end
   end

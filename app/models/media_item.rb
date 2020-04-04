@@ -3,6 +3,11 @@ require 'open-uri'
 class MediaItem < ApplicationRecord
   include Loggable
 
+  MEDIA_TYPES = %i[
+    Article
+    Video
+  ].freeze
+
   enum consumption_difficulty: {
     easy:   'easy',
     medium: 'medium',
@@ -49,6 +54,13 @@ class MediaItem < ApplicationRecord
       else
         difficulties[2]
       end
+  end
+
+  def method_missing(method, *args)
+    super unless type.present?
+    super unless MEDIA_TYPES.map { |type| :"#{type.downcase}?" }.include?(method)
+
+    :"#{self.type.downcase}?" == method
   end
 
   private

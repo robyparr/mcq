@@ -3,13 +3,13 @@
        data-toggle-buttons-field-name="media_item[type]"
        class="mb-4 toolbar">
     <label>Media Type</label>
-    <span class="button toggle-button toggled"
+    <span class="button toggle-button <%= toggle_class_for_type media_item, 'Article' %>"
           data-target="toggle-buttons.button"
           data-value="Article">
       Article
     </span>
 
-    <span class="button toggle-button"
+    <span class="button toggle-button <%= toggle_class_for_type media_item, 'Video' %>"
           data-target="toggle-buttons.button"
           data-value="Video">
       Video

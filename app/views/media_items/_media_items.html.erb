@@ -11,7 +11,7 @@
                             } %>
         </th>
         <th>Media</th>
-        <% not_within_path('/queues') do %>
+        <% if !within_path?('/queues') %>
           <th>Queue</th>
         <% end %>
         <th>Priority</th>
@@ -34,7 +34,7 @@
           </td>
           <td>
             <div class="media-item">
-              <% not_within_path('/queues') do %>
+              <% if !within_path?('/queues') %>
                 <%= render 'media_icon', media_item: media_item %>
               <% end %>
               <div class="media-text">
@@ -46,7 +46,7 @@
               </div>
             </div>
           </td>
-          <% not_within_path('/queues') do %>
+          <% if !within_path?('/queues') %>
             <td><%= media_item.queue.name %></td>
           <% end %>
           <td><%= media_item.priority.try(:title) || '-' %></td>

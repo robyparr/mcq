@@ -46,10 +46,8 @@ module ApplicationHelper
     options_for_select(options, selected)
   end
 
-  def not_within_path(path, &block)
-    return if request.path.start_with?(path)
-
-    block.call
+  def within_path?(path)
+    request.path.start_with?(path)
   end
 
   def integration_icon_class(integration_service)

@@ -49,7 +49,7 @@
       <%= f.label :consumption_difficulty %>
       <div class="select-wrapper">
         <%= f.select :consumption_difficulty,
-          enum_for_select(
+          select_options(
             MediaItem.consumption_difficulties,
             @media_item.consumption_difficulty,
             empty_value: 'Select a difficulty'

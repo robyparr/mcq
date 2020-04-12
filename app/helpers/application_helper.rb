@@ -39,11 +39,21 @@ module ApplicationHelper
     current_page_path.start_with?(url)
   end
 
-  def enum_for_select(enum_items, selected = nil, empty_value: '')
-    options = [[empty_value, nil]]
-    options.concat enum_items.map { |key, value| [key.capitalize, value] }
+  def select_options(options, selected_key = nil, empty_value: '')
+    select_options = [[empty_value, nil]]
+    value_options =
+      options.map do |option|
+        if option.is_a?(Array)
+          key, value = option
+          [key.capitalize, value]
+        else
+          [option.capitalize, option]
+        end
+      end
 
-    options_for_select(options, selected)
+    select_options.concat value_options
+
+    options_for_select(select_options, selected_key)
   end
 
   def within_path?(path)

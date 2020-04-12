@@ -3,8 +3,8 @@
      data-media-viewer-type="<%= @media_item.type %>"
      data-media-viewer-media-service="<%= @media_item.service_type %>"
      data-media-viewer-media-id="<%= @media_item.service_id %>">
-  <div class="media-item -ml-12">
-    <%= render 'media_icon', media_item: @media_item %>
+  <div class="media-item">
+    <i class="<%= media_icon(@media_item) %> fa-2x text-muted"></i>
 
     <div class="media-text">
       <h2 class="page-header mb-0" title="<%= @media_item.url %>">

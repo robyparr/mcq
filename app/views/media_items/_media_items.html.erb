@@ -34,12 +34,11 @@
           </td>
           <td>
             <div class="media-item">
-              <% if !within_path?('/queues') %>
-                <%= render 'media_icon', media_item: media_item %>
-              <% end %>
+              <i class="<%= media_icon(media_item) %> fa-2x text-muted"></i>
               <div class="media-text">
                 <%= link_to truncate(media_item.title_or_url, length: 50),
-                            media_item_path(media_item) %>
+                            media_item_path(media_item),
+                            class: media_item.complete? ? '' : 'font-bold' %>
                 <%= external_link_to truncate(media_item.url, length: 50),
                                      media_item.url,
                                      class: 'text-muted block' %>

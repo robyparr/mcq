@@ -8,6 +8,7 @@ class FindMediaItems < ApplicationQuery
     relation
       .then(&method(:filter_by_difficulty))
       .then(&method(:filter_by_media_priority))
+      .then(&method(:filter_by_type))
       .then(&method(:search))
   end
 
@@ -30,6 +31,12 @@ class FindMediaItems < ApplicationQuery
     return relation unless params[:priority].present?
 
     relation.where(media_priorities: { id: params[:priority] })
+  end
+
+  def filter_by_type(relation)
+    return relation unless params[:type].present?
+
+    relation.where(type: params[:type])
   end
 
   def search(relation)

@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :video do
-    
+  factory :video, parent: :media_item, class: Video do
+
   end
 end

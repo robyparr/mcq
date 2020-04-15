@@ -57,6 +57,7 @@ module Pocket
         estimated_consumption_time: pocket_item[:time_to_read],
         service_id: pocket_item[:id],
         service_type: 'Pocket',
+        type: pocket_item[:type],
       }
     end
 

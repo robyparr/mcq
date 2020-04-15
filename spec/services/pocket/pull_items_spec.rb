@@ -50,7 +50,7 @@ RSpec.describe Pocket::PullItems do
       allow_any_instance_of(Pocket::Client).to receive(:hit_rate_limit?).and_return false
     end
 
-    it 'completes the ingration process' do
+    it 'pulls and saves items from Pocket' do
       pull_items = nil
       expect { pull_items = described_class.call(user, integration.id) }
         .to change(user.media_items, :count).from(0).to(pocket_items.count)
@@ -64,7 +64,8 @@ RSpec.describe Pocket::PullItems do
           title: pocket_item[:given_title],
           url: pocket_item[:given_url],
           service_type: 'Pocket',
-          service_id: pocket_item[:item_id]
+          service_id: pocket_item[:item_id],
+          type: 'Article',
         )
       end
 

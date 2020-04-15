@@ -37,7 +37,7 @@ RSpec.describe Pocket::FinishAuthProcess do
         .to_return(status: 200, body: auth_response_body.to_json)
     end
 
-    it 'completes the ingration process' do
+    it 'completes the integration process' do
       described_class.call redirect_token
 
       expect(incomplete_integration.reload).to have_attributes(

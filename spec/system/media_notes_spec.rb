@@ -13,7 +13,7 @@ RSpec.describe 'media notes CRUD' do
     it 'adds a note' do
       visit media_item_path(media_item, as: current_user)
 
-      find('#media_note_title').set 'Example Note'
+      find('#note-title').set 'Example Note'
       find('[data-controller="rich-editor"] .ql-editor').set 'This is a note!'
       find('input[type="submit"][value="Save Media note"]').click
 

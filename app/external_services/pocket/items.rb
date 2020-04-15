@@ -2,7 +2,6 @@ module Pocket
   module Items
     def items
       body = default_params.merge(
-        contentType: 'article',
         state: 'unread',
         count: 50,
         detailType: 'simple',

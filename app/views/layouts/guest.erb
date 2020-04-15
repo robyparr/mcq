@@ -5,8 +5,8 @@
   </head>
 
   <body>
-    <main class="h-screen w-screen flex items-center justify-center">
-      <div class="w-1/4">
+    <main class="h-screen w-screen flex items-center justify-center px-3">
+      <div class="w-full md:w-1/4">
         <% flash.each do |key, value| %>
           <div class="alert <%= key == 'alert' ? 'error' : 'notice' %>">
             <%= value %>

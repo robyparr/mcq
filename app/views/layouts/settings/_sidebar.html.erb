@@ -1,4 +1,4 @@
-<div class="bg-white absolute pin-t pin-b w-2/12 h-full">
+<div class="hidden md:block bg-white absolute pin-t pin-b w-2/12 h-full">
   <div class="p-4 border-b border-r" style="line-height: 42px;">
     <h1 class="text-2xl">
       <%= link_to 'MCQ Settings', root_path %>
@@ -10,7 +10,7 @@
       <%= link_to 'Back to App', root_url, class: 'button inline-block w-3/4' %>
     </div>
 
-    <ul class="sidebar-nav">
+    <ul class="navigation">
       <li>
         <%= active_link_to media_priorities_path do %>
           <i class="fas fa-sliders-h mr-4"></i>

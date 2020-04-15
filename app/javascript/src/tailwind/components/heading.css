@@ -1,8 +1,15 @@
 .heading {
-  @apply flex items-center justify-between mb-4;
+  @apply flex flex-wrap items-center justify-between mb-4;
 
   .page-header { @apply mb-0; }
+
   .actions {
+    @apply w-full mt-4;
+
     *:not(:last-child) { @apply mr-5; }
   }
+}
+
+@screen md {
+  .heading .actions { @apply w-auto mt-0; }
 }

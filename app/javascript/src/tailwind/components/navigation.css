@@ -1,5 +1,6 @@
-.sidebar-nav {
+.navigation {
   @apply px-4 mt-4 -mx-4 text-xl;
+  &.hidden { @apply mt-0; }
 
   li:not(:last-child) { @apply mb-2; }
 

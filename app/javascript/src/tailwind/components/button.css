@@ -21,7 +21,7 @@
 }
 
 .button-group {
-  @apply inline-flex;
+  @apply inline-flex items-baseline;
 
   .button { @apply rounded-none m-0; }
 

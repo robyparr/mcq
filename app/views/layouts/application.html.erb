@@ -6,13 +6,13 @@
 
   <body>
     <div class="flex relative w-screen h-screen overflow-x-hidden">
-      <div class="w-2/12">
+      <div class="w-0 md:w-2/12">
         <%= render 'layouts/shared/sidebar' %>
       </div>
-      <div class="w-10/12">
+      <div class="w-full md:w-10/12">
         <%= render 'layouts/shared/header' %>
 
-        <main class="py-8 px-20">
+        <main class="py-2 px-3 md:py-8 md:px-20">
           <% flash.each do |key, value| %>
             <div class="alert <%= key %>"><%= value %></div>
           <% end %>

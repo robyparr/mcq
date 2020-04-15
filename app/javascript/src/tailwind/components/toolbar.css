@@ -1,11 +1,22 @@
 .toolbar {
-  @apply flex items-center mb-4;
+  @apply flex flex-wrap items-center mb-4;
 
   .select-wrapper, select, input { margin-bottom: 0 !important; }
-  *:not(:last-child) { @apply mr-5; }
+  > * {
+    @apply mt-2;
+    &:not(:last-child) { @apply mr-5; }
+  }
 
   .button-group {
     &:not(:last-child) { @apply mr-5; }
     .button { @apply m-0; }
+  }
+}
+
+@screen md {
+  .toolbar {
+    @apply flex-no-wrap;
+
+    > * { @apply mt-0; }
   }
 }

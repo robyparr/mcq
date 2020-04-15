@@ -1,4 +1,8 @@
 .sidebar {
-  @apply fixed right-0 bottom-0 bg-white border shadow-xl w-1/2;
+  @apply fixed right-0 bottom-0 bg-white border shadow-xl w-full;
   top: 75px;
+}
+
+@screen md {
+ .sidebar { @apply w-1/2; }
 }

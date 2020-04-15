@@ -21,16 +21,19 @@
   <ul class="navigation hidden"
       data-target="mobile-navbar.navigation">
     <li>
-      <%= active_link_to queues_path do %>
-        <i class="fas fa-inbox mr-4"></i>
-        Queues
+      <%= active_link_to media_priorities_path do %>
+        <i class="fas fa-sliders-h mr-4"></i>
+        Priorities
       <% end %>
     </li>
     <li>
-      <%= active_link_to media_items_path do %>
-        <i class="fas fa-photo-video mr-4"></i>
-        Media
+      <%= active_link_to integrations_path do %>
+        <i class="fas fa-code-branch mr-4"></i>
+        Integrations
       <% end %>
+    </li>
+    <li>
+      <%= link_to 'Back to App', root_url, class: 'button inline-block w-3/4 text-center' %>
     </li>
   </ul>
 </nav>

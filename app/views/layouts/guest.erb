@@ -8,7 +8,9 @@
     <main class="h-screen w-screen flex items-center justify-center">
       <div class="w-1/4">
         <% flash.each do |key, value| %>
-          <div class="alert <%= key %>"><%= value %></div>
+          <div class="alert <%= key == 'alert' ? 'error' : 'notice' %>">
+            <%= value %>
+          </div>
         <% end %>
 
         <%= yield %>

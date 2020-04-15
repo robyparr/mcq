@@ -2,7 +2,7 @@ class Article < MediaItem
   def estimate_consumption_time!
     return nil unless url.present?
 
-    raw_content = open(url).read
+    raw_content = URI.open(url).read
     document = Readability::Document.new(raw_content, tags: [], remove_empty_nodes: true)
 
     words = document.content.squish.split(' ').size

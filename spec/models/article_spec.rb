@@ -16,7 +16,7 @@ RSpec.describe Article, type: :model do
       let(:article) { build_stubbed(:article, url: 'https://example.com') }
 
       it 'should calculate estimated reading time' do
-        allow(article).to receive_message_chain(:open, :read).and_return(url_content)
+        allow(URI).to receive_message_chain(:open, :read).and_return(url_content)
 
         expected_reading_time = 2 # 400 words / (200 words per minute)
         expect { article.estimate_consumption_time! }

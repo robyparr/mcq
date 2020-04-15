@@ -69,8 +69,13 @@
     <div id="notes" class="column md4 pl-0">
       <%= form_with scope: :media_note,
                     url: media_item_notes_path(@media_item, format: :js) do |f| %>
-        <%= f.text_field :title, placeholder: 'Title...' %>
-        <div data-controller="rich-editor"
+        <%= f.text_field :title,
+                         id: 'note-title',
+                         placeholder: 'Title...',
+                         autocomplete: 'off',
+                         tabindex: -1 %>
+        <div id="note-content"
+             data-controller="rich-editor"
              data-rich-editor-input-name="media_note[content]"></div>
         <%= f.submit class: 'button' %>
       <% end %>
@@ -83,6 +88,14 @@
     </div>
   </div>
 
-
   <%= render 'media_viewer' %>
 </div>
+
+<script>
+  $('#note-title').addEventListener('keydown', function(e) {
+    if (e.key !== 'Tab') return;
+
+    e.preventDefault();
+    $('#note-content .ql-editor').focus();
+  })
+</script>

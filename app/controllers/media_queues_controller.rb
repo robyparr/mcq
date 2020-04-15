@@ -6,7 +6,7 @@ class MediaQueuesController < ApplicationController
   def show
     @queue = current_user.queues.find(params[:id])
 
-    media_items_relation = @queue.active_media_items.includes(:priority)
+    media_items_relation = @queue.media_items.includes(:priority)
     @media_items_presenter = MediaItemsPresenter.new(current_user, media_items_relation, params)
   end
 

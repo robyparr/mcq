@@ -1,21 +1,41 @@
 <%= form_with url: search_path,
               local: true,
               method: :get,
-              class: 'toolbar mb-4' do |f| %>
+              class: 'mb-4' do |f| %>
 
-  <div class="select-wrapper">
-    <%= f.select :difficulty, options_for_media_item_difficulty, {}, class: 'w-auto' %>
+  <div class="toolbar">
+    <div class="select-wrapper">
+      <%= f.select :difficulty, options_for_media_item_difficulty, {}, class: 'w-auto' %>
+    </div>
+    <div class="select-wrapper">
+      <%= f.select :priority, options_for_media_item_priority(priorities), {}, class: 'w-auto' %>
+    </div>
+    <div class="select-wrapper">
+      <%= f.select :type,
+                   select_options(
+                     MediaItem::MEDIA_TYPES,
+                     params[:type],
+                     empty_value: 'Select a type'
+                   ),
+                   {},
+                   class: 'w-auto' %>
+    </div>
+    <div class="select-wrapper">
+      <%= f.select :complete,
+                   select_options(
+                     [['Complete', true], ['Not complete', false]],
+                     params[:complete] || false
+                   ),
+                   {},
+                   class: 'w-auto' %>
+    </div>
   </div>
-  <div class="select-wrapper">
-    <%= f.select :priority, options_for_media_item_priority(priorities), {}, class: 'w-auto' %>
-  </div>
-  <div class="select-wrapper">
-    <%= f.select :type,
-                 select_options(MediaItem::MEDIA_TYPES, params[:type], empty_value: 'Select a type'),
-                 {},
-                 class: 'w-auto' %>
-  </div>
-  <%= f.text_field :search, placeholder: 'Search...', value: params[:search] %>
+  <div class="toolbar">
+    <%= f.text_field :search,
+                     placeholder: 'Search...',
+                     value: params[:search],
+                     autocomplete: :off %>
 
-  <%= f.submit 'Filter', class: 'button' %>
+    <%= f.submit 'Filter', class: 'button' %>
+  </div>
 <% end %>

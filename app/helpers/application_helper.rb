@@ -39,8 +39,10 @@ module ApplicationHelper
     current_page_path.start_with?(url)
   end
 
-  def select_options(options, selected_key = nil, empty_value: '')
-    select_options = [[empty_value, nil]]
+  def select_options(options, selected_key = nil, empty_value: nil)
+    select_options = []
+    select_options.push([empty_value, nil]) if empty_value.present?
+
     value_options =
       options.map do |option|
         if option.is_a?(Array)

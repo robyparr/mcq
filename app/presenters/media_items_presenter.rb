@@ -6,6 +6,7 @@ class MediaItemsPresenter
   end
 
   def media_items
+    params[:complete] ||= false
     @media_items ||= FindMediaItems.call(media_items_relation, params)
   end
 

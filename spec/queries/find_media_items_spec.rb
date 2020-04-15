@@ -48,6 +48,14 @@ RSpec.describe FindMediaItems do
       expect(results.pluck(:id)).to match_array([video.id])
     end
 
+    it 'filters by complete' do
+      complete = create :media_item, complete: true
+      not_complete = create :media_item, complete: false
+
+      results = described_class.call(nil, complete: false)
+      expect(results.pluck(:id)).to match_array([not_complete.id])
+    end
+
     context 'search' do
       it 'searches by title and url of media items' do
         media_item = create :media_item, title: 'media item', url: 'https://example.com'

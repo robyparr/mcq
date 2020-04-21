@@ -15,6 +15,7 @@
 @import "./components/list.css";
 @import "./components/badge.css";
 @import "./components/heading.css";
+@import "./components/tooltip.css";
 
 @import "./components/navigation.css";
 @import "./components/rich_editor.css";

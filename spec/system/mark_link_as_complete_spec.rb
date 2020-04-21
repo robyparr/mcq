@@ -30,8 +30,12 @@ RSpec.describe 'mark media as complete', type: :system do
       visit queue_path(queue, as: current_user)
       expect(page).not_to have_content(media_item.title)
 
-      # Confirm media item is visible from media list page
+      # Confirm media item is not visible from media list page by default
       visit media_items_path(as: current_user)
+      expect(page).not_to have_content(media_item.title)
+
+      # Confirm media item is visible from media list page when searching for complete items
+      visit media_items_path(as: current_user, complete: true)
       expect(page).to have_content(media_item.title)
     end
   end

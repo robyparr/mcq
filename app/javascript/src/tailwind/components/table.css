@@ -1,13 +1,17 @@
 table {
   @apply w-full bg-white border rounded;
 
-  th { @apply border-b-2 text-gray-600; }
+  th { @apply border-b-2 text-gray-500 font-normal text-sm uppercase; }
   tr:not(:last-child) {
     td { @apply border-b; }
   }
 
+  tr:nth-child(2n) {
+    td { @apply bg-indigo-100; }
+  }
+
   th, td {
-    @apply p-4 text-left;
+    @apply px-4 py-2 text-left;
 
     &:first-child { @apply pl-4; }
   }

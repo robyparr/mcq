@@ -1,16 +1,21 @@
-FROM ruby:2.7.1
+#
+# Build Step
+#
+FROM ruby:2.7.1-alpine AS build-image
 
-RUN curl -sL https://deb.nodesource.com/setup_10.x | bash \
-  && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
-  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-
-RUN apt-get update -qq \
-  && apt-get install -y --no-install-recommends \
-    build-essential \
-    libpq-dev \
+RUN apk update \
+  && apk upgrade \
+  && apk add --no-cache --update \
+    build-base \
+    postgresql-dev \
     nodejs \
     yarn \
-  && rm -rf /var/lib/apt/lists/*
+    tzdata
+
+# Set Rails to run in production
+ENV RAILS_ENV production
+ENV NODE_ENV production
+
 
 ENV INSTALL_PATH /app
 RUN mkdir -p $INSTALL_PATH
@@ -19,18 +24,43 @@ WORKDIR $INSTALL_PATH
 COPY Gemfile Gemfile.lock ./
 RUN gem install bundler \
   && bundle config set without 'development test' \
-  && bundle install --jobs 10 --retry 5
+  && bundle install --jobs 10 --retry 5 \
+  && rm -rf /usr/local/bundle/cache/*.gem \
+  && find /usr/local/bundle/gems/ -name "*.c" -delete \
+  && find /usr/local/bundle/gems/ -name "*.o" -delete
 
-# # Set Rails to run in production
-ENV RAILS_ENV production
-ENV RACK_ENV production
-ENV NODE_ENV production
-ENV RAILS_LOG_TO_STDOUT true
-ENV SECRET_KEY_BASE super-secret-key
+COPY package.json yarn.lock ./
+RUN yarn install
 
 COPY . ./
 
-RUN bundle exec rake assets:precompile
+RUN SECRET_KEY_BASE=super-secret-key bundle exec rake assets:precompile
+RUN rm -rf node_modules spec
+
+
+#
+# Production Image
+#
+FROM ruby:2.7.1-alpine
+
+ENV INSTALL_PATH /app
+RUN mkdir -p $INSTALL_PATH
+WORKDIR $INSTALL_PATH
+
+RUN apk update \
+    && apk upgrade \
+    && apk add --update --no-cache \
+      tzdata \
+      postgresql-client \
+      nodejs \
+      bash
+
+COPY --from=build-image /usr/local/bundle/ /usr/local/bundle/
+COPY --from=build-image $INSTALL_PATH $INSTALL_PATH
+
+ENV RAILS_ENV production
+ENV NODE_ENV production
+ENV RAILS_LOG_TO_STDOUT true
 
 CMD bundle exec bin/delayed_job start \
   & bundle exec clockwork clock.rb \

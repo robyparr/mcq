@@ -4,5 +4,8 @@
 }
 
 @screen md {
- .sidebar { @apply w-1/2; }
+ .sidebar {
+   @apply w-1/2;
+   top: 0;
+  }
 }

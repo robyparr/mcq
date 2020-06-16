@@ -24,12 +24,9 @@ select {
 
   select { @apply pr-8 mb-0; }
 
-  &::after {
+  .chevron {
     @apply inline-block absolute pointer-events-none;
-    right: 0.75rem;
+    right: 0.5rem;
     top: 0.6rem;
-
-    font-family: "FontAwesome";
-    content: "\f078";
   }
 }

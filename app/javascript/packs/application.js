@@ -15,7 +15,7 @@ window.$ = function(selector) {
   if (elements.length === 1)
     return elements[0]
 
-  elements
+  return Array.from(elements)
 }
 
 // Uncomment to copy all static images under ../images to the output folder and reference
@@ -29,5 +29,13 @@ import "controllers"
 
 const feather = require('feather-icons')
 document.addEventListener('DOMContentLoaded', function() {
+  $('.select-wrapper').forEach(wrapper => {
+    var iconChild = document.createElement('i')
+    iconChild.dataset.feather = 'chevron-down'
+    iconChild.classList.add('chevron')
+
+    wrapper.appendChild(iconChild)
+  })
+
   feather.replace()
 })

@@ -50,16 +50,22 @@
                   method: :delete,
                   data: { confirm: 'Are you sure?' },
                   class: 'button' %>
-      <%= button_to 'Mark Completed', complete_media_item_url(@media_item),
-                    class: 'button',
+      <%= button_to complete_media_item_url(@media_item),
+                    class: 'button with-icon',
                     method: :post,
-                    disabled: @media_item.complete? %>
+                    disabled: @media_item.complete? do %>
+        <i data-feather="check-circle"></i>
+        Mark Completed
+      <% end %>
     </div>
     <div class="button-group">
       <%= external_link_to 'Open Media', @media_item.url, class: 'button', icon_position: :left %>
-      <%= button_tag 'Open Viewer',
-                    class: 'button',
-                    data: { action: 'click->media-viewer#open' } %>
+      <%= button_tag nil,
+                    class: 'button with-icon',
+                    data: { action: 'click->media-viewer#open' } do %>
+        <i data-feather="book-open"></i>
+        Open Viewer
+      <% end %>
     </div>
   </div>
 

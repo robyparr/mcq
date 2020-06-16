@@ -26,3 +26,8 @@ window.$ = function(selector) {
 // const imagePath = (name) => images(name, true)
 
 import "controllers"
+
+const feather = require('feather-icons')
+document.addEventListener('DOMContentLoaded', function() {
+  feather.replace()
+})

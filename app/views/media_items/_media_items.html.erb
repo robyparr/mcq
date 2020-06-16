@@ -10,7 +10,7 @@
                               action: 'change->bulk-actions#allItemsChanged'
                             } %>
         </th>
-        <th>Media</th>
+        <th class="pl-0">Media</th>
         <% if !within_path?('/queues') %>
           <th>Queue</th>
         <% end %>
@@ -32,9 +32,9 @@
                                 action: 'change->bulk-actions#itemChanged'
                               } %>
           </td>
-          <td>
+          <td class="pl-0">
             <div class="media-item">
-              <i class="<%= media_icon(media_item) %> fa-2x text-muted"></i>
+              <i data-feather="<%= media_icon(media_item) %>" class="text-muted"></i>
               <div class="media-text">
                 <%= link_to truncate(media_item.title_or_url, length: 50),
                             media_item_path(media_item),
@@ -56,8 +56,8 @@
             <% end %>
             <% if media_item.consumption_difficulty %>
               <div>
-                <div class="small media-item">
-                  <i class="fas fa-sliders-h fa-lg text-muted"></i>
+                <div class="small media-item text-muted">
+                  <i data-feather="sliders" class="h-5 w-5"></i>
                   <span class="<%= consumption_difficulty_classes(media_item.consumption_difficulty) %>">
                     <%= media_item.consumption_difficulty.capitalize %>
                   </span>
@@ -65,8 +65,8 @@
               </div>
             <% end %>
             <% if media_item.estimated_consumption_time %>
-              <div class="small media-item text-muted">
-                <i class="far fa-clock fa-lg"></i>
+              <div class="small media-item text-muted mt-1">
+                <i data-feather="clock" class="h-5 w-5"></i>
                 <%= pluralize media_item.estimated_consumption_time, 'minute' %>
               </div>
             <% end %>

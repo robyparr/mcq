@@ -8,7 +8,7 @@
       <div class="card-content opacity-50 hover:opacity-100">
         <%= link_to new_integration_path(service: 'Pocket'), class: 'text-black hover:text-black' do %>
           <div class="media-item">
-            <i class="<%= integration_icon_class('Pocket') %> fa-6x"></i>
+            <i data-feather="<%= integration_icon_class('Pocket') %>" class="w-16 h-16"></i>
             <div class="text">
               <div class="text-2xl">Pocket</div>
               <%= link_to 'Homepage', 'https://getpocket.com/' %>
@@ -37,7 +37,7 @@
           <tr>
             <td>
               <div class="media-item">
-                <i class="<%= integration_icon_class(integration.service) %>"></i>
+                <i data-feather="<%= integration_icon_class('Pocket') %>" class="text-muted w-5 h-5"></i>
                 <%= integration.service %>
               </div>
             </td>

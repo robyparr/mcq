@@ -13,14 +13,18 @@
     <ul class="navigation">
       <li>
         <%= active_link_to media_priorities_path do %>
-          <i class="fas fa-sliders-h mr-4"></i>
-          Priorities
+          <div class="media-item">
+            <i data-feather="sliders" class="mr-4"></i>
+            Priorities
+          </div>
         <% end %>
       </li>
       <li>
         <%= active_link_to integrations_path do %>
-          <i class="fas fa-code-branch mr-4"></i>
-          Integrations
+          <div class="media-item">
+            <i data-feather="git-branch" class="mr-4"></i>
+            Integrations
+          </div>
         <% end %>
       </li>
     </ul>

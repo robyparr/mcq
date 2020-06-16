@@ -4,7 +4,7 @@
      data-media-viewer-media-service="<%= @media_item.service_type %>"
      data-media-viewer-media-id="<%= @media_item.service_id %>">
   <div class="media-item">
-    <i class="<%= media_icon(@media_item) %> fa-2x text-muted"></i>
+    <i data-feather="<%= media_icon(@media_item) %>" class="text-muted w-8 h-8"></i>
 
     <div class="media-text">
       <h2 class="page-header mb-0" data-tooltip="<%= @media_item.url %>">
@@ -13,27 +13,27 @@
 
       <div class="toolbar text-muted mb-0">
         <div class="small media-item" data-tooltip="Queue">
-          <i class="fas fa-inbox fa-lg"></i>
+          <i data-feather="inbox" class="w-5 h-5"></i>
           <%= link_to @media_item.queue.name, queue_path(@media_item.queue), class: 'text-muted' %>
         </div>
 
         <% if @media_item.estimated_consumption_time %>
           <div class="small media-item" data-tooltip="Estimated consumption time">
-            <i class="far fa-clock fa-lg"></i>
+            <i data-feather="clock" class="w-5 h-5"></i>
             <%= pluralize @media_item.estimated_consumption_time, 'minute' %>
           </div>
         <% end %>
 
         <% if @media_item.priority %>
           <div class="small media-item" data-tooltip="Priority">
-            <i class="far fa-flag fa-lg"></i>
+            <i data-feather="flag" class="w-5 h-5"></i>
             <%= @media_item.priority.title %>
           </div>
         <% end %>
 
         <% if @media_item.consumption_difficulty %>
           <div class="small media-item" data-tooltip="Consumption difficulty">
-            <i class="fas fa-sliders-h fa-lg text-muted"></i>
+            <i data-feather="sliders" class="w-5 h-5"></i>
             <span class="<%= consumption_difficulty_classes(@media_item.consumption_difficulty) %>">
               <%= @media_item.consumption_difficulty.capitalize %>
             </span>

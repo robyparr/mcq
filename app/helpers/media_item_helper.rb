@@ -33,8 +33,8 @@ module MediaItemHelper
 
   def media_icon(media_item)
     case media_item.type
-    when 'Article' then 'far fa-file-alt'
-    when 'Video' then 'far fa-file-video'
+    when 'Article' then 'file-text'
+    when 'Video' then 'video'
     end
   end
 end

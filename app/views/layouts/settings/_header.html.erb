@@ -1,7 +1,7 @@
 <nav class="p-4 bg-white border-b-2" data-controller="mobile-navbar">
   <div class="flex items-center justify-between">
     <button class="block md:hidden">
-      <i class="fas fa-bars" data-action="click->mobile-navbar#toggleNavigation"></i>
+      <i data-feather="menu" data-action="click->mobile-navbar#toggleNavigation"></i>
     </button>
     &nbsp;
     &nbsp;
@@ -9,7 +9,7 @@
       <% if signed_in? %>
         <%= current_user.email %>
         <%= link_to media_priorities_path do %>
-          <i class="fas fa-cog text-black ml-4"></i>
+          <i data-feather="settings" class="text-black ml-4"></i>
         <% end %>
         <%= button_to 'Sign out', sign_out_path, method: :delete, class: 'button ml-4' %>
       <% else %>
@@ -22,14 +22,18 @@
       data-target="mobile-navbar.navigation">
     <li>
       <%= active_link_to media_priorities_path do %>
-        <i class="fas fa-sliders-h mr-4"></i>
-        Priorities
+        <div class="media-item">
+          <i data-feather="sliders" class="inline mr-4"></i>
+          Priorities
+        </div>
       <% end %>
     </li>
     <li>
       <%= active_link_to integrations_path do %>
-        <i class="fas fa-code-branch mr-4"></i>
-        Integrations
+        <div class="media-item">
+          <i data-feather="git-branch" class="inline mr-4"></i>
+          Integrations
+        </div>
       <% end %>
     </li>
     <li>

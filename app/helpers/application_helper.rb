@@ -7,7 +7,7 @@ module ApplicationHelper
 
     content_fragments = [
       sanitize(title, tags: []),
-      '<i class="fas fa-external-link-alt text-sm"></i>'
+      '<i data-feather="external-link" class="inline w-4 h-4"></i>'
     ]
     content_fragments.reverse! if options[:icon_position] == :left
 
@@ -64,7 +64,7 @@ module ApplicationHelper
 
   def integration_icon_class(integration_service)
     case integration_service
-    when 'Pocket' then 'fab fa-get-pocket'
+    when 'Pocket' then 'pocket'
     else ''
     end
   end

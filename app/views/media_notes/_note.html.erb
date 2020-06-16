@@ -18,20 +18,20 @@
               class="card-action"
               data-target="inline-edit.display"
               data-action="inline-edit#toggleEditMode">
-        <i class="far fa-edit"></i>
+        <i data-feather="edit" class="w-4 h-4"></i>
       </button>
       <button type="button"
               class="card-action"
               data-target="inline-edit.editor"
               data-action="inline-edit#toggleDisplayMode edit-note#save">
-        <i class="far fa-save"></i>
+        <i data-feather="save" class="w-4 h-4"></i>
       </button>
       <%= button_to note_path(note, format: :js),
                     method: :delete,
                     remote: true,
                     data: { confirm: 'Are you sure?' },
                     class: 'card-action' do %>
-        <i class="fas fa-trash-alt"></i>
+        <i data-feather="trash-2" class="w-4 h-4 ml-1"></i>
       <% end %>
     </span>
   </div>

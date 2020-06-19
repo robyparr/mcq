@@ -44,7 +44,7 @@ RSpec.describe 'media notes CRUD' do
       expect(page).to have_css "#{note_css_id} .card-title", text: note.title
 
       note_card = find(note_css_id)
-      note_card.find('.fa-edit').click
+      note_card.find('.feather-edit').click
 
       note_card_title = note_card.find('.card-title input[name=title]')
       note_card_content = note_card.find('.ql-editor')
@@ -59,7 +59,7 @@ RSpec.describe 'media notes CRUD' do
       expect(page).to have_css "#{note_css_id} .card-title", text: note.title
 
       note_card = find(note_css_id)
-      accept_confirm { note_card.find('.fa-trash-alt').click }
+      accept_confirm { note_card.find('.feather-trash-2').click }
 
       expect(page).not_to have_css "#{note_css_id} .card-title", text: note.title
     end

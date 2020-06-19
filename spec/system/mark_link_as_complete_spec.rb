@@ -20,7 +20,6 @@ RSpec.describe 'mark media as complete', type: :system do
 
       # Navigate to media_items#show
       click_on media_item.title
-      expect(page).to have_selector("input[type=submit][value='Mark Completed']")
 
       # Mark as completed
       click_button 'Mark Completed'

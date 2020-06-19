@@ -10,7 +10,7 @@ module Pocket
           id: pocket_item[:item_id],
           title: pocket_item[:given_title] || pocket_item[:resolved_title],
           url: pocket_item[:given_url],
-          time_to_read: pocket_item[:time_to_read],
+          time_to_read: pocket_item[:time_to_read].try(:*, 60),
           type: 'Article'
         }
       end

@@ -37,5 +37,6 @@ document.addEventListener('DOMContentLoaded', function() {
     wrapper.appendChild(iconChild)
   })
 
+  document.querySelectorAll('[data-feather=""]').forEach(el => el.remove())
   feather.replace()
 })

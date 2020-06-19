@@ -1,4 +1,5 @@
 import ApplicationController from './application_controller'
+import _map from 'lodash/map'
 
 export default class extends ApplicationController {
   static targets = [
@@ -88,7 +89,7 @@ export default class extends ApplicationController {
     let templateData = {}
 
     if (mediaType === 'video') {
-      const params = _.map({
+      const params = _map({
         autoplay: 0,
         origin: window.location.hostname,
         rel: 0,

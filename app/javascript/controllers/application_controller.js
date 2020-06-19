@@ -1,18 +1,18 @@
 import { Controller } from 'stimulus'
+import _get from 'lodash/get'
+import _trim from 'lodash/trim'
+import _template from 'lodash/template'
+import _keys from 'lodash/keys'
+import _has from 'lodash/has'
 
 export default class extends Controller {
   renderTemplate({ el, name, insertMode = 'replace', data = {} }) {
     if (!this.hasTemplates())
       return
 
-    const template = _(this.controllerClass().templates)
-                       .chain()
-                       .get(name)
-                       .trim()
-                       .template()
-                       .value()
-
-    const renderedTemplate = template(data)
+    const template = _trim(_get(this.controllerClass().templates, name))
+    const compiledTemplate = _template(template)
+    const renderedTemplate = compiledTemplate(data)
     if (insertMode === 'replace') {
       el.innerHTML = renderedTemplate
     } else {
@@ -25,11 +25,11 @@ export default class extends Controller {
   }
 
   hasTemplates() {
-    return _.keys(this.controllerClass().templates).length > 0
+    return _keys(this.controllerClass().templates).length > 0
   }
 
   hasTemplate(templateName) {
-    return _.has(this.controllerClass().templates, templateName)
+    return _has(this.controllerClass().templates, templateName)
   }
 
   controllerClass() {

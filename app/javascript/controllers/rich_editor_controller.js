@@ -1,5 +1,6 @@
 import { Controller } from 'stimulus'
-import _ from 'lodash'
+import _template from 'lodash/template'
+import _compact from 'lodash/compact'
 
 import Quill from 'quill'
 import 'quill/dist/quill.snow.css';
@@ -10,14 +11,14 @@ export default class extends Controller {
     'editorWrapper',
   ]
 
-  hiddenInputTemplate = _.template(`
+  hiddenInputTemplate = _template(`
     <input type="hidden"
            name="<%- name %>"
            data-target="<%- target %>"
            value="<%- value %>" />
   `)
 
-  editorWrapperTemplate = _.template(`
+  editorWrapperTemplate = _template(`
     <div data-target="rich-editor.editorWrapper"><%= content %></div>
   `)
 
@@ -27,10 +28,10 @@ export default class extends Controller {
   }
 
   insertHiddenInput() {
-    const targetString = _([
+    const targetString = _compact([
       'rich-editor.hiddenInput',
       this.data.get('inputTargets'),
-    ]).compact().join(' ')
+    ]).join(' ')
 
     const inputTemplate = this.hiddenInputTemplate({
       name:   this.data.get('inputName'),

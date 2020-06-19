@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import _defaults from 'lodash/defaults'
 
 export default {
   getAuthenticityToken: function() {
@@ -6,7 +6,7 @@ export default {
   },
 
   fetch: function(url, options) {
-    _.defaults(options, {
+    _defaults(options, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

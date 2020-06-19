@@ -4,5 +4,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <%= stylesheet_link_tag 'application', media: 'all' %>
-<%= javascript_pack_tag 'application' %>
+
+<%= stylesheet_pack_tag 'tailwind' %>
+<%= javascript_pack_tag 'tailwind' %>
+
 <%= stylesheet_pack_tag 'application' %>
+<%= javascript_pack_tag 'application', defer: 'defer' %>

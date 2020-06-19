@@ -7,8 +7,6 @@ require("@rails/ujs").start()
 // require("@rails/activestorage").start()
 // require("channels")
 
-import '../src/tailwind/application.css'
-
 window.$ = function(selector) {
   var elements = document.querySelectorAll(selector)
 

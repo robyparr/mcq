@@ -12,7 +12,7 @@
 
 @screen md {
   .heading {
-    .content { @apply w-3/4; }
-    .actions { @apply w-1/4 mt-0; }
+    .content { @apply w-3/5; }
+    .actions { @apply w-2/5 mt-0; }
   }
 }

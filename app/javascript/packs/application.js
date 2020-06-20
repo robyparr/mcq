@@ -17,15 +17,18 @@ require("@rails/ujs").start()
 import "controllers"
 
 const feather = require('feather-icons')
-document.addEventListener('DOMContentLoaded', function() {
-  $('.select-wrapper').forEach(wrapper => {
-    var iconChild = document.createElement('i')
-    iconChild.dataset.feather = 'chevron-down'
-    iconChild.classList.add('chevron')
+const renderFeatherIcons =
+  function() {
+    $('.select-wrapper').forEach(wrapper => {
+      var iconChild = document.createElement('i')
+      iconChild.dataset.feather = 'chevron-down'
+      iconChild.classList.add('chevron')
 
-    wrapper.appendChild(iconChild)
-  })
+      wrapper.appendChild(iconChild)
+    })
 
-  document.querySelectorAll('[data-feather=""]').forEach(el => el.remove())
-  feather.replace()
-})
+    document.querySelectorAll('[data-feather=""]').forEach(el => el.remove())
+    feather.replace()
+  }
+document.addEventListener('DOMContentLoaded', renderFeatherIcons)
+document.addEventListener('ajax:success', renderFeatherIcons)

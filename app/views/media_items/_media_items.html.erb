@@ -21,7 +21,7 @@
       </tr>
     </thead>
     <tbody>
-      <% media_items.each do |media_item| %>
+      <% presenter.media_items.each do |media_item| %>
         <tr>
           <td>
             <%= check_box_tag :select_media_item,
@@ -37,7 +37,7 @@
               <i data-feather="<%= media_icon(media_item) %>" class="text-muted"></i>
               <div class="media-text">
                 <%= link_to truncate(media_item.title_or_url, length: 50),
-                            media_item_path(media_item),
+                            presenter.path_for_media_item(media_item),
                             class: 'font-bold',
                             data: { tooltip: media_item.title_or_url } %>
                 <%= external_link_to truncate(media_item.url, length: 50),
@@ -81,7 +81,7 @@
           <td><%= time_ago_in_words media_item.created_at %> ago</td>
           <td class="actions">
             <%= link_to 'Edit', edit_media_item_path(media_item) %>
-            <%= link_to 'Delete', media_item_path(media_item),
+            <%= link_to 'Delete', presenter.path_for_media_item(media_item),
               method: :delete,
               data: { confirm: 'Are you sure?' } %>
           </td>
@@ -90,4 +90,4 @@
     </tbody>
   </table>
 </div>
-<%= paginate media_items %>
+<%= paginate presenter.media_items %>

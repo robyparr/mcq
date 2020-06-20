@@ -20,7 +20,7 @@
   <%= render 'filters', search_path: media_items_path, priorities: @presenter.filter_priorities %>
 
   <% if @presenter.media_items.present? %>
-    <%= render 'media_items', media_items: @presenter.media_items %>
+    <%= render 'media_items', presenter: @presenter %>
   <% else %>
     <%= @presenter.no_media_items_message %>
   <% end %>

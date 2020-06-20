@@ -1,11 +1,13 @@
 class MediaItemsPresenter
   include ActionView::Context
   include ActionView::Helpers::TagHelper
+  include Rails.application.routes.url_helpers
 
-  def initialize(user, media_items_relation, params)
+  def initialize(user, media_items_relation, params:, queue: nil)
     @user = user
     @media_items_relation = media_items_relation
     @params = params
+    @queue = queue
   end
 
   def media_items
@@ -30,9 +32,14 @@ class MediaItemsPresenter
     end
   end
 
+  def path_for_media_item(media_item)
+    media_item_path(media_item, queue: queue)
+  end
+
   private
 
     attr_reader :media_items_relation,
                 :params,
-                :user
+                :user,
+                :queue
 end

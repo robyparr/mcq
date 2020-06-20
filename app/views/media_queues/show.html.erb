@@ -20,7 +20,7 @@
              priorities: @media_items_presenter.filter_priorities %>
 
   <% if @media_items_presenter.media_items.present? %>
-    <%= render 'media_items/media_items', media_items: @media_items_presenter.media_items %>
+    <%= render 'media_items/media_items', presenter: @media_items_presenter %>
   <% else %>
     <%= @media_items_presenter.no_media_items_message %>
   <% end %>

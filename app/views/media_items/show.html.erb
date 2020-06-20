@@ -56,7 +56,7 @@
 
     <div class="actions">
       <%= link_to 'Edit', edit_media_item_path(@media_item), class: 'button' %>
-      <%= link_to 'Delete', media_item_path(@media_item),
+      <%= link_to 'Delete', media_item_path(@media_item, queue: params[:queue]),
                   method: :delete,
                   data: { confirm: 'Are you sure?' },
                   class: 'button' %>

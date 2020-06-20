@@ -1,7 +1,7 @@
 class MediaItemsController < ApplicationController
   def index
     query_relation = current_user.media_items.includes(:queue, :priority)
-    @presenter = MediaItemsPresenter.new(current_user, query_relation, params)
+    @presenter = MediaItemsPresenter.new(current_user, query_relation, params: params)
   end
 
   def show
@@ -48,7 +48,7 @@ class MediaItemsController < ApplicationController
     @media_item = current_user.media_items.find(params[:id])
 
     if @media_item.destroy
-      redirect_to media_items_path, notice: "Media '#{@media_item.title_or_url}' deleted."
+      redirect_to_media_list notice: "Media '#{@media_item.title_or_url}' deleted."
     end
   end
 

@@ -3,7 +3,7 @@ class MediaQueue < ApplicationRecord
 
   has_many :media_items, dependent: :nullify
   has_many :active_media_items,
-    -> { where(complete: false) },
+    -> { merge(MediaItem.not_completed.not_snoozed) },
     class_name: 'MediaItem',
     dependent: :nullify
 

@@ -21,13 +21,7 @@
                    class: 'w-auto' %>
     </div>
     <div class="select-wrapper">
-      <%= f.select :complete,
-                   select_options(
-                     [['Complete', true], ['Not complete', false]],
-                     params[:complete] || false
-                   ),
-                   {},
-                   class: 'w-auto' %>
+      <%= f.select :state, state_select_options, {}, class: 'w-auto' %>
     </div>
   </div>
   <div class="toolbar">

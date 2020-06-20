@@ -37,4 +37,56 @@ module MediaItemHelper
     when 'Video' then 'video'
     end
   end
+
+  def state_select_options
+    selected_state = params[:state] || :not_complete
+    available_options =
+      [
+        ['Not complete', :not_complete],
+        ['Complete', :complete],
+        ['Snoozed', :snoozed],
+      ]
+
+    select_options(available_options, selected_state)
+  end
+
+  def snooze_until_options
+    now = Time.zone.today
+
+    [
+      ['Until', 'Tomorrow',   now + 1.day],
+      ['Until', 'Next week',  now + 1.week],
+      ['For',   'Two weeks',  now + 2.weeks],
+      ['Until', 'Next month', now + 1.month],
+      ['For',   'Two months', now + 2.months],
+    ]
+  end
+
+  def snooze_until_menu_item(media_item, snooze_until:, prefix: nil, label:)
+    snooze_url = snooze_media_item_url(media_item, snooze_until: snooze_until)
+    content_tag(:li) do
+      testid = ['snooze', prefix, label].compact.map(&:downcase).join('-')
+      link_to(snooze_url, class: 'menu-item', method: :post, data: { testid: testid }) do
+        snooze_until_label(prefix, label) +
+        content_tag(:span, class: 'text-muted ml-4') do
+          (snooze_until.try(:to_date) || 'Now').to_s
+        end
+      end
+    end
+  end
+
+  def snooze_until_label(prefix = nil, label)
+    content_tag(:span) do
+      if prefix
+        content_tag(:span, class: 'opacity-75 mr-1') do
+          prefix
+        end
+      else
+        ''.html_safe
+      end +
+      content_tag(:span, class: 'font-medium') do
+        label
+      end
+    end
+  end
 end

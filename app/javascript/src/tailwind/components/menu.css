@@ -1,0 +1,16 @@
+.menu {
+  @apply px-4 py-2;
+  width: max-content;
+
+  a, button, input[type="submit"] {
+    @apply appearance-none bg-transparent cursor-pointer h-full w-full text-black;
+  }
+
+  .menu-item {
+    @apply flex justify-between px-1 py-2 rounded text-left;
+
+    &:hover {
+      @apply bg-gray-200;
+    }
+  }
+}

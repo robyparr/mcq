@@ -20,6 +20,7 @@ RSpec.describe MediaItem, type: :model do
 
   describe 'behaviours' do
     it_behaves_like 'loggable'
+    it_behaves_like 'snoozeable', factory: :media_item
   end
 
   describe 'callbacks' do
@@ -31,6 +32,17 @@ RSpec.describe MediaItem, type: :model do
       expect(described_class::MEDIA_TYPES).to match_array(%i[
         Article
         Video
+      ])
+    end
+  end
+
+  describe '.completed' do
+    let!(:completed_media_item) { create :media_item, complete: true }
+    let!(:not_completed_media_item) { create :media_item, complete: false }
+
+    it 'only returns completed media items' do
+      expect(described_class.completed.pluck(:id)).to match_array([
+        completed_media_item.id
       ])
     end
   end

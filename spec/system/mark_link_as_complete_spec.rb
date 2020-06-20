@@ -34,7 +34,7 @@ RSpec.describe 'mark media as complete', type: :system do
       expect(page).not_to have_content(media_item.title)
 
       # Confirm media item is visible from media list page when searching for complete items
-      visit media_items_path(as: current_user, complete: true)
+      visit media_items_path(as: current_user, state: :complete)
       expect(page).to have_content(media_item.title)
     end
   end

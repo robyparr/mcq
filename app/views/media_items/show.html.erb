@@ -17,9 +17,16 @@
           <%= link_to @media_item.queue.name, queue_path(@media_item.queue), class: 'text-muted' %>
         </div>
 
+        <% if @media_item.snoozed? %>
+          <div class="small media-item" data-tooltip="Snoozed until <%= @media_item.snooze_until.to_date %>">
+            <i data-feather="clock" class="w-5 h-5"></i>
+            <%= @media_item.snooze_until.to_date %>
+          </div>
+        <% end %>
+
         <% if @media_item.estimated_consumption_time %>
           <div class="small media-item" data-tooltip="Estimated consumption time">
-            <i data-feather="clock" class="w-5 h-5"></i>
+            <i data-feather="watch" class="w-5 h-5"></i>
             <%= pluralize @media_item.estimated_consumption_time, 'minute' %>
           </div>
         <% end %>
@@ -50,6 +57,26 @@
                   method: :delete,
                   data: { confirm: 'Are you sure?' },
                   class: 'button' %>
+      <span data-controller="tooltip">
+        <%= button_tag nil,
+            type: 'button',
+            class: 'button with-icon',
+            data: { action: 'tooltip#show' },
+            disabled: @media_item.complete? do %>
+          <template data-target="tooltip.template">
+            <ul class="menu">
+              <% snooze_until_options.each do |prefix, label, date| %>
+                <%= snooze_until_menu_item @media_item, snooze_until: date, prefix: prefix, label: label %>
+              <% end %>
+              <% if @media_item.snoozed? %>
+                <%= snooze_until_menu_item @media_item, snooze_until: nil, label: 'Unsnooze' %>
+              <% end %>
+            </ul>
+          </template>
+          <i data-feather="clock"></i>
+          Snooze
+        <% end %>
+      </span>
       <%= button_to complete_media_item_url(@media_item),
                     class: 'button with-icon',
                     method: :post,

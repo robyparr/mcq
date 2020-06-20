@@ -2,6 +2,7 @@ require 'open-uri'
 
 class MediaItem < ApplicationRecord
   include Loggable
+  include Snoozeable
 
   MEDIA_TYPES = %i[
     Article
@@ -27,6 +28,7 @@ class MediaItem < ApplicationRecord
 
   after_create :log_creation!
 
+  scope :completed, -> { where(complete: true) }
   scope :not_completed, -> { where(complete: false) }
 
   def title_or_url
@@ -73,5 +75,9 @@ class MediaItem < ApplicationRecord
 
   def log_creation!
     activity_logs.create action: :create
+  end
+
+  def snoozeable?
+    !complete?
   end
 end

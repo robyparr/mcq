@@ -48,12 +48,19 @@ RSpec.describe FindMediaItems do
       expect(results.pluck(:id)).to match_array([video.id])
     end
 
-    it 'filters by complete' do
+    it 'filters by state' do
       complete = create :media_item, complete: true
       not_complete = create :media_item, complete: false
+      snoozed = create :media_item, snooze_until: Time.zone.now + 1.day
 
-      results = described_class.call(nil, complete: false)
+      results = described_class.call(nil, state: :complete)
+      expect(results.pluck(:id)).to match_array([complete.id])
+
+      results = described_class.call(nil, state: :not_complete)
       expect(results.pluck(:id)).to match_array([not_complete.id])
+
+      results = described_class.call(nil, state: :snoozed)
+      expect(results.pluck(:id)).to match_array([snoozed.id])
     end
 
     context 'search' do

@@ -6,7 +6,7 @@ class MediaItemsPresenter
   end
 
   def media_items
-    params[:complete] ||= false
+    params[:state] ||= :not_complete
     @media_items ||= FindMediaItems.call(media_items_relation, params).order(:id).page(params[:page])
   end
 

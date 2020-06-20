@@ -11,6 +11,10 @@ module Support
           sleep 0.1
         end
       end
+
+      def find_by_testid(testid)
+        find("[data-testid='#{testid}'")
+      end
     end
   end
 end

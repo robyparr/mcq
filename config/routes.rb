@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :media_items, path: :media do
     member do
       post '/complete', action: :complete
+      post :snooze
     end
 
     collection do

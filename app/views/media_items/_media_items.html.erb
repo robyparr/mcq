@@ -51,7 +51,7 @@
           <% end %>
           <td><%= media_item.priority.try(:title) || '-' %></td>
           <td>
-            <% if !media_item.consumption_difficulty && !media_item.estimated_consumption_time %>
+            <% if !media_item.consumption_difficulty && !media_item.estimated_consumption_time && !media_item.snoozed? %>
               -
             <% end %>
             <% if media_item.consumption_difficulty %>
@@ -66,8 +66,15 @@
             <% end %>
             <% if media_item.estimated_consumption_time %>
               <div class="small media-item text-muted mt-1">
-                <i data-feather="clock" class="h-5 w-5"></i>
+                <i data-feather="watch" class="h-5 w-5"></i>
                 <%= pluralize media_item.estimated_consumption_time, 'minute' %>
+              </div>
+            <% end %>
+            <% if media_item.snoozed? %>
+              <div class="small media-item text-muted mt-1"
+                   data-tooltip="Snoozed until <%= media_item.snooze_until.to_date %>">
+                <i data-feather="clock" class="w-5 h-5"></i>
+                <%= media_item.snooze_until.to_date %>
               </div>
             <% end %>
           </td>

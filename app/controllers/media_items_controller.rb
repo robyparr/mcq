@@ -63,6 +63,25 @@ class MediaItemsController < ApplicationController
     end
   end
 
+  def snooze
+    @media_item = current_user.media_items.find(params[:id])
+
+    snooze_until = params[:snooze_until]
+    snooze_until = Time.zone.parse(snooze_until) if snooze_until.present?
+    if @media_item.snooze(until_time: snooze_until)
+      notice =
+        if snooze_until.nil?
+          'Media item was unsnoozed.'
+        else
+          "Snoozed until #{@media_item.snooze_until}"
+        end
+      redirect_to media_item_path(@media_item), notice: notice
+    else
+      flash[:error] = 'There was an error snoozing the media.'
+      render :show
+    end
+  end
+
   def bulk_change_queue
     queue = current_user.queues.find(params[:queue_id])
     updated_items = current_user.media_items.where(id: bulk_ids).update_all media_queue_id: queue.id

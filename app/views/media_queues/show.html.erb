@@ -10,7 +10,6 @@
     </div>
   </div>
 
-
   <div class="toolbar">
     <%= render 'media_items/bulk_actions', queues: @media_items_presenter.queues %>
   </div>
@@ -20,5 +19,9 @@
              search_path: queue_path(@queue),
              priorities: @media_items_presenter.filter_priorities %>
 
-  <%= render 'media_items/media_items', media_items: @media_items_presenter.media_items %>
+  <% if @media_items_presenter.media_items.present? %>
+    <%= render 'media_items/media_items', media_items: @media_items_presenter.media_items %>
+  <% else %>
+    <%= @media_items_presenter.no_media_items_message %>
+  <% end %>
 </div>

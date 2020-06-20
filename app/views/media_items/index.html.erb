@@ -17,8 +17,11 @@
   <div class="toolbar mb-4">
     <%= render 'bulk_actions', queues: @presenter.queues %>
   </div>
-
   <%= render 'filters', search_path: media_items_path, priorities: @presenter.filter_priorities %>
 
-  <%= render 'media_items', media_items: @presenter.media_items %>
+  <% if @presenter.media_items.present? %>
+    <%= render 'media_items', media_items: @presenter.media_items %>
+  <% else %>
+    <%= @presenter.no_media_items_message %>
+  <% end %>
 </div>

@@ -107,8 +107,7 @@
                          placeholder: 'Title...',
                          autocomplete: 'off',
                          tabindex: -1 %>
-        <div id="note-content"
-             data-controller="rich-editor"
+        <div data-controller="rich-editor"
              data-rich-editor-input-name="media_note[content]"></div>
         <%= f.submit class: 'button mt-2' %>
       <% end %>
@@ -129,6 +128,6 @@
     if (e.key !== 'Tab') return;
 
     e.preventDefault();
-    $('#note-content .ql-editor').focus();
+    $('#notes .ql-editor').focus();
   })
 </script>

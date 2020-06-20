@@ -1,2 +1,5 @@
 var template = '<%= escape_javascript(render 'media_items/note', note: @media_note) %>';
 $('#notes').insertAdjacentHTML('beforeend', template);
+
+$('#note-title').value = '';
+$('#notes form .ql-editor').innerText = '';

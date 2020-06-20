@@ -72,7 +72,7 @@
             <% end %>
             <% if media_item.snoozed? %>
               <div class="small media-item text-muted mt-1"
-                   data-tooltip="Snoozed until <%= media_item.snooze_until.to_date %>">
+                   data-tippy-content="Snoozed until <%= media_item.snooze_until.to_date %>">
                 <i data-feather="clock" class="w-5 h-5"></i>
                 <%= media_item.snooze_until.to_date %>
               </div>

@@ -8,6 +8,6 @@
   }
 
   .media-text {
-    @apply flex-col;
+    @apply flex-col w-full;
   }
 }

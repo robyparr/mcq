@@ -32,3 +32,10 @@ const renderFeatherIcons =
   }
 document.addEventListener('DOMContentLoaded', renderFeatherIcons)
 document.addEventListener('ajax:success', renderFeatherIcons)
+
+import tippy from 'tippy.js'
+import 'tippy.js/dist/tippy.css'
+
+const renderTippy = () => tippy('[data-tippy-content]', { interactive: true })
+document.addEventListener('DOMContentLoaded', renderTippy)
+document.addEventListener('ajax:success', renderTippy)

@@ -27,7 +27,7 @@ RSpec.shared_examples 'snoozeable' do |factory:|
       it 'snoozes the model when passed a valid datetime' do
         result = nil
         expect { result = subject.snooze(until_time: snooze_until) }
-          .to change(subject, :snooze_until).from(nil).to(snooze_until.beginning_of_day)
+          .to change(subject, :snooze_until).from(nil).to(snooze_until.change({ hour: 9, minute: 0 }))
           .and change(subject.activity_logs, :count).by(1)
 
         expect(result).to eq(true)

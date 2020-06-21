@@ -2,8 +2,8 @@ module Snoozeable
   extend ActiveSupport::Concern
 
   included do
-    scope :snoozed, -> { where('snooze_until > ?', Time.zone.now.beginning_of_day) }
-    scope :not_snoozed, -> { where('snooze_until IS NULL OR snooze_until <= ?', Time.zone.now.beginning_of_day) }
+    scope :snoozed, -> { where('snooze_until > ?', Time.current) }
+    scope :not_snoozed, -> { where('snooze_until IS NULL OR snooze_until <= ?', Time.current) }
   end
 
   def snooze(until_time:)
@@ -22,14 +22,25 @@ module Snoozeable
     snooze_until > time_for_snooze_until
   end
 
+  def formatted_snooze_until
+    return unless snoozed?
+
+    snooze_until.strftime('%F at %l %p')
+  end
+
   private
+
+  SNOOZE_UNTIL_TIME = {
+    hour: 9,
+    min: 0,
+  }.freeze
 
   def valid_snooze_until_value?(snooze_until)
     snooze_until.nil? || snooze_until > time_for_snooze_until
   end
 
-  def time_for_snooze_until(datetime = Time.zone.now)
-    datetime.try(:beginning_of_day)
+  def time_for_snooze_until(datetime = Time.current)
+    datetime.try(:change, SNOOZE_UNTIL_TIME)
   end
 
   def snoozeable?

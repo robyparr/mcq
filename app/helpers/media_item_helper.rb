@@ -69,7 +69,11 @@ module MediaItemHelper
       link_to(snooze_url, class: 'menu-item', method: :post, data: { testid: testid }) do
         snooze_until_label(prefix, label) +
         content_tag(:span, class: 'text-muted ml-4') do
-          (snooze_until.try(:to_date) || 'Now').to_s
+          if snooze_until
+            "#{snooze_until.to_date} at 9 AM"
+          else
+            'Now'
+          end
         end
       end
     end

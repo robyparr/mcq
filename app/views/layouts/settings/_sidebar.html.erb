@@ -12,6 +12,14 @@
 
     <ul class="navigation">
       <li>
+        <%= active_link_to user_profile_path do %>
+          <div class="media-item">
+            <i data-feather="user" class="inline mr-4"></i>
+            Profile
+          </div>
+        <% end %>
+      </li>
+      <li>
         <%= active_link_to media_priorities_path do %>
           <div class="media-item">
             <i data-feather="sliders" class="mr-4"></i>

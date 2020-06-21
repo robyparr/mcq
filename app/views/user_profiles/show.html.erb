@@ -1,0 +1,16 @@
+<%= form_with(model: current_user, url: user_profile_path, method: :put, local: true) do |f| %>
+  <div class="heading">
+    <h2 class="page-header">Profile</h2>
+    <div class="actions">
+      <%= f.submit 'Save Profile', class: 'button primary' %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="medium-6 columns">
+      <div class="select-wrapper">
+        <%= f.time_zone_select(:time_zone, nil, default: 'UTC') %>
+      </div>
+    </div>
+  </div>
+<% end %>

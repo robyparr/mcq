@@ -109,6 +109,7 @@ ActiveRecord::Schema.define(version: 2020_06_19_153508) do
     t.string "encrypted_password", limit: 128, null: false
     t.string "confirmation_token", limit: 128
     t.string "remember_token", limit: 128, null: false
+    t.string "time_zone", default: "UTC"
     t.index ["email"], name: "index_users_on_email"
     t.index ["remember_token"], name: "index_users_on_remember_token"
   end

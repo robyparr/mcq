@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   end
 
   resources :media_queues, as: :queues, path: 'queues'
+
+  resource :user_profile, only: %i[show update]
   resources :media_priorities, only: %i[index create]
   resources :integrations, only: %i[index new] do
     collection do

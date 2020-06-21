@@ -17,7 +17,7 @@ require("@rails/ujs").start()
 import "controllers"
 
 const feather = require('feather-icons')
-const renderFeatherIcons =
+window.renderIcons =
   function() {
     $('.select-wrapper').forEach(wrapper => {
       var iconChild = document.createElement('i')
@@ -30,8 +30,8 @@ const renderFeatherIcons =
     document.querySelectorAll('[data-feather=""]').forEach(el => el.remove())
     feather.replace()
   }
-document.addEventListener('DOMContentLoaded', renderFeatherIcons)
-document.addEventListener('ajax:success', renderFeatherIcons)
+document.addEventListener('DOMContentLoaded', renderIcons)
+document.addEventListener('ajax:success', renderIcons)
 
 import tippy from 'tippy.js'
 import 'tippy.js/dist/tippy.css'

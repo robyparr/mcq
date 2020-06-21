@@ -1,6 +1,7 @@
 .menu {
   @apply px-4 py-2;
   width: max-content;
+  min-width: 150px;
 
   a, button, input[type="submit"] {
     @apply appearance-none bg-transparent cursor-pointer h-full w-full text-black;
@@ -11,6 +12,10 @@
 
     &:hover {
       @apply bg-gray-200;
+    }
+
+    .feather {
+      @apply w-4 h-4;
     }
   }
 }

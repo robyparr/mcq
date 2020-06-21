@@ -4,15 +4,15 @@
   .page-header { @apply mb-0; }
 
   .actions {
-    @apply w-full mt-4 text-right;
+    @apply flex w-full mt-4;
 
-    *:not(:last-child) { @apply mr-5; }
+    >*:not(:last-child) { @apply mr-5; }
   }
 }
 
 @screen md {
   .heading {
     .content { @apply w-3/5; }
-    .actions { @apply w-2/5 mt-0; }
+    .actions { @apply w-2/5 mt-0 justify-end; }
   }
 }

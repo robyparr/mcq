@@ -7,47 +7,64 @@ export default class extends ApplicationController {
     'template',
   ]
 
-  static templates = {
-    wrapper: `
-      <div class="relative" data-target="tooltip.wrapper"></div>
-    `,
+  static tooltipID = 1;
 
+  static templates = {
     tooltip: `
-      <div class="absolute bg-white border rounded shadow-lg transform translate-y-1 w-auto z-10">
+      <div id="tooltip_<%- tooltipID %>"
+           class="absolute top-0 bg-white border rounded shadow-lg w-auto z-10">
         <%= template %>
       </div>
     `
-  }
-
-  connect() {
-    this.injectWrapper()
   }
 
   disconnect() {
     this.hide()
   }
 
-  injectWrapper() {
-    this.renderTemplate({
-      el: this.element,
-      name: 'wrapper',
-      insertMode: 'insert',
-    })
-  }
-
   show() {
-    this.renderTemplate({
-      el: this.wrapperTarget,
-      name: 'tooltip',
-      insertMode: 'replace',
-      data: { template: this.templateTarget.innerHTML }
-    })
-
+    this.element.classList.add('relative')
+    this.renderedTooltip = this.renderTooltip()
+    this.incrementTooltipID()
     _delay(() => document.addEventListener('click', this.hide))
   }
 
+  renderTooltip() {
+    this.renderTemplate({
+      el: this.element,
+      name: 'tooltip',
+      insertMode: 'insert',
+      data: {
+        template: this.templateTarget.innerHTML,
+        tooltipID: this.tooltipID()
+      }
+    })
+
+    const tooltipEl = $find(`#tooltip_${this.tooltipID()}`)
+    tooltipEl.style.marginTop = `${this.element.offsetHeight + 2}px`
+    tooltipEl.classList.add(`${this.alignTooltip()}-0`)
+
+    renderIcons()
+
+    return tooltipEl
+  }
+
   hide = () => {
-    this.wrapperTarget.innerHTML = ''
     document.removeEventListener('click', this.hide)
+
+    this.renderedTooltip.remove()
+    this.renderedTooltip = null
+  }
+
+  tooltipID() {
+    return this.controllerClass().tooltipID
+  }
+
+  incrementTooltipID() {
+    this.controllerClass().tooltipID++
+  }
+
+  alignTooltip() {
+    return this.data.get('align') || 'left'
   }
 }

@@ -132,10 +132,10 @@
 </div>
 
 <script>
-  $('#note-title').addEventListener('keydown', function(e) {
+  $find('#note-title').addEventListener('keydown', function(e) {
     if (e.key !== 'Tab') return;
 
     e.preventDefault();
-    $('#notes .ql-editor').focus();
+    $find('#notes .ql-editor').focus();
   })
 </script>

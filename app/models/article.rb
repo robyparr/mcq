@@ -1,4 +1,7 @@
 class Article < MediaItem
+  def retrieve_metadata_from_source!
+  end
+
   def estimate_consumption_time!
     return nil unless url.present?
 

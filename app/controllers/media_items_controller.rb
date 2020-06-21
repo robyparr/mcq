@@ -16,6 +16,7 @@ class MediaItemsController < ApplicationController
     @media_item = current_user.media_items.build(media_item_params)
 
     if @media_item.valid?
+      @media_item.retrieve_metadata_from_source!
       @media_item.estimate_consumption_time!
       if @media_item.consumption_difficulty.blank?
         @media_item.estimate_consumption_difficulty!

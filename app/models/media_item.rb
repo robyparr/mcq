@@ -71,6 +71,14 @@ class MediaItem < ApplicationRecord
     :"#{self.type.downcase}?" == method
   end
 
+  def estimate_consumption_time!
+    raise NotImplementedError, "#{self.class} must implement `estimate_consumption_time!`"
+  end
+
+  def retrieve_metadata_from_source!
+    raise NotImplementedError, "#{self.class} must implement `retrieve_metadata_from_source!`"
+  end
+
   private
 
   def log_creation!

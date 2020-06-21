@@ -14,7 +14,7 @@
   <ul class="navigation hidden"
       data-target="mobile-navbar.navigation">
     <li>
-      <%= active_link_to queues_path do %>
+      <%= active_link_to queues_path, root_path: true do %>
         <div class="media-item">
           <i data-feather="inbox" class="mr-4"></i>
           Queues

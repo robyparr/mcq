@@ -29,14 +29,21 @@ module ApplicationHelper
 
   def active_link_to_options(url, options)
     classes = options[:class] || ''
-    classes += ' active' if current_or_subpage?(url)
+    classes += ' active' if current_or_subpage?(url, options)
 
     options.merge(class: classes)
   end
 
-  def current_or_subpage?(url)
-    current_page_path = URI::parse(request.original_url).path
-    current_page_path.start_with?(url)
+  def current_or_subpage?(url, root_path: false)
+    current_page_path.start_with?(url) || (root_path && root_path?)
+  end
+
+  def root_path?
+    current_page_path == '/'
+  end
+
+  def current_page_path
+    URI::parse(request.original_url).path
   end
 
   def select_options(options, selected_key = nil, empty_value: nil)

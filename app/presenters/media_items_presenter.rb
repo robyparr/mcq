@@ -19,10 +19,6 @@ class MediaItemsPresenter
     @filter_priorities ||= user.media_priorities.pluck(:title, :id)
   end
 
-  def queues
-    @queues ||= user.queues
-  end
-
   def no_media_items_message
     content_tag(:div, class: 'mt-20 flex flex-col items-center text-muted') do
       content_tag(:i, nil, data: { feather: 'frown' }, class: 'w-20 h-20') +

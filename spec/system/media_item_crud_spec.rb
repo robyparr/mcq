@@ -44,6 +44,16 @@ RSpec.describe "media item CRUD", type: :system do
       expect(page).to have_css 'h2.page-header', text: 'New Media'
       expect(media_info_request).to have_been_made.once
     end
+
+    it 'links to the add media item form from the media item show page' do
+      media_item = create(:media_item, user: current_user)
+      visit media_item_path(media_item, as: current_user)
+
+      expect(page).to have_css '.button', text: 'Add Media'
+      click_link 'Add Media'
+
+      expect(page).to have_current_path new_media_item_path
+    end
   end
 
   describe 'Editing a media item' do
@@ -79,27 +89,6 @@ RSpec.describe "media item CRUD", type: :system do
       expect(page).to have_current_path media_items_path
       expect(page).to have_css '.alert.notice', text: "Media '#{media_item.title}' deleted."
       expect(page).not_to have_css 'td', text: media_item.title
-    end
-  end
-
-  describe 'Adding a media item from any page' do
-    it 'links to the add media item form from the queues index page' do
-      visit queues_path(as: current_user)
-
-      expect(page).to have_css '.button', text: 'Add Media'
-      click_link 'Add Media'
-
-      expect(page).to have_current_path new_media_item_path
-    end
-
-    it 'links to the add media item form from the media item show page' do
-      media_item = create(:media_item, user: current_user)
-      visit media_item_path(media_item, as: current_user)
-
-      expect(page).to have_css '.button', text: 'Add Media'
-      click_link 'Add Media'
-
-      expect(page).to have_current_path new_media_item_path
     end
   end
 end

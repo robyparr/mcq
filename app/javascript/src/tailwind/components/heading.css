@@ -4,7 +4,7 @@
   .page-header { @apply mb-0; }
 
   .actions {
-    @apply flex w-full mt-4;
+    @apply flex items-center w-full mt-4;
 
     >*:not(:last-child) { @apply mr-5; }
   }

@@ -1,7 +1,7 @@
 .badge {
-  @apply border rounded px-4 py-2 bg-gray-600 text-white font-bold;
+  @apply flex items-center justify-center border rounded px-4 py-2 bg-gray-600 text-white font-bold;
 
-  &.small {
-    @apply px-2 py-1;
-  }
+  &.primary { @apply bg-indigo-500 text-white; }
+  &.small { @apply text-xs px-1 py-1; }
+  &.circle { @apply rounded-full p-0 w-6 h-6; }
 }

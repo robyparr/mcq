@@ -13,29 +13,6 @@
 
   <ul class="navigation hidden"
       data-target="mobile-navbar.navigation">
-    <li>
-      <%= active_link_to queues_path, root_path: true do %>
-        <div class="media-item">
-          <i data-feather="inbox" class="mr-4"></i>
-          Queues
-        </div>
-      <% end %>
-    </li>
-    <li>
-      <%= active_link_to media_items_path do %>
-        <div class="media-item">
-          <i data-feather="play" class="mr-4"></i>
-          Media
-        </div>
-      <% end %>
-    </li>
-    <li>
-      <%= link_to user_profile_path do %>
-        <div class="media-item">
-          <i data-feather="settings" class="text-black mr-4"></i>
-          Settings
-        </div>
-      <% end %>
-    </li>
+    <%= render 'layouts/shared/navigation_items' %>
   </ul>
 </nav>

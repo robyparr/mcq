@@ -1,7 +1,12 @@
 class MediaItemsController < ApplicationController
   def index
-    query_relation = current_user.media_items.includes(:queue, :priority)
-    @presenter = MediaItemsPresenter.new(current_user, query_relation, params: params)
+    @presenter =
+      MediaItemsPresenter.new(
+        current_user,
+        media_items_collection,
+        params: params,
+        queue: current_queue
+      )
   end
 
   def show
@@ -85,9 +90,9 @@ class MediaItemsController < ApplicationController
 
   def bulk_change_queue
     queue = current_user.queues.find(params[:queue_id])
-    updated_items = current_user.media_items.where(id: bulk_ids).update_all media_queue_id: queue.id
+    updated_items = current_user.media_items.where(id: bulk_ids).update media_queue_id: queue.id
 
-    flash[:notice] = "Moved #{updated_items} media items to '#{queue.name}'."
+    flash[:notice] = "Moved #{updated_items.length} media items to '#{queue.name}'."
     redirect_ajax_to bulk_action_redirect_location(fallback: media_items_url)
   end
 
@@ -123,5 +128,18 @@ class MediaItemsController < ApplicationController
 
   def bulk_ids
     params[:ids].split(',')
+  end
+
+  def current_queue
+    return unless params[:queue].present?
+
+    @current_queue ||= current_user.queues.find(params[:queue])
+  end
+
+  def media_items_collection
+    base_association = current_user
+    base_association = current_queue if current_queue.present?
+
+    base_association.media_items.includes(:queue, :priority)
   end
 end

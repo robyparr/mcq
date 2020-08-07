@@ -1,0 +1,38 @@
+<li>
+  <%= active_link_to media_items_path do %>
+    <div class="media-item">
+      <i data-feather="play"></i>
+      Media
+    </div>
+  <% end %>
+  <div class="py-4 px-2 mt-2 -mt-2 rounded <%= current_or_subpage?(media_items_path) ? 'bg-gray-200' : '' %>
+              overflow-y-auto" style="max-height: 200px;">
+    <ul>
+      <% current_user_queues.each do |queue| %>
+        <li class="ml-4 pl-3 flex items-center" style="border-left: 3px solid <%= queue.color %>">
+          <%= active_link_to queue.name,
+                              media_items_path(queue: queue),
+                              class: 'sub-link',
+                              active_extra: params[:queue].to_i == queue.id %>
+          <span class="badge small primary circle"><%= queue.active_media_items_count %></span>
+        </li>
+      <% end %>
+      <li>
+        <%= link_to new_queue_url, class: 'sub-link' do %>
+          <div class="media-item small">
+            <i data-feather="plus-circle"></i>
+            New Queue
+          </div>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+</li>
+<li>
+  <%= active_link_to user_profile_path do %>
+    <div class="media-item">
+      <i data-feather="settings"></i>
+      Settings
+    </div>
+  <% end %>
+</li>

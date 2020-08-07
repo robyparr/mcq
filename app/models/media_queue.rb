@@ -9,4 +9,12 @@ class MediaQueue < ApplicationRecord
 
   validates :name, presence: true
   validates :color, presence: true
+
+  def inbox?
+    name == 'Inbox'
+  end
+
+  def update_active_media_items_count!
+    update! active_media_items_count: active_media_items.count
+  end
 end

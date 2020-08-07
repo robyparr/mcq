@@ -1,23 +1,6 @@
 class MediaQueuesController < ApplicationController
-  def index
-    @queues = current_user.queues.includes(:active_media_items)
-  end
-
-  def show
-    @queue = current_user.queues.find(params[:id])
-
-    media_items_relation = @queue.media_items.includes(:priority)
-    @media_items_presenter =
-      MediaItemsPresenter.new(
-        current_user,
-        media_items_relation,
-        params: params,
-        queue: @queue
-    )
-  end
-
   def new
-    @queue = current_user.queues.new
+    @queue = MediaQueue.new
   end
 
   def edit
@@ -28,7 +11,7 @@ class MediaQueuesController < ApplicationController
     @queue = current_user.queues.build(queue_params)
 
     if @queue.save
-      redirect_to queue_path(@queue), notice: 'Queue was successfully created.'
+      redirect_to media_items_path(queue: @queue), notice: 'Queue was successfully created.'
     else
       flash[:error] = 'There was an error creating the queue'
       render :new
@@ -39,7 +22,7 @@ class MediaQueuesController < ApplicationController
     @queue = current_user.queues.find(params[:id])
 
     if @queue.update(queue_params)
-      redirect_to queue_path(@queue), notice: 'Queue was successfully updated.'
+      redirect_to media_items_path(queue: @queue), notice: 'Queue was successfully updated.'
     else
       flash[:error] = 'There was an error creating the queue'
       render :edit
@@ -50,7 +33,7 @@ class MediaQueuesController < ApplicationController
     @queue = current_user.queues.find(params[:id])
     @queue.destroy
 
-    redirect_to queues_url, notice: 'Queue was successfully destroyed.'
+    redirect_to media_items_path, notice: 'Queue was successfully destroyed.'
   end
 
   private

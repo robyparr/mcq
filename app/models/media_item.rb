@@ -27,6 +27,8 @@ class MediaItem < ApplicationRecord
   validates :url, presence: true
 
   after_create :log_creation!
+  after_save :update_queue_counter_cache
+  after_destroy :update_queue_counter_cache
 
   scope :completed, -> { where(complete: true) }
   scope :not_completed, -> { where(complete: false) }
@@ -87,5 +89,16 @@ class MediaItem < ApplicationRecord
 
   def snoozeable?
     !complete?
+  end
+
+  def update_queue_counter_cache
+    queue_changes = saved_changes[:media_queue_id]
+
+    if queue_changes.present? && queue_changes.first.present?
+      old_queue = MediaQueue.find queue_changes.first
+      old_queue.update_active_media_items_count!
+    end
+
+    queue.update_active_media_items_count!
   end
 end

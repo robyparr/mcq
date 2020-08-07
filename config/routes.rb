@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root to: 'media_queues#index'
+  root to: 'media_items#index'
 
   resources :media_items, path: :media do
     member do
@@ -19,7 +19,7 @@ Rails.application.routes.draw do
                             shallow: true
   end
 
-  resources :media_queues, as: :queues, path: 'queues'
+  resources :media_queues, as: :queues, path: 'queues', only: %i[new edit create update destroy]
 
   resource :user_profile, only: %i[show update]
   resources :media_priorities, only: %i[index create]

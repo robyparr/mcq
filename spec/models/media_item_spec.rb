@@ -174,4 +174,41 @@ RSpec.describe MediaItem, type: :model do
       end
     end
   end
+
+  describe 'creation' do
+    let(:queue) { create :queue }
+
+    it "calls its queue's update_active_media_items_count! method" do
+      expect(queue).to receive(:update_active_media_items_count!).once
+      create :media_item, queue: queue
+    end
+  end
+
+  describe 'update' do
+    let!(:queue) { create :queue }
+    let!(:media_item) { create :media_item, queue: queue }
+
+    it "calls its queue's update_active_media_items_count! method" do
+      expect(queue).to receive(:update_active_media_items_count!).once
+      media_item.update title: 'new title'
+    end
+
+    it "calls its queue's and old queue's update_active_media_items_count! method" do
+      new_queue = create(:queue)
+      expect(new_queue).to receive(:update_active_media_items_count!).once
+      expect_any_instance_of(MediaQueue).to receive(:update_active_media_items_count!).once
+
+      media_item.update queue: new_queue
+    end
+  end
+
+  describe 'deletion' do
+    let!(:queue) { create :queue }
+    let!(:media_item) { create :media_item, queue: queue }
+
+    it "calls its queue's update_active_media_items_count! method" do
+      expect(queue).to receive(:update_active_media_items_count!).once
+      media_item.destroy
+    end
+  end
 end

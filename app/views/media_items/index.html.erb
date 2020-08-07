@@ -1,9 +1,15 @@
 <div data-controller="bulk-actions">
   <div class="heading">
-    <h2 class="page-header">Media</h2>
+    <% if current_queue %>
+      <h2 class="page-header pl-2" style="border-left: 3px solid <%= current_queue.color %>">
+        <%= current_queue.name %>
+      </h2>
+    <% else %>
+      <h2 class="page-header">Media</h2>
+    <% end %>
 
     <div class="actions">
-      <%= link_to 'Add Media', new_media_item_path, class: 'primary button' %>
+      <%= link_to 'Add Media', new_media_item_path(queue: current_queue), class: 'primary button' %>
 
       <% if current_user.pocket_integration.present? %>
         <%= link_to 'Synchronize Pocket',
@@ -11,11 +17,31 @@
                     class: 'button',
                     method: :post %>
       <% end %>
+
+      <% if current_queue %>
+        <span data-controller="tooltip" data-tooltip-align="right">
+          <button type="button" class="button icon-only" data-action="tooltip#show" data-testid="page-overflow-btn">
+            <i data-feather="more-vertical"></i>
+          </button>
+          <template data-target="tooltip.template">
+            <ul class="menu">
+              <li><%= link_to 'Edit Queue', edit_queue_path(current_queue), class: 'menu-item' %></li>
+              <li>
+                <%= link_to 'Delete Queue',
+                            queue_path(current_queue),
+                            class: 'menu-item',
+                            method: :delete,
+                            data: { confirm: 'Are you sure?' } %>
+              </li>
+            </ul>
+          </template>
+        </span>
+      <% end %>
     </div>
   </div>
 
   <div class="toolbar mb-4">
-    <%= render 'bulk_actions', queues: @presenter.queues %>
+    <%= render 'bulk_actions', queues: current_user_queues %>
   </div>
   <%= render 'filters', search_path: media_items_path, priorities: @presenter.filter_priorities %>
 

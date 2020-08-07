@@ -28,14 +28,18 @@ module ApplicationHelper
   private
 
   def active_link_to_options(url, options)
+    active_subpage = current_or_subpage?(url, root_path: options.fetch(:root_path, false))
+    active_extra_check = options.fetch(:active_extra, true)
+
     classes = options[:class] || ''
-    classes += ' active' if current_or_subpage?(url, options)
+    classes += ' active' if active_subpage && active_extra_check
 
     options.merge(class: classes)
   end
 
   def current_or_subpage?(url, root_path: false)
-    current_page_path.start_with?(url) || (root_path && root_path?)
+    paramless_url = url_without_params(url)
+    current_page_path.start_with?(paramless_url) || (root_path && root_path?)
   end
 
   def root_path?
@@ -44,6 +48,10 @@ module ApplicationHelper
 
   def current_page_path
     URI::parse(request.original_url).path
+  end
+
+  def url_without_params(url)
+    URI::parse(url).path
   end
 
   def select_options(options, selected_key = nil, empty_value: nil)
@@ -74,5 +82,15 @@ module ApplicationHelper
     when 'Pocket' then 'pocket'
     else ''
     end
+  end
+
+  def current_user_queues
+    @current_user_queues ||= current_user.queues.order(:created_at).sort_by { _1.inbox? ? 0 : 1 }
+  end
+
+  def current_queue
+    return unless params[:queue].present?
+
+    @current_queue ||= current_user_queues.find { _1.id == params[:queue].to_i }
   end
 end

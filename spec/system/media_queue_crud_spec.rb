@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe "media queue CRUD", type: :system do
+  include Support::Helpers::CapybaraHelper
+
   let!(:current_user) { create :user }
 
   describe 'listing queues' do
@@ -8,15 +10,14 @@ RSpec.describe "media queue CRUD", type: :system do
     let!(:another_users_queue) { create :queue, name: 'queue 2' }
 
     it 'shows queues for the current user' do
-      visit queues_path(as: current_user)
+      visit root_path(as: current_user)
 
-      expect(page).to have_css 'h2.page-header', text: 'Queues'
-      expect(page).to have_css 'td', text: users_queue.name
-      expect(page).not_to have_css 'td', text: another_users_queue.name
+      expect(page).to have_css 'a.sub-link', text: users_queue.name
+      expect(page).not_to have_css 'a.sub-link', text: another_users_queue.name
     end
   end
 
-  describe 'showing a queue' do
+  describe 'clicking a queue' do
     let!(:queue)                { create :queue, name: 'queue 1', user: current_user }
     let!(:non_queue_media_item) { create :media_item, title: 'Non-Queue Media Item' }
 
@@ -26,10 +27,12 @@ RSpec.describe "media queue CRUD", type: :system do
                           consumption_difficulty: 'easy'
     end
 
-    it 'shows queue' do
-      visit queue_path(queue, as: current_user)
-      expect(page).to have_css 'h2.page-header', text: queue.name
+    it 'shows media items filtered by queue' do
+      visit root_path(as: current_user)
 
+      click_link queue.name
+      expect(page).to have_current_path media_items_path(queue: queue)
+      expect(page).to have_css 'h2.page-header', text: queue.name
       expect(page).to have_css 'td', text: queue_media_item.title
       expect(page).not_to have_css 'td', text: non_queue_media_item.title
     end
@@ -37,15 +40,15 @@ RSpec.describe "media queue CRUD", type: :system do
 
   describe 'adding a queue' do
     it 'Adds the queue' do
-      visit new_queue_path(as: current_user)
+      visit root_path(as: current_user)
 
+      click_link 'New Queue'
       expect(page).to have_css 'h2.page-header', text: 'New Queue'
 
       fill_in 'Name', with: 'A new queue'
-
       click_button 'Create Media queue'
 
-      expect(page).to have_current_path queue_path(current_user.queues.last)
+      expect(page).to have_current_path media_items_path(queue: current_user.queues.last)
       expect(page).to have_css '.alert.notice', text: 'Queue was successfully created'
       expect(page).to have_css 'h2.page-header', text: 'A new queue'
     end
@@ -55,16 +58,17 @@ RSpec.describe "media queue CRUD", type: :system do
     let!(:queue) { create :queue, user: current_user }
 
     it 'Edits the queue' do
-      visit queues_path(as: current_user)
-      click_link 'Edit'
+      visit root_path(as: current_user)
+      click_link queue.name
+
+      find_by_testid('page-overflow-btn').click
+      click_link 'Edit Queue'
 
       expect(page).to have_css 'h2.page-header', text: 'Edit Queue'
-
       fill_in 'Name', with: 'Updated Queue'
-
       click_button 'Update Media queue'
 
-      expect(page).to have_current_path queue_path(queue)
+      expect(page).to have_current_path media_items_path(queue: queue)
       expect(page).to have_css '.alert.notice', text: 'Queue was successfully updated'
       expect(page).to have_css 'h2.page-header', text: 'Updated Queue'
     end
@@ -74,13 +78,15 @@ RSpec.describe "media queue CRUD", type: :system do
     let!(:queue) { create :queue, user: current_user }
 
     it 'Deletes the queue' do
-      visit queues_path(as: current_user)
+      visit root_path(as: current_user)
+      click_link queue.name
 
+      find_by_testid('page-overflow-btn').click
       accept_confirm do
-        click_link 'Delete'
+        click_link 'Delete Queue'
       end
 
-      expect(page).to have_current_path queues_path
+      expect(page).to have_current_path media_items_path
       expect(page).to have_css '.alert.notice', text: 'Queue was successfully destroyed.'
       expect(page).not_to have_css 'td', text: queue.name
     end

@@ -15,14 +15,7 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_to_media_list(options = {})
-    path =
-      if params[:queue].present?
-        queue_path(params[:queue])
-      else
-        media_items_path
-      end
-
-    redirect_to path, options
+    redirect_to media_items_path(queue: params[:queue]), options
   end
 
   def set_time_zone(&block)

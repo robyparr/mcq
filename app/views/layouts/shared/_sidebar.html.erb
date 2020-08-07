@@ -12,30 +12,7 @@
 
     <div class="p-4 mt-6">
       <ul class="navigation">
-        <li>
-          <%= active_link_to queues_path, nil, root_path: true do %>
-            <div class="media-item">
-              <i data-feather="inbox"></i>
-              Queues
-            </div>
-          <% end %>
-        </li>
-        <li>
-          <%= active_link_to media_items_path do %>
-            <div class="media-item">
-              <i data-feather="play"></i>
-              Media
-            </div>
-          <% end %>
-        </li>
-        <li>
-          <%= active_link_to user_profile_path do %>
-            <div class="media-item">
-              <i data-feather="settings"></i>
-              Settings
-            </div>
-          <% end %>
-        </li>
+        <%= render 'layouts/shared/navigation_items' %>
       </ul>
     </div>
   </div>

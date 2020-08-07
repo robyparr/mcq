@@ -81,7 +81,7 @@ class MediaItemsController < ApplicationController
         else
           "Snoozed until #{@media_item.snooze_until}"
         end
-      redirect_to media_item_path(@media_item), notice: notice
+      redirect_to_media_list notice: notice
     else
       flash[:error] = 'There was an error snoozing the media.'
       render :show

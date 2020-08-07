@@ -1,24 +1,27 @@
-# README
+<p align="center">
+  <img src="app/assets/images/icon.png" alt="MCQ Icon" />
+</p>
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Overview
+MCQ stands for "Media Consumption Queue" and is a web service to help collect; organize; and, most importantly, consume media. I created MCQ because I found myself saving links for media I wanted to consume later all over the place and often ended up never actually consuming them. MCQ is an attempt to remedy that problem.
 
-Things you may want to cover:
+## Getting Started
 
-* Ruby version
+**Install dependencies**
 
-* System dependencies
+```
+bundle install
+yarn install
+```
 
-* Configuration
+**Setup the database**
 
-* Database creation
+```
+bundle exec rails db:create db:migrate
+```
 
-* Database initialization
+**Run the project**
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```
+foreman s -f Procfile.dev
+```

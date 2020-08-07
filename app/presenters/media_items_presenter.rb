@@ -12,7 +12,7 @@ class MediaItemsPresenter
 
   def media_items
     params[:state] ||= :not_complete
-    @media_items ||= FindMediaItems.call(media_items_relation, params).order(:id).page(params[:page])
+    @media_items ||= FindMediaItems.call(media_items_relation, params).order(id: :desc).page(params[:page])
   end
 
   def filter_priorities

@@ -22,7 +22,7 @@ class MediaItem < ApplicationRecord
     foreign_key: :media_priority_id,
     optional: true
 
-  has_many :notes, class_name: 'MediaNote', dependent: :destroy
+  has_many :notes, -> { order(:id) }, class_name: 'MediaNote', dependent: :destroy
 
   validates :url, presence: true
 

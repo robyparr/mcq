@@ -2,8 +2,10 @@
             border-r-2 bg-white w-2/12" style="min-width: 200px;">
   <div>
     <div class="text-center pt-4">
-      <h1 class="text-2xl">
-        <%= link_to 'MCQ', root_path, class: 'text-black hover:text-black' %>
+      <h1 class="text-2xl flex justify-center">
+        <%= link_to root_path, class: 'text-black hover:text-black' do %>
+          <%= image_tag 'icon', width: 80, alt: 'MCQ Icon' %>
+        <% end %>
       </h1>
       <span class="text-muted"><%= current_user.email %></span>
 

@@ -16,7 +16,6 @@ RUN apk update \
 ENV RAILS_ENV production
 ENV NODE_ENV production
 
-
 ENV INSTALL_PATH /app
 RUN mkdir -p $INSTALL_PATH
 WORKDIR $INSTALL_PATH
@@ -62,6 +61,9 @@ ENV RAILS_ENV production
 ENV NODE_ENV production
 ENV RAILS_LOG_TO_STDOUT true
 
-CMD bundle exec bin/delayed_job start \
-  & bundle exec clockwork clock.rb \
+# CMD bundle exec bin/delayed_job start \
+#   & bundle exec clockwork clock.rb \
+#   & bundle exec puma -C config/puma.rb
+
+CMD bundle exec clockwork clock.rb \
   & bundle exec puma -C config/puma.rb

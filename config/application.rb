@@ -38,6 +38,6 @@ module Mcq
       Clearance::UsersController.layout     'layouts/guest'
     end
 
-    config.active_job.queue_adapter = :delayed_job
+    # config.active_job.queue_adapter = :delayed_job
   end
 end

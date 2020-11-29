@@ -42,7 +42,7 @@ RSpec.describe "media queue CRUD", type: :system do
     it 'Adds the queue' do
       visit root_path(as: current_user)
 
-      click_link 'New Queue'
+      find_by_testid('new-queue-btn').click
       expect(page).to have_css 'h2.page-header', text: 'New Queue'
 
       fill_in 'Name', with: 'A new queue'

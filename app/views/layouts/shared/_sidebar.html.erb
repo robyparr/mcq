@@ -1,5 +1,5 @@
 <div class="hidden md:flex flex-col justify-between fixed pin-t pin-b h-full
-            border-r-2 bg-white w-2/12" style="min-width: 200px;">
+            border-r shadow-inner bg-white w-2/12" style="min-width: 200px;">
   <div>
     <div class="text-center pt-4">
       <h1 class="text-2xl flex justify-center">
@@ -20,6 +20,6 @@
   </div>
 
   <div class="text-center pb-4">
-    <%= button_to 'Sign out', sign_out_path, method: :delete, class: 'button' %>
+    <%= link_to 'Sign out', sign_out_path, method: :delete %>
   </div>
 </div>

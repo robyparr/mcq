@@ -1,38 +1,39 @@
 <li>
-  <%= active_link_to media_items_path do %>
+  <%= active_link_to media_items_path, class: 'navigation-item' do %>
     <div class="media-item">
       <i data-feather="play"></i>
-      Media
+      All Media
     </div>
   <% end %>
-  <div class="py-4 px-2 mt-2 -mt-2 rounded <%= current_or_subpage?(media_items_path) ? 'bg-gray-200' : '' %>
-              overflow-y-auto" style="max-height: 200px;">
-    <ul>
-      <% current_user_queues.each do |queue| %>
-        <li class="ml-4 pl-3 flex items-center" style="border-left: 3px solid <%= queue.color %>">
-          <%= active_link_to queue.name,
-                              media_items_path(queue: queue),
-                              class: 'sub-link',
-                              active_extra: params[:queue].to_i == queue.id %>
-          <span class="badge small primary circle"><%= queue.active_media_items_count %></span>
-        </li>
-      <% end %>
-      <li>
-        <%= link_to new_queue_url, class: 'sub-link' do %>
-          <div class="media-item small">
-            <i data-feather="plus-circle"></i>
-            New Queue
-          </div>
-        <% end %>
-      </li>
-    </ul>
-  </div>
 </li>
 <li>
-  <%= active_link_to user_profile_path do %>
+  <%= active_link_to user_profile_path, class: 'navigation-item' do %>
     <div class="media-item">
       <i data-feather="settings"></i>
       Settings
     </div>
   <% end %>
+</li>
+<li>
+  <div class="py-4 px-2 rounded overflow-y-auto" style="max-height: 200px;">
+    <div class="flex mb-4">
+      <div class="text-gray-600 uppercase text-sm flex-grow">My Queues</div>
+      <%= link_to new_queue_url, class: 'text-gray-600 hover:text-gray-800', data: { tippy_content: 'New Queue' } do %>
+        <i data-feather="plus-circle" width="22px"></i>
+      <% end %>
+    </div>
+    <ul>
+      <% current_user_queues.each do |queue| %>
+        <li class="flex items-center" style="border-left: 3px solid <%= queue.color %>">
+          <%= active_link_to queue.name,
+                             media_items_path(queue: queue),
+                             class: 'navigation-item sub-link',
+                             active_extra: params[:queue].to_i == queue.id %>
+          <span class="<%= params[:queue].to_i == queue.id ? '' : 'opacity-50' %> text-sm">
+            <%= queue.active_media_items_count %>
+          </span>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 </li>

@@ -23,13 +23,11 @@
     <div class="select-wrapper">
       <%= f.select :state, state_select_options, {}, class: 'w-auto' %>
     </div>
-  </div>
-  <div class="toolbar">
     <%= f.text_field :search,
                      placeholder: 'Search...',
                      value: params[:search],
                      autocomplete: :off %>
 
-    <%= f.submit 'Filter', class: 'button' %>
+    <%= f.submit 'Filter', class: 'button primary' %>
   </div>
 <% end %>

@@ -18,6 +18,7 @@ module ApplicationHelper
 
   def active_link_to(text = nil, url = nil, options = {}, &block)
     if block_given?
+      options = url || {}
       url = text
       link_to url, active_link_to_options(url, options), &block
     else

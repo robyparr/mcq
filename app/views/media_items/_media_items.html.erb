@@ -11,7 +11,7 @@
                             } %>
         </th>
         <th class="pl-0">Media</th>
-        <% if !within_path?('/queues') %>
+        <% if params[:queue].blank? %>
           <th>Queue</th>
         <% end %>
         <th>Priority</th>
@@ -46,7 +46,7 @@
               </div>
             </div>
           </td>
-          <% if !within_path?('/queues') %>
+          <% if params[:queue].blank? %>
             <td><%= media_item.queue.name %></td>
           <% end %>
           <td><%= media_item.priority.try(:title) || '-' %></td>

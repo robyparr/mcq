@@ -74,10 +74,6 @@ module ApplicationHelper
     options_for_select(select_options, selected_key)
   end
 
-  def within_path?(path)
-    request.path.start_with?(path)
-  end
-
   def integration_icon_class(integration_service)
     case integration_service
     when 'Pocket' then 'pocket'

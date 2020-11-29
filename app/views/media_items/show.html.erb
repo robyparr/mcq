@@ -18,7 +18,7 @@
 
         <div class="small media-item" data-tippy-content="Queue">
           <i data-feather="inbox" class="w-5 h-5"></i>
-          <%= link_to @media_item.queue.name, queue_path(@media_item.queue), class: 'text-muted' %>
+          <%= link_to @media_item.queue.name, media_items_path(queue: @media_item.media_queue_id), class: 'text-muted' %>
         </div>
 
         <% if @media_item.snoozed? %>

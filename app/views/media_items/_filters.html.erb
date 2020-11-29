@@ -3,6 +3,7 @@
               method: :get,
               class: 'mb-4' do |f| %>
 
+  <%= hidden_field_tag :queue, params[:queue] %>
   <div class="toolbar">
     <div class="select-wrapper">
       <%= f.select :difficulty, options_for_media_item_difficulty, {}, class: 'w-auto' %>

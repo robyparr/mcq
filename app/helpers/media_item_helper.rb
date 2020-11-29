@@ -63,7 +63,7 @@ module MediaItemHelper
   end
 
   def snooze_until_menu_item(media_item, snooze_until:, prefix: nil, label:)
-    snooze_url = snooze_media_item_url(media_item, snooze_until: snooze_until)
+    snooze_url = snooze_media_item_url(media_item, snooze_until: snooze_until, queue: params[:queue])
     content_tag(:li) do
       testid = ['snooze', prefix, label].compact.map(&:downcase).join('-')
       link_to(snooze_url, class: 'menu-item', method: :post, data: { testid: testid }) do

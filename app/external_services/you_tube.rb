@@ -1,13 +1,17 @@
 module YouTube
-  YOUTUBE_VIDEO_ID_URL_REGEX_1 = /\Ahttps:\/\/(?:www\.)?youtube\..+\/watch\?v=(.+)/
-  YOUTUBE_VIDEO_ID_URL_REGEX_2 = /\Ahttps:\/\/(?:www\.)?youtu\.be\/(.+)/
+  URL_REGEXES = [
+    /\Ahttps:\/\/(?:www\.)?(?:m\.)?youtube\..+\/watch\?v=([\w_-]+)(?:\&.+)?\z/,
+    /\Ahttps:\/\/(?:www\.)?(?:m\.)?youtu\.be\/([\w_-]+)(?:\?.+)?\z/,
+  ]
 
   class << self
-    def extract_video_id_from_youtube_url(url)
-      match = YOUTUBE_VIDEO_ID_URL_REGEX_1.match(url)
-      match ||= YOUTUBE_VIDEO_ID_URL_REGEX_2.match(url)
+    def extract_video_id_from_url(url)
+      URL_REGEXES.each do |regex|
+        match = regex.match(url)
+        return match.captures.first if match
+      end
 
-      match.captures.first if match.present?
+      nil
     end
   end
 end

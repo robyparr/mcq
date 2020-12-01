@@ -25,6 +25,6 @@ class Video < MediaItem
   end
 
   def youtube_video_id
-    @youtube_video_id ||= YouTube.extract_video_id_from_youtube_url(url)
+    @youtube_video_id ||= YouTube.extract_video_id_from_url(url)
   end
 end

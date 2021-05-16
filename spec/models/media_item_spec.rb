@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe MediaItem, type: :model do
+  let(:user) { create :user }
+  let(:queue) { create :queue, user: user }
+
   describe 'validations' do
     it { is_expected.to validate_presence_of(:url) }
   end
@@ -116,7 +119,7 @@ RSpec.describe MediaItem, type: :model do
     end
   end
 
-  describe '#estimate_consumption_difficulty!' do
+  describe '#assign_estimated_consumption_difficulty' do
     context 'consumption_difficulty is already defined' do
       it 'should not change the consumption difficulty' do
         media_item = build_stubbed(
@@ -125,7 +128,7 @@ RSpec.describe MediaItem, type: :model do
           consumption_difficulty: 'hard'
         )
 
-        expect { media_item.estimate_consumption_difficulty! }
+        expect { media_item.assign_estimated_consumption_difficulty }
           .not_to change(media_item, :consumption_difficulty)
       end
     end
@@ -134,7 +137,7 @@ RSpec.describe MediaItem, type: :model do
       it 'should not change the consumption difficulty' do
         media_item = build_stubbed(:media_item, estimated_consumption_time: nil)
 
-        expect { media_item.estimate_consumption_difficulty! }
+        expect { media_item.assign_estimated_consumption_difficulty }
           .not_to change(media_item, :consumption_difficulty)
       end
     end
@@ -156,7 +159,7 @@ RSpec.describe MediaItem, type: :model do
         it "should change the consumption difficulty to #{difficulty}" do
           media_item = build_stubbed(:media_item, estimated_consumption_time: time.seconds)
 
-          expect { media_item.estimate_consumption_difficulty! }
+          expect { media_item.assign_estimated_consumption_difficulty }
             .to change(media_item, :consumption_difficulty).from(nil).to(difficulty)
         end
       end
@@ -175,12 +178,100 @@ RSpec.describe MediaItem, type: :model do
     end
   end
 
+  describe '#assign_metadata_from_source' do
+    subject { build_stubbed media_type, queue: queue, user: user, title: nil, url: url }
+
+    context 'Article media item' do
+      let(:media_type) { :article }
+      let(:url) { 'https://example.com' }
+
+      let(:article_html) do
+        %{
+          <html>
+            <head>
+              <title>Example Web Article</title>
+            </head>
+            <body>
+              <p>This is an article.</p>
+            </body>
+          </html>
+        }
+      end
+
+      let!(:article_stub) do
+        stub_request(:get, 'https://example.com/')
+          .to_return(status: 200, body: article_html)
+      end
+
+      it 'sets title and estimated consumption time from the source' do
+        expect { subject.assign_metadata_from_source }
+          .to change(subject, :title).to('Example Web Article')
+          .and change(subject, :estimated_consumption_time).from(nil).to(1)
+
+        expect(article_stub).to have_been_made.once
+      end
+
+      it 'does not set title if it is already set' do
+        subject.title = 'My title'
+        expect { subject.assign_metadata_from_source }.not_to change(subject, :title)
+      end
+    end
+
+    context 'YouTube video media item' do
+      let(:media_type) { :video }
+      let(:url) { 'https://youtube.com/watch?v=example_video' }
+
+      before do
+        allow(Rails.application.credentials).to receive(:youtube).and_return(access_token: 'YouTubeSecret')
+      end
+
+      let(:response_body) do
+        {
+          items: [
+            {
+              id: 'example_video',
+              snippet: {
+                title: 'Example YouTube Video',
+              },
+              contentDetails: {
+                duration: 'PT10M30S',
+              },
+            }
+          ],
+        }
+      end
+
+      let!(:youtube_stub) do
+        stub_request(:get, "https://www.googleapis.com/youtube/v3/videos?id=example_video&key=YouTubeSecret&part=snippet,contentDetails")
+          .to_return(status: 200, body: response_body.to_json)
+      end
+
+      it 'sets title and estimated consumption time from the source' do
+        expect { subject.assign_metadata_from_source }
+          .to change(subject, :title).to('Example YouTube Video')
+          .and change(subject, :estimated_consumption_time).from(nil).to(11)
+
+        expect(youtube_stub).to have_been_made.once
+      end
+
+      it 'does not set title if it is already set' do
+        subject.title = 'My title'
+        expect { subject.assign_metadata_from_source }.not_to change(subject, :title)
+      end
+    end
+  end
+
   describe 'creation' do
     let(:queue) { create :queue }
 
     it "calls its queue's update_active_media_items_count! method" do
       expect(queue).to receive(:update_active_media_items_count!).once
       create :media_item, queue: queue
+    end
+
+    it 'enqueues a job to retrieve metadata from the source' do
+      expect { create :media_item, queue: queue, user: user }
+        .to have_enqueued_job(MediaItem::RetrieveMetadataJob).with(kind_of(Integer)).once
     end
   end
 

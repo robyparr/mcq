@@ -18,15 +18,17 @@ class MediaItem < ApplicationRecord
   belongs_to :user
   belongs_to :queue, class_name: 'MediaQueue', foreign_key: :media_queue_id
   belongs_to :priority,
-    class_name: 'MediaPriority',
-    foreign_key: :media_priority_id,
-    optional: true
+             class_name: 'MediaPriority',
+             foreign_key: :media_priority_id,
+             optional: true
 
   has_many :notes, -> { order(:id) }, class_name: 'MediaNote', dependent: :destroy
 
   validates :url, presence: true
 
   after_create :log_creation!
+  after_commit :retrieve_metadata_later, on: :create
+
   after_save :update_queue_counter_cache
   after_destroy :update_queue_counter_cache
 
@@ -51,18 +53,16 @@ class MediaItem < ApplicationRecord
     (self[:estimated_consumption_time] / 60.0).ceil
   end
 
-  def estimate_consumption_difficulty!
+  def assign_estimated_consumption_difficulty
     return unless estimated_consumption_time.present?
     return if consumption_difficulty.present?
 
     difficulties = self.class.consumption_difficulties.keys
     self.consumption_difficulty =
-      if estimated_consumption_time <= 5
-        difficulties[0]
-      elsif estimated_consumption_time <= 20
-        difficulties[1]
-      else
-        difficulties[2]
+      case
+      when estimated_consumption_time <= 5 then difficulties[0]
+      when estimated_consumption_time <= 20 then difficulties[1]
+      else difficulties[2]
       end
   end
 
@@ -73,12 +73,12 @@ class MediaItem < ApplicationRecord
     :"#{self.type.downcase}?" == method
   end
 
-  def estimate_consumption_time!
-    raise NotImplementedError, "#{self.class} must implement `estimate_consumption_time!`"
-  end
+  def assign_metadata_from_source(metadata_class: MediaItem::Metadata)
+    metadata = metadata_class.from_url(url, media_item: self)
+    return if metadata.blank?
 
-  def retrieve_metadata_from_source!
-    raise NotImplementedError, "#{self.class} must implement `retrieve_metadata_from_source!`"
+    assign_attributes metadata.to_media_item_attributes
+    self.title = title.presence || metadata.title
   end
 
   private
@@ -100,5 +100,9 @@ class MediaItem < ApplicationRecord
     end
 
     queue.update_active_media_items_count!
+  end
+
+  def retrieve_metadata_later
+    MediaItem::RetrieveMetadataJob.perform_later id
   end
 end

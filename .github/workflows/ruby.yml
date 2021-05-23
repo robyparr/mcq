@@ -57,4 +57,4 @@ jobs:
         DISABLE_SPRING: 1
       run: |
         bin/rails db:setup
-        bundle exec rails rspec
+        bundle exec rspec

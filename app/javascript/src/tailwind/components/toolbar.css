@@ -12,11 +12,3 @@
     .button { @apply m-0; }
   }
 }
-
-@screen md {
-  .toolbar {
-    @apply flex-no-wrap;
-
-    > * { @apply mt-0; }
-  }
-}

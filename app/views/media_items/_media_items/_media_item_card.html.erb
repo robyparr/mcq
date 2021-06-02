@@ -1,0 +1,58 @@
+<div class="card">
+  <div class="card-header">
+    <div class="card-title">
+      <%= check_box_tag :select_media_item,
+                        media_item.id,
+                        false,
+                        class: 'absolute',
+                        data: {
+                          target: 'bulk-actions.item',
+                          action: 'change->bulk-actions#itemChanged'
+                        } %>
+      <%= link_to presenter.path_for_media_item(media_item),
+                  method: :get,
+                  data: {
+                    turbo_action: 'replace',
+                    tooltip: media_item.title_or_url,
+                  } do %>
+        <div class="small media-item">
+          <i data-feather="<%= media_icon(media_item) %>" class="text-muted"></i>
+          <div class="media-text"><%= truncate media_item.title_or_url, length: 30 %></div>
+        </div>
+      <% end %>
+    </div>
+    <div class="card-actions">
+      <%= external_link_to '', media_item.url, class: 'text-muted' %>
+    </div>
+  </div>
+  <div class="card-content">
+    <%= media_item.queue.name %> / <%= media_item.priority.try(:title) || '-' %> /
+    <% if !media_item.consumption_difficulty && !media_item.estimated_consumption_time && !media_item.snoozed? %>
+      -
+    <% end %>
+    <% if media_item.consumption_difficulty %>
+      <div>
+        <div class="small media-item text-muted">
+          <i data-feather="sliders" class="h-5 w-5"></i>
+          <span class="<%= consumption_difficulty_classes(media_item.consumption_difficulty) %>">
+            <%= media_item.consumption_difficulty.capitalize %>
+          </span>
+        </div>
+      </div>
+    <% end %>
+    <% if media_item.estimated_consumption_time %>
+      <div class="small media-item text-muted mt-1">
+        <i data-feather="watch" class="h-5 w-5"></i>
+        <%= pluralize media_item.estimated_consumption_time, 'minute' %>
+      </div>
+    <% end %>
+    <% if media_item.snoozed? %>
+      <div class="small media-item text-muted mt-1"
+            data-tippy-content="Snoozed until <%= media_item.formatted_snooze_until %>">
+        <i data-feather="clock" class="w-5 h-5"></i>
+        <%= media_item.formatted_snooze_until %>
+      </div>
+    <% end %>
+    <%= time_ago_in_words media_item.created_at %> ago
+  </div>
+</div>

@@ -39,5 +39,6 @@ module Mcq
     end
 
     # config.active_job.queue_adapter = :delayed_job
+    config.action_view.form_with_generates_remote_forms = false
   end
 end

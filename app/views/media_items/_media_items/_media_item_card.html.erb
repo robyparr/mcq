@@ -12,8 +12,9 @@
       <%= link_to presenter.path_for_media_item(media_item),
                   method: :get,
                   data: {
-                    turbo_action: 'replace',
                     tooltip: media_item.title_or_url,
+                    controller: 'turbo-link-to',
+                    action: 'turbo-link-to#click'
                   } do %>
         <div class="small media-item">
           <i data-feather="<%= media_icon(media_item) %>" class="text-muted"></i>

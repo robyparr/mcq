@@ -11,6 +11,21 @@ class MediaItemsController < ApplicationController
 
   def show
     @media_item = current_user.media_items.includes(:notes).find(params[:id])
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html do
+        @presenter =
+          MediaItemsPresenter.new(
+            current_user,
+            media_items_collection,
+            params: params,
+            queue: current_queue
+          )
+
+        render :index
+      end
+    end
   end
 
   def new
@@ -86,7 +101,7 @@ class MediaItemsController < ApplicationController
     updated_items = current_user.media_items.where(id: bulk_ids).update media_queue_id: queue.id
 
     flash[:notice] = "Moved #{updated_items.length} media items to '#{queue.name}'."
-    redirect_ajax_to bulk_action_redirect_location(fallback: media_items_url)
+    redirect_ajax_to media_items_url
   end
 
   def bulk_mark_completed
@@ -96,14 +111,14 @@ class MediaItemsController < ApplicationController
     end
 
     flash[:notice] = "Marked #{media_items.size} media items as completed."
-    redirect_ajax_to bulk_action_redirect_location(fallback: media_items_url)
+    redirect_ajax_to media_items_url
   end
 
   def bulk_destroy
     destroyed_items = current_user.media_items.where(id: bulk_ids).destroy_all
 
     flash[:notice] = "Deleted #{destroyed_items.size} media items."
-    redirect_ajax_to bulk_action_redirect_location(fallback: media_items_url)
+    redirect_ajax_to media_items_url
   end
 
   private

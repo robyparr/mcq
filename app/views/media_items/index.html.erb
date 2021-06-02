@@ -56,9 +56,13 @@
 
   <div class="column md8 border-l pt-8 pl-4">
     <%= turbo_frame_tag 'media-item-pane' do %>
-      <div class="flex justify-center items-center h-full">
-        <span class="text-lg text-muted">Select a media item</span>
-      </div>
+      <% if @media_item %>
+        <%= render 'media_items/media_item', media_item: @media_item %>
+      <% else %>
+        <div class="flex justify-center items-center h-full">
+          <span class="text-lg text-muted">Select a media item</span>
+        </div>
+      <% end %>
     <% end %>
   </div>
 </div>

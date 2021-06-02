@@ -52,8 +52,10 @@ export default class extends ApplicationController {
   hide = () => {
     document.removeEventListener('click', this.hide)
 
-    this.renderedTooltip.remove()
-    this.renderedTooltip = null
+    if (this.renderedTooltip) {
+      this.renderedTooltip.remove()
+      this.renderedTooltip = null
+    }
   }
 
   tooltipID() {

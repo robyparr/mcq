@@ -17,6 +17,7 @@
 @import "./components/heading.css";
 @import "./components/pagination.css";
 @import "./components/menu.css";
+@import "./components/toast.css";
 
 @import "./components/navigation.css";
 @import "./components/rich_editor.css";

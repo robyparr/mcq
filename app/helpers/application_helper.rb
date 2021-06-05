@@ -90,4 +90,12 @@ module ApplicationHelper
 
     @current_queue ||= current_user_queues.find { _1.id == params[:queue].to_i }
   end
+
+  def turbo_stream_toast(message, type: :info)
+    turbo_stream.append 'toast-container' do
+      content_tag(:div, class: "#{type} toast", data: { controller: 'toast', action: 'click->toast#removeToast' }) do
+        message
+      end
+    end
+  end
 end

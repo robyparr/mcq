@@ -13,13 +13,15 @@
         <%= render 'layouts/shared/header' %>
 
         <main class="py-2 px-3 md:py-8 md:px-20">
-          <% flash.each do |key, value| %>
-            <div class="alert <%= key %>"><%= value %></div>
-          <% end %>
-
           <%= yield %>
         </main>
       </div>
     </div>
+
+    <%= turbo_frame_tag 'toast-container', class: 'toast-container' do %>
+      <% flash.each do |key, value| %>
+        <%= turbo_stream_toast value, type: key == 'notice' ? :info : key %>
+      <% end %>
+    <% end %>
   </body>
 </html>

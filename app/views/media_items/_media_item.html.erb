@@ -63,7 +63,7 @@
           <template data-target="tooltip.template">
             <ul class="menu">
               <li>
-                <%= link_to edit_media_item_path(media_item), class: 'menu-item' do %>
+                <%= turbo_link_to edit_media_item_path(media_item), class: 'menu-item', update_url: false do %>
                   <div class="media-item small">
                     <i class="small bi bi-pencil icon"></i>
                     Edit

@@ -26,6 +26,41 @@ module ApplicationHelper
     end
   end
 
+  def turbo_link_to(text_or_url = nil, url_or_options = nil, options = {}, &block)
+    if block_given?
+      url = text_or_url
+      options = url_or_options
+    else
+      text = text_or_url
+      url = url_or_options
+      options = options
+    end
+
+    data_options = options.fetch(:data, {})
+
+    if options.fetch(:update_url, true)
+      controller_options = data_options.fetch(:controller, '')
+      data_options[:controller] = controller_options + ' turbo-link-to'
+      data_options[:controller].strip!
+
+      action_options = data_options.fetch(:action, '')
+      data_options[:action] = action_options + ' turbo-link-to#click'
+      data_options[:action].strip!
+    end
+
+    options =
+      options.merge(
+        method: :get,
+        data: data_options,
+      )
+
+    if block_given?
+      link_to(url, options) { block.call }
+    else
+      link_to text, url, options
+    end
+  end
+
   private
 
   def active_link_to_options(url, options)

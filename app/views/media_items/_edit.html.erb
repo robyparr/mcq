@@ -1,0 +1,7 @@
+<h1 class="page-header">Edit Media</h1>
+
+<%= render 'form',
+           media_item: media_item,
+           submit_button_text: 'Update Media',
+           queue_id: media_item.media_queue_id,
+           form_url: media_item_url(media_item) %>

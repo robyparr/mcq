@@ -1,15 +1,19 @@
 import { Controller } from 'stimulus'
+import { navigator } from '@hotwired/turbo'
 
 export default class extends Controller {
   click() {
-    history.pushState(
-      null,
-      null,
-      this.getLinkUrl(),
-    )
+    const url = new URL(this.getLinkUrl())
+    navigator.history.push(url)
   }
 
   getLinkUrl() {
-    return this.element.getAttribute('href')
+    const linkHref = this.element.getAttribute('href');
+
+    if (linkHref.startsWith('http')) {
+      return linkHref
+    } else {
+      return window.location.origin + linkHref
+    }
   }
 }

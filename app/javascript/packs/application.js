@@ -17,22 +17,7 @@ import "@hotwired/turbo-rails"
 
 import "controllers"
 
-const feather = require('feather-icons')
-window.renderIcons =
-  function() {
-    $('.select-wrapper').forEach(wrapper => {
-      var iconChild = document.createElement('i')
-      iconChild.dataset.feather = 'chevron-down'
-      iconChild.classList.add('chevron')
-
-      wrapper.appendChild(iconChild)
-    })
-
-    document.querySelectorAll('[data-feather=""]').forEach(el => el.remove())
-    feather.replace()
-  }
-document.addEventListener('DOMContentLoaded', renderIcons)
-document.addEventListener('ajax:success', renderIcons)
+import 'bootstrap-icons/font/bootstrap-icons.css'
 
 import tippy from 'tippy.js'
 import 'tippy.js/dist/tippy.css'

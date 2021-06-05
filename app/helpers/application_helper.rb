@@ -7,7 +7,7 @@ module ApplicationHelper
 
     content_fragments = [
       sanitize(title, tags: []),
-      '<i data-feather="external-link" class="inline w-4 h-4"></i>'
+      '<i class="small bi bi-box-arrow-right icon"></i>'
     ]
     content_fragments.reverse! if options[:icon_position] == :left
 

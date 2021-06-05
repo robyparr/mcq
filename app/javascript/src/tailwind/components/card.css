@@ -19,11 +19,6 @@
         @apply text-gray-500;
 
         &:hover { @apply text-black; }
-
-        i {
-          height: 24px;
-          width: 24px;
-        }
       }
     }
   }

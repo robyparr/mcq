@@ -8,7 +8,7 @@
       <div class="card-content opacity-50 hover:opacity-100">
         <%= link_to new_integration_path(service: 'Pocket'), class: 'text-black hover:text-black' do %>
           <div class="media-item">
-            <i data-feather="<%= integration_icon_class('Pocket') %>" class="w-16 h-16"></i>
+            <%= image_tag "icons/#{integration_icon_class('Pocket')}", class: 'xl hoverable svg icon' %>
             <div class="text">
               <div class="text-2xl">Pocket</div>
               <%= link_to 'Homepage', 'https://getpocket.com/' %>
@@ -36,8 +36,8 @@
         <% @integrations.each do |integration| %>
           <tr>
             <td>
-              <div class="media-item">
-                <i data-feather="<%= integration_icon_class('Pocket') %>" class="text-muted w-5 h-5"></i>
+              <div class="small media-item">
+                <%= image_tag "icons/#{integration_icon_class('Pocket')}", class: 'small svg icon opacity-50' %>
                 <%= integration.service %>
               </div>
             </td>

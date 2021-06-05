@@ -18,20 +18,20 @@
               class="card-action"
               data-target="inline-edit.display"
               data-action="inline-edit#toggleEditMode">
-        <i data-feather="edit" class="w-4 h-4"></i>
+        <i class="small bi bi-pencil icon"></i>
       </button>
       <button type="button"
               class="card-action"
               data-target="inline-edit.editor"
               data-action="inline-edit#toggleDisplayMode edit-note#save">
-        <i data-feather="save" class="w-4 h-4"></i>
+        <%= image_tag 'icons/save', class: '-mt-1 small hoverable svg icon' %>
       </button>
       <%= button_to note_path(note, format: :js),
                     method: :delete,
                     remote: true,
                     data: { confirm: 'Are you sure?' },
                     class: 'card-action' do %>
-        <i data-feather="trash-2" class="w-4 h-4 ml-1"></i>
+        <i class="small bi bi-trash icon ml-1"></i>
       <% end %>
     </span>
   </div>

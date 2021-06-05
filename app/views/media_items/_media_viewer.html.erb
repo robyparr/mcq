@@ -2,13 +2,13 @@
   <div class="w-full h-full">
     <div class="toolbar mb-0 justify-end py-1 px-4">
       <button data-action="click->media-viewer#close" class="button icon-only">
-        <i data-feather="x"></i>
+        <i class="bi bi-x icon"></i>
       </button>
     </div>
 
     <div class="relative w-full h-full bg-gray-200">
       <div data-target="media-viewer.loader" class="fully-centered">
-        <i data-feather="loader" class="loader"></i>
+        <%= image_tag 'icons/loader', class: 'xl hoverable svg icon loader' %>
         <span class="text">Loading media...</span>
       </div>
 

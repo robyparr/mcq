@@ -1,22 +1,22 @@
 <li>
   <%= active_link_to media_items_path, class: 'navigation-item' do %>
-    <div class="media-item">
-      <i data-feather="play"></i>
+    <div class="small media-item">
+      <i class="bi bi-play-circle icon"></i>
       All Media
     </div>
   <% end %>
 </li>
 <li>
   <%= active_link_to user_profile_path, class: 'navigation-item' do %>
-    <div class="media-item">
-      <i data-feather="settings"></i>
+    <div class="small media-item">
+      <i class="bi bi-gear icon"></i>
       Settings
     </div>
   <% end %>
 </li>
 <li>
   <div class="py-4 px-2 rounded overflow-y-auto" style="max-height: 200px;">
-    <div class="flex mb-4">
+    <div class="flex items-center mb-4">
       <div class="text-gray-600 uppercase text-sm flex-grow">My Queues</div>
       <%= link_to new_queue_url,
                   class: 'text-gray-600 hover:text-gray-800',
@@ -24,7 +24,7 @@
                     tippy_content: 'New Queue',
                     testid: 'new-queue-btn'
                   } do %>
-        <i data-feather="plus-circle" width="22px"></i>
+        <i class="bi bi-plus-circle icon"></i>
       <% end %>
     </div>
     <ul>

@@ -44,8 +44,6 @@ export default class extends ApplicationController {
     tooltipEl.style.marginTop = `${this.element.offsetHeight + 2}px`
     tooltipEl.classList.add(`${this.alignTooltip()}-0`)
 
-    renderIcons()
-
     return tooltipEl
   }
 

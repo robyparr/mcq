@@ -26,7 +26,7 @@
               data-action="inline-edit#toggleDisplayMode edit-note#save">
         <%= image_tag 'icons/save', class: '-mt-1 small hoverable svg icon' %>
       </button>
-      <%= button_to note_path(note, format: :js),
+      <%= button_to note_path(note),
                     method: :delete,
                     remote: true,
                     data: { confirm: 'Are you sure?' },

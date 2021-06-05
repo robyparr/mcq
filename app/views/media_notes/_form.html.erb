@@ -1,0 +1,14 @@
+<%= turbo_frame_tag 'media-note-form' do %>
+  <%= form_with scope: :media_note,
+                url: media_item_notes_path(media_item) do |f| %>
+    <%= f.text_field :title,
+                     id: 'note-title',
+                     placeholder: 'Title...',
+                     autocomplete: 'off',
+                     tabindex: -1,
+                     value: '' %>
+    <div data-controller="rich-editor"
+         data-rich-editor-input-name="media_note[content]"></div>
+    <%= f.submit class: 'button mt-2' %>
+  <% end %>
+<% end %>

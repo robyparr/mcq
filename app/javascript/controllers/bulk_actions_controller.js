@@ -5,6 +5,7 @@ export default class extends Controller {
   static targets = [
     'action',
     'item',
+    'bulkActionsToolbar',
   ]
 
   connect() {
@@ -63,10 +64,12 @@ export default class extends Controller {
 
   disableActions() {
     this.actionTargets.forEach(action => action.disabled = true)
+    this.bulkActionsToolbarTarget.classList.toggle('hidden', true)
   }
 
   enableActions() {
     this.actionTargets.forEach(action => action.disabled = false)
+    this.bulkActionsToolbarTarget.classList.toggle('hidden', false)
   }
 
   actionConfirmedIfRequired(target) {

@@ -8,22 +8,6 @@ module MediaItemHelper
     end
   end
 
-  def options_for_media_item_difficulty
-    select_options(
-      MediaItem.consumption_difficulties,
-      params[:difficulty],
-      empty_value: 'Select a difficulty'
-    )
-  end
-
-  def options_for_media_item_priority(priorities)
-    select_options(
-      priorities,
-      params[:priority],
-      empty_value: 'Select a priority'
-    )
-  end
-
   def toggle_class_for_type(media_item, type)
     return 'toggled' if media_item.new_record? && type == 'Article'
     return 'toggled' if media_item.type == type
@@ -39,15 +23,11 @@ module MediaItemHelper
   end
 
   def state_select_options
-    selected_state = params[:state] || :not_complete
-    available_options =
-      [
-        ['Not complete', :not_complete],
-        ['Complete', :complete],
-        ['Snoozed', :snoozed],
-      ]
-
-    select_options(available_options, selected_state)
+    [
+      ['Incomplete', :not_complete],
+      ['Complete', :complete],
+      ['Snoozed', :snoozed],
+    ]
   end
 
   def snooze_until_options

@@ -1,9 +1,9 @@
 <%= turbo_frame_tag 'media-item-pane' do %>
   <div data-controller="media-viewer"
-      data-media-viewer-url="<%= media_item.url %>"
-      data-media-viewer-type="<%= media_item.type %>"
-      data-media-viewer-media-service="<%= media_item.service_type %>"
-      data-media-viewer-media-id="<%= media_item.service_id %>">
+       data-media-viewer-url="<%= media_item.url %>"
+       data-media-viewer-type="<%= media_item.type %>"
+       data-media-viewer-media-service="<%= media_item.service_type %>"
+       data-media-viewer-media-id="<%= media_item.service_id %>">
 
     <div class="heading">
       <div class="content">
@@ -24,7 +24,7 @@
 
           <% if media_item.snoozed? %>
             <div class="small media-item"
-                  data-tippy-content="Snoozed until <%= media_item.formatted_snooze_until %>">
+                 data-tippy-content="Snoozed until <%= media_item.formatted_snooze_until %>">
               <i class="small bi bi-clock icon"></i>
               <%= media_item.formatted_snooze_until %>
             </div>
@@ -53,7 +53,8 @@
             </div>
           <% end %>
 
-          <div class="small media-item" data-tippy-content="<%= media_item.created_at.strftime('%F %l:%M %p') %>">
+          <div class="small media-item"
+               data-tippy-content="<%= media_item.created_at.strftime('%F %l:%M %p') %>">
             <i class="small bi bi-calendar icon"></i>
             <%= time_ago_in_words media_item.created_at %> ago
           </div>
@@ -62,13 +63,18 @@
 
       <div class="actions">
         <span data-controller="tooltip" data-tooltip-align="right">
-          <button type="button" class="button icon-only" data-action="tooltip#show" data-testid="more-menu">
+          <button type="button"
+                  class="button icon-only"
+                  data-action="tooltip#show"
+                  data-testid="more-menu">
             <i class="small bi bi-three-dots-vertical icon"></i>
           </button>
           <template data-target="tooltip.template">
             <ul class="menu">
               <li>
-                <%= turbo_link_to edit_media_item_path(media_item), class: 'menu-item', update_url: false do %>
+                <%= turbo_link_to edit_media_item_path(media_item),
+                                  class: 'menu-item',
+                                  update_url: false do %>
                   <div class="media-item small">
                     <i class="small bi bi-pencil icon"></i>
                     Edit
@@ -100,6 +106,7 @@
               class: 'button with-icon',
               data: { action: 'tooltip#show', testid: 'snooze' },
               disabled: media_item.complete? do %>
+
             <template data-target="tooltip.template">
               <ul class="menu">
                 <% snooze_until_options.each do |prefix, label, date| %>
@@ -136,7 +143,7 @@
 
     <h3 class="section-header">Notes</h3>
 
-    <div class="row">
+    <div id="notes" class="row">
       <div class="column sm12 md4 pl-0">
         <%= render 'media_notes/form', media_item: media_item %>
 

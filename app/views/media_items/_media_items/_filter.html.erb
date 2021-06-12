@@ -19,10 +19,7 @@
       <% if show_none %>
         <li>
           <%= button_tag class: 'menu-item',
-                        data: {
-                          'filter-value' => '',
-                          'action' => 'filter#select'
-                        } do %>
+                         data: { 'filter-value' => '', 'action' => 'filter#select' } do %>
             None
           <% end %>
         </li>

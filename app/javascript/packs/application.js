@@ -25,3 +25,4 @@ import 'tippy.js/dist/tippy.css'
 const renderTippy = () => tippy('[data-tippy-content]', { interactive: true })
 document.addEventListener('DOMContentLoaded', renderTippy)
 document.addEventListener('ajax:success', renderTippy)
+document.addEventListener('turbo_link_to:afterclick', renderTippy)

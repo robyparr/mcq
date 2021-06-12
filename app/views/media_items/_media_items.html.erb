@@ -1,4 +1,4 @@
-<label>
+<label class="text-right">
   <%= check_box_tag :select_all_media_items,
                     'all',
                     false,
@@ -7,10 +7,13 @@
                     } %>
   Select All
 </label>
-<% presenter.media_items.each do |media_item| %>
-  <%= render 'media_items/_media_items/media_item_card',
-             media_item: media_item,
-             presenter: presenter %>
-<% end %>
+
+<div class="bg-white border rounded-md shadow">
+  <% presenter.media_items.each do |media_item| %>
+    <%= render 'media_items/_media_items/media_item_card',
+              media_item: media_item,
+              presenter: presenter %>
+  <% end %>
+</div>
 
 <%= paginate presenter.media_items %>

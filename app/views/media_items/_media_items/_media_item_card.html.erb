@@ -1,56 +1,59 @@
-<div class="card">
-  <div class="card-header">
-    <div class="card-title">
+<div class="border-b p-2">
+  <div class="row mb-0">
+    <div class="column md11 text-lg pl-0">
+      <div class="small media-item icon-top">
+        <i class="<%= media_icon(media_item) %> icon text-muted"></i>
+        <div class="media-text">
+          <%= turbo_link_to truncate(media_item.title_or_url, length: 50),
+                            presenter.path_for_media_item(media_item),
+                            data: {
+                              tooltip: media_item.title_or_url,
+                            } %>
+
+          <div class="compact toolbar text-muted mb-0">
+            <div class="small media-item">
+              <i class="b bi-inbox icon"></i>
+              <%= media_item.queue.name %>
+            </div>
+            <div class="small media-item">
+              <i class="b bi-flag icon"></i>
+              <%= media_item.priority.title.capitalize %>
+            </div>
+            <% if media_item.consumption_difficulty %>
+              <div class="small media-item">
+                <i class="bi bi-sliders icon"></i>
+                <div class="<%= consumption_difficulty_classes(media_item.consumption_difficulty) %>">
+                  <%= media_item.consumption_difficulty.capitalize %>
+                </div>
+              </div>
+            <% end %>
+            <% if media_item.estimated_consumption_time %>
+              <div class="small media-item">
+                <i class="bi bi-watch icon"></i>
+                <%= pluralize media_item.estimated_consumption_time, 'minute' %>
+              </div>
+            <% end %>
+            <% if media_item.snoozed? %>
+              <div class="small media-item"
+                    data-tippy-content="Snoozed until <%= media_item.formatted_snooze_until %>">
+                <i class="bi bi-clock icon"></i>
+                <%= media_item.formatted_snooze_until with_time: false %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="column md1 text-right">
       <%= check_box_tag :select_media_item,
                         media_item.id,
                         false,
-                        class: 'absolute',
+                        class: 'mr-1',
                         data: {
                           target: 'bulk-actions.item',
                           action: 'change->bulk-actions#itemChanged'
                         } %>
-      <%= turbo_link_to presenter.path_for_media_item(media_item),
-                        data: {
-                          tooltip: media_item.title_or_url,
-                        } do %>
-        <div class="small media-item">
-          <i class="<%= media_icon(media_item) %> icon text-muted"></i>
-          <div class="media-text"><%= truncate media_item.title_or_url, length: 30 %></div>
-        </div>
-      <% end %>
-    </div>
-    <div class="card-actions">
       <%= external_link_to '', media_item.url, class: 'text-muted' %>
     </div>
-  </div>
-  <div class="card-content">
-    <%= media_item.queue.name %> / <%= media_item.priority.try(:title) || '-' %> /
-    <% if !media_item.consumption_difficulty && !media_item.estimated_consumption_time && !media_item.snoozed? %>
-      -
-    <% end %>
-    <% if media_item.consumption_difficulty %>
-      <div>
-        <div class="small media-item text-muted">
-          <i class="bi bi-sliders icon"></i>
-          <span class="<%= consumption_difficulty_classes(media_item.consumption_difficulty) %>">
-            <%= media_item.consumption_difficulty.capitalize %>
-          </span>
-        </div>
-      </div>
-    <% end %>
-    <% if media_item.estimated_consumption_time %>
-      <div class="small media-item text-muted mt-1">
-        <i class="bi bi-watch icon"></i>
-        <%= pluralize media_item.estimated_consumption_time, 'minute' %>
-      </div>
-    <% end %>
-    <% if media_item.snoozed? %>
-      <div class="small media-item text-muted mt-1"
-            data-tippy-content="Snoozed until <%= media_item.formatted_snooze_until %>">
-        <i class="bi bi-clock icon"></i>
-        <%= media_item.formatted_snooze_until %>
-      </div>
-    <% end %>
-    <%= time_ago_in_words media_item.created_at %> ago
   </div>
 </div>

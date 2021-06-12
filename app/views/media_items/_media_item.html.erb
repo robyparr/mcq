@@ -52,6 +52,11 @@
               </span>
             </div>
           <% end %>
+
+          <div class="small media-item" data-tippy-content="<%= media_item.created_at.strftime('%F %l:%M %p') %>">
+            <i class="small bi bi-calendar icon"></i>
+            <%= time_ago_in_words media_item.created_at %> ago
+          </div>
         </div>
       </div>
 

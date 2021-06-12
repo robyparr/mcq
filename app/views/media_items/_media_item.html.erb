@@ -62,7 +62,7 @@
 
       <div class="actions">
         <span data-controller="tooltip" data-tooltip-align="right">
-          <button type="button" class="button icon-only" data-action="tooltip#show">
+          <button type="button" class="button icon-only" data-action="tooltip#show" data-testid="more-menu">
             <i class="small bi bi-three-dots-vertical icon"></i>
           </button>
           <template data-target="tooltip.template">
@@ -98,7 +98,7 @@
           <%= button_tag nil,
               type: 'button',
               class: 'button with-icon',
-              data: { action: 'tooltip#show' },
+              data: { action: 'tooltip#show', testid: 'snooze' },
               disabled: media_item.complete? do %>
             <template data-target="tooltip.template">
               <ul class="menu">

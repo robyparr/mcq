@@ -18,7 +18,7 @@
   <div class="py-4 px-2 rounded overflow-y-auto" style="max-height: 200px;">
     <div class="flex items-center mb-4">
       <div class="text-gray-600 uppercase text-sm flex-grow">My Queues</div>
-      <%= link_to new_queue_url,
+      <%= turbo_link_to new_queue_url,
                   class: 'text-gray-600 hover:text-gray-800',
                   data: {
                     tippy_content: 'New Queue',

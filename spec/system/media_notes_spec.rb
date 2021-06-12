@@ -5,7 +5,7 @@ RSpec.describe 'media notes CRUD' do
 
   let!(:current_user) { create :user }
   let!(:media_item) { create :media_item, user: current_user }
-  let(:note_css_id) { "#note-#{note.id}" }
+  let(:note_css_id) { "#media_note_#{note.id}" }
 
   describe 'adding a note' do
     let(:note) { current_user.notes.last }
@@ -44,7 +44,7 @@ RSpec.describe 'media notes CRUD' do
       expect(page).to have_css "#{note_css_id} .card-title", text: note.title
 
       note_card = find(note_css_id)
-      note_card.find('.feather-edit').click
+      note_card.find('.bi-pencil').click
 
       note_card_title = note_card.find('.card-title input[name=title]')
       note_card_content = note_card.find('.ql-editor')
@@ -59,7 +59,7 @@ RSpec.describe 'media notes CRUD' do
       expect(page).to have_css "#{note_css_id} .card-title", text: note.title
 
       note_card = find(note_css_id)
-      accept_confirm { note_card.find('.feather-trash-2').click }
+      accept_confirm { note_card.find('.bi-trash').click }
 
       expect(page).not_to have_css "#{note_css_id} .card-title", text: note.title
     end

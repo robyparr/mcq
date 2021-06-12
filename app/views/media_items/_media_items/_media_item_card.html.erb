@@ -15,10 +15,12 @@
               <i class="b bi-inbox icon"></i>
               <%= media_item.queue.name %>
             </div>
-            <div class="small media-item">
-              <i class="b bi-flag icon"></i>
-              <%= media_item.priority.title.capitalize %>
-            </div>
+            <% if media_item.priority %>
+              <div class="small media-item">
+                <i class="b bi-flag icon"></i>
+                <%= media_item.priority.title.capitalize %>
+              </div>
+            <% end %>
             <% if media_item.consumption_difficulty %>
               <div class="small media-item">
                 <i class="bi bi-sliders icon"></i>

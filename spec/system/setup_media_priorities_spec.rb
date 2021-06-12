@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe "setup media priorities", type: :system do
+  include Support::Helpers::CapybaraHelper
+
   let!(:current_user) { create :user }
 
   describe 'creating priorities' do
@@ -19,11 +21,13 @@ RSpec.describe "setup media priorities", type: :system do
         fill_in 'Title', with: 'Low Priority'
         fill_in 'Priority', with: 5
         click_button 'Create Media priority'
+
+        wait_until { page.find('.toast.info').present? }
       end.to change(current_user.media_priorities, :count).from(1).to(2)
 
       # Show newly added priority
       expect(page).to have_current_path media_priorities_path
-      expect(page).to have_css '.alert.notice', text: 'Created new priority'
+      expect(page).to have_css '.toast.info', text: 'Created new priority'
       expect(page).to have_css 'td', text: 'Low Priority'
       expect(page).to have_css 'td', text: '5'
     end

@@ -19,7 +19,7 @@
           <template data-target="tooltip.template">
             <ul class="menu">
               <% if current_queue %>
-                <li><%= link_to 'Edit Queue', edit_queue_path(current_queue), class: 'menu-item' %></li>
+                <li><%= turbo_link_to 'Edit Queue', edit_queue_path(current_queue), class: 'menu-item' %></li>
                 <li>
                   <%= link_to 'Delete Queue',
                               queue_path(current_queue),
@@ -43,7 +43,10 @@
     </div>
 
     <%# Top-level actions %>
-    <%= turbo_link_to 'Add Media', new_media_item_path(queue: current_queue), class: 'primary button' %>
+    <%= turbo_link_to 'Add Media',
+                      new_media_item_path(queue: current_queue),
+                      class: 'primary button',
+                      data: { testid: 'add-media-item' } %>
 
     <%= render 'media_items/_media_items/filters',
                search_path: media_items_path,

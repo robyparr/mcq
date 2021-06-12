@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe "media item CRUD", type: :system do
+  include Support::Helpers::CapybaraHelper
+
   let!(:current_user) { create :user }
 
   describe 'listing media items' do
@@ -11,8 +13,8 @@ RSpec.describe "media item CRUD", type: :system do
       visit media_items_path(as: current_user)
 
       expect(page).to have_css 'h2.page-header', text: 'Media'
-      expect(page).to have_css 'td', text: users_media_items.title
-      expect(page).not_to have_css 'td', text: another_users_media_items.title
+      expect(page).to have_css 'div.media-text', text: users_media_items.title
+      expect(page).not_to have_css 'div.media-text', text: another_users_media_items.title
     end
   end
 
@@ -36,11 +38,11 @@ RSpec.describe "media item CRUD", type: :system do
       fill_in 'https://...', with: 'https://example.com'
       fill_in 'Title', with: 'New Media'
 
-      expect { click_button 'Add Media' }.
+      expect { find_by_testid('submit-media-item').click }.
         to have_enqueued_job(MediaItem::RetrieveMetadataJob).with(kind_of(Integer)).once
 
       expect(page).to have_current_path media_item_path(current_user.media_items.last)
-      expect(page).to have_css '.alert.notice', text: 'Added the media.'
+      expect(page).to have_css '.toast.info', text: 'Added the media.'
       expect(page).to have_css 'h2.page-header', text: 'New Media'
     end
 
@@ -49,7 +51,7 @@ RSpec.describe "media item CRUD", type: :system do
       visit media_item_path(media_item, as: current_user)
 
       expect(page).to have_css '.button', text: 'Add Media'
-      click_link 'Add Media'
+      find_by_testid('add-media-item').click
 
       expect(page).to have_current_path new_media_item_path
     end
@@ -60,6 +62,8 @@ RSpec.describe "media item CRUD", type: :system do
 
     it 'Edits the media item' do
       visit media_items_path(as: current_user)
+      click_link media_item.title_or_url
+      find_by_testid('more-menu').click
       click_link 'Edit'
 
       expect(page).to have_css 'h1', text: 'Edit Media'
@@ -67,10 +71,10 @@ RSpec.describe "media item CRUD", type: :system do
       fill_in 'https://...', with: 'https://example2.com'
       fill_in 'Title', with: 'Edited Media'
 
-      click_button 'Update Media'
+      find_by_testid('submit-media-item').click
 
       expect(page).to have_current_path media_item_path(media_item)
-      expect(page).to have_css '.alert.notice', text: 'Updated the media.'
+      expect(page).to have_css '.toast.info', text: 'Updated the media.'
       expect(page).to have_css 'h2.page-header', text: 'Edited Media'
     end
   end
@@ -80,13 +84,15 @@ RSpec.describe "media item CRUD", type: :system do
 
     it 'Deletes the media item' do
       visit media_items_path(as: current_user)
+      click_link media_item.title_or_url
+      find_by_testid('more-menu').click
 
       accept_confirm do
         click_link 'Delete'
       end
 
       expect(page).to have_current_path media_items_path
-      expect(page).to have_css '.alert.notice', text: "Media '#{media_item.title}' deleted."
+      expect(page).to have_css '.toast.info', text: "Media '#{media_item.title}' deleted."
       expect(page).not_to have_css 'td', text: media_item.title
     end
   end

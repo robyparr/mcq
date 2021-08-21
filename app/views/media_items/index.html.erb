@@ -1,4 +1,7 @@
-<div data-controller="bulk-actions" class="row h-screen">
+<div class="row h-screen"
+     data-controller="bulk-actions detail-pane"
+     data-action="turbo:before-fetch-response@document->detail-pane#displayContent"
+     data-detail-pane-selected-class="border-l-2 border-l-indigo-500">
   <div class="column md4 mt-4 pr-6">
     <%# Heading %>
     <div class="heading">
@@ -61,15 +64,22 @@
     <% end %>
   </div>
 
-  <div class="column md8 border-l pt-8 pl-4">
-    <%= turbo_frame_tag 'media-item-pane' do %>
-      <% if @media_item %>
-        <%= render 'media_items/media_item', media_item: @media_item %>
-      <% else %>
-        <div class="flex justify-center items-center h-full">
-          <span class="text-lg text-muted">Select a media item</span>
-        </div>
+  <div class="column md8 border-l pt-8 pl-4 relative">
+    <div data-target="detail-pane.loading" class="fully-centered hidden">
+      <%= image_tag 'icons/loader', class: 'xl hoverable svg icon loader' %>
+      <span class="text">Loading...</span>
+    </div>
+
+    <div data-target="detail-pane.content">
+      <%= turbo_frame_tag 'media-item-pane' do %>
+        <% if @media_item %>
+          <%= render 'media_items/media_item', media_item: @media_item %>
+        <% else %>
+          <div class="flex justify-center items-center h-full">
+            <span class="text-lg text-muted">Select a media item</span>
+          </div>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
   </div>
 </div>

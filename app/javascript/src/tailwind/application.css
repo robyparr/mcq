@@ -33,3 +33,7 @@
 body {
   background-color: #F9F9F9;
 }
+
+.border-l-indigo-500 {
+  border-left-color: theme('colors.indigo.500');
+}

@@ -1,4 +1,4 @@
-<div class="border-b p-2">
+<div class="border-b p-2 selected-indicator">
   <div class="row mb-0">
     <div class="column md11 text-lg pl-0">
       <div class="small media-item icon-top">
@@ -6,7 +6,11 @@
         <div class="media-text">
           <%= turbo_link_to truncate(media_item.title_or_url, length: 50),
                             presenter.path_for_media_item(media_item),
-                            data: { tooltip: media_item.title_or_url } %>
+                            data: {
+                              tooltip: media_item.title_or_url,
+                              action: 'click->detail-pane#displayLoading',
+                              target: 'detail-pane.selector'
+                            } %>
 
           <div class="compact toolbar text-muted mb-0">
             <div class="small media-item">

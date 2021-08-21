@@ -1,12 +1,7 @@
 class MediaItemsController < ApplicationController
+  before_action :set_media_items_presenter, only: %i[index show]
+
   def index
-    @presenter =
-      MediaItemsPresenter.new(
-        current_user,
-        media_items_collection,
-        params: params,
-        queue: current_queue
-      )
   end
 
   def show
@@ -14,17 +9,7 @@ class MediaItemsController < ApplicationController
 
     respond_to do |format|
       format.turbo_stream
-      format.html do
-        @presenter =
-          MediaItemsPresenter.new(
-            current_user,
-            media_items_collection,
-            params: params,
-            queue: current_queue
-          )
-
-        render :index
-      end
+      format.html { render :index }
     end
   end
 
@@ -149,5 +134,15 @@ class MediaItemsController < ApplicationController
     base_association = current_queue if current_queue.present?
 
     base_association.media_items.includes(:queue, :priority)
+  end
+
+  def set_media_items_presenter
+    @presenter =
+      MediaItemsPresenter.new(
+        current_user,
+        media_items_collection,
+        params: params,
+        queue: current_queue
+      )
   end
 end

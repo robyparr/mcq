@@ -22,10 +22,19 @@ export default class extends ApplicationController {
     this.hide()
   }
 
+  toggle() {
+    if (this.isShown) {
+      this.hide()
+    } else {
+      this.show()
+    }
+  }
+
   show() {
     this.element.classList.add('relative')
     this.renderedTooltip = this.renderTooltip()
     this.incrementTooltipID()
+    this.isShown = true
     _delay(() => document.addEventListener('click', this.hide))
   }
 
@@ -54,6 +63,8 @@ export default class extends ApplicationController {
       this.renderedTooltip.remove()
       this.renderedTooltip = null
     }
+
+    this.isShown = false
   }
 
   tooltipID() {

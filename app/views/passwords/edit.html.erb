@@ -8,6 +8,7 @@
 
     <%= form_for :password_reset,
           url: user_password_path(@user, token: @user.confirmation_token),
+          data: { turbo: false },
           html: { method: :put } do |form| %>
 
       <%= form.label :password %>

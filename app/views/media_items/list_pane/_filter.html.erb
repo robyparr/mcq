@@ -6,7 +6,7 @@
          data-target="filter.hidden"
          value="<%= params[filter_param] %>" />
 
-  <button type="button" class="text button" data-action="tooltip#show">
+  <button type="button" class="text button" data-action="tooltip#toggle">
     <span data-target="filter.text">
       <% filter_value = filter_values.find { |value| value.second.to_s == params[filter_param] } %>
       <%= filter_value.try(:first).try(:capitalize) || default_label %>

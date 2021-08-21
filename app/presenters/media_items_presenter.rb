@@ -32,6 +32,10 @@ class MediaItemsPresenter
     media_item_path(media_item, queue: queue)
   end
 
+  def menu_items?
+    params[:queue].present? || user.pocket_integration.present?
+  end
+
   private
 
     attr_reader :media_items_relation,

@@ -12,25 +12,25 @@
                    style: 'margin-bottom: 0;' %>
 
   <div class="toolbar">
-    <%= render 'media_items/_media_items/filter',
+    <%= render 'media_items/list_pane/filter',
                default_label: 'Difficulty',
                filter_param: :difficulty,
                filter_values: MediaItem.consumption_difficulties,
                show_none: true %>
 
-    <%= render 'media_items/_media_items/filter',
+    <%= render 'media_items/list_pane/filter',
                default_label: 'Priority',
                filter_param: :priority,
                filter_values: priorities,
                show_none: true %>
 
-    <%= render 'media_items/_media_items/filter',
+    <%= render 'media_items/list_pane/filter',
                default_label: 'Type',
                filter_param: :type,
                filter_values: MediaItem::MEDIA_TYPES.zip(MediaItem::MEDIA_TYPES),
                show_none: true %>
 
-    <%= render 'media_items/_media_items/filter',
+    <%= render 'media_items/list_pane/filter',
                default_label: 'Incomplete',
                filter_param: :state,
                filter_values: state_select_options,

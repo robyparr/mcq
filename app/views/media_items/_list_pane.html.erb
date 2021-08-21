@@ -1,0 +1,89 @@
+<div data-controller="bulk-actions">
+  <%# Heading %>
+  <div class="heading">
+    <% if current_queue %>
+      <h2 class="page-header pl-2" style="border-left: 3px solid <%= current_queue.color %>">
+        <%= current_queue.name %>
+      </h2>
+    <% else %>
+      <h2 class="page-header">Media</h2>
+    <% end %>
+
+    <%# Secondary actions %>
+    <% if presenter.menu_items? %>
+      <span data-controller="tooltip" data-tooltip-align="right">
+        <button type="button" class="button icon-only" data-action="tooltip#show" data-testid="page-overflow-btn">
+          <i class="bi bi-three-dots-vertical icon"></i>
+        </button>
+        <template data-target="tooltip.template">
+          <ul class="menu">
+            <% if current_queue %>
+              <li><%= turbo_link_to 'Edit Queue', edit_queue_path(current_queue), class: 'menu-item' %></li>
+              <li>
+                <%= link_to 'Delete Queue',
+                            queue_path(current_queue),
+                            class: 'menu-item',
+                            method: :delete,
+                            data: { confirm: 'Are you sure?' } %>
+              </li>
+            <% end %>
+            <% if current_user.pocket_integration.present? %>
+              <li>
+                <%= link_to 'Synchronize Pocket',
+                            synchronize_integrations_path(integration_id: current_user.pocket_integration.id),
+                            class: 'menu-item',
+                            method: :post %>
+              </li>
+            <% end %>
+          </ul>
+        </template>
+      </span>
+    <% end %>
+  </div>
+
+  <%# Top-level actions %>
+  <%= turbo_link_to 'Add Media',
+                    new_media_item_path(queue: current_queue),
+                    class: 'primary button',
+                    data: { testid: 'add-media-item' } %>
+
+  <%= render 'media_items/list_pane/filters',
+              search_path: media_items_path,
+              priorities: presenter.filter_priorities %>
+
+  <% if presenter.media_items.present? %>
+    <div class="relative">
+      <label class="text-right">
+        <%= check_box_tag :select_all_media_items,
+                          'all',
+                          false,
+                          data: { action: 'change->bulk-actions#allItemsChanged' } %>
+        Select All
+      </label>
+
+      <%# Bulk actions %>
+      <div class="hidden absolute bg-white border shadow-lg rounded-md py-2 px-4 z-50"
+          data-target="bulk-actions.bulkActionsToolbar"
+          style="top: -170px;">
+
+        <span class="text-lg">Bulk Actions</span>
+        <div class="toolbar">
+          <%= render 'media_items/list_pane/bulk_actions', queues: current_user_queues %>
+        </div>
+      </div>
+
+      <%# Media items %>
+      <div class="bg-white border rounded-md shadow">
+        <% presenter.media_items.each do |media_item| %>
+          <%= render 'media_items/list_pane/media_item',
+                     media_item: media_item,
+                     presenter: presenter %>
+        <% end %>
+      </div>
+
+      <%= paginate presenter.media_items %>
+    </div>
+  <% else %>
+    <%= presenter.no_media_items_message %>
+  <% end %>
+</div>

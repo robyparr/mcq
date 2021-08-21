@@ -23,6 +23,8 @@ export default class extends Controller {
   `)
 
   connect() {
+    this.element.innerHTML = ''
+
     this.insertHiddenInput()
     this.renderEditor()
   }

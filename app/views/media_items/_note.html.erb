@@ -1,5 +1,7 @@
-<div id="note-<%= note.id %>" class="row mt-4">
-  <div class="column sm12 md12 px-0">
-    <%= render 'media_notes/note', note: note %>
+<%= turbo_frame_tag dom_id(note) do %>
+  <div class="row mt-4">
+    <div class="column sm12 md12 px-0">
+      <%= render 'media_notes/note', note: note %>
+    </div>
   </div>
-</div>
+<% end %>

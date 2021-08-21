@@ -42,7 +42,8 @@ RSpec.describe 'snooze media item', type: :system do
       click_on media_item.title
 
       expect(page).to have_current_path(media_item_path(media_item))
-      click_button 'Snooze'
+      find_by_testid('snooze').click
+      sleep 1
       find_by_testid('snooze-unsnooze').click
       expect(page).to have_content('Media item was unsnoozed')
       expect(page).not_to have_content(media_item.snooze_until.to_date.to_s)

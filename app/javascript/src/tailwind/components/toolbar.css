@@ -7,16 +7,16 @@
     &:not(:last-child) { @apply mr-5; }
   }
 
+  &.compact {
+    > * {
+      @apply mt-0 text-sm;
+      &:not(:last-child) { @apply mr-3; }
+    }
+    .icon { @apply text-base; }
+  }
+
   .button-group {
     &:not(:last-child) { @apply mr-5; }
     .button { @apply m-0; }
-  }
-}
-
-@screen md {
-  .toolbar {
-    @apply flex-no-wrap;
-
-    > * { @apply mt-0; }
   }
 }

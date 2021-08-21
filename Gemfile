@@ -19,6 +19,7 @@ gem 'clockwork', '~> 2.0', '>= 2.0.4'
 gem 'after_party', '~> 1.11', '>= 1.11.2'
 gem 'pastel', '~> 0.7.3'
 gem 'kaminari', '~> 1.2', '>= 1.2.1'
+gem 'hotwire-rails', '~> 0.1.3'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

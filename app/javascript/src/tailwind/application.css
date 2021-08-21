@@ -17,6 +17,8 @@
 @import "./components/heading.css";
 @import "./components/pagination.css";
 @import "./components/menu.css";
+@import "./components/toast.css";
+@import "./components/icon.css";
 
 @import "./components/navigation.css";
 @import "./components/rich_editor.css";
@@ -30,4 +32,8 @@
 
 body {
   background-color: #F9F9F9;
+}
+
+.border-l-indigo-500 {
+  border-left-color: theme('colors.indigo.500');
 }

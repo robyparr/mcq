@@ -22,10 +22,11 @@ module Snoozeable
     snooze_until > time_for_snooze_until
   end
 
-  def formatted_snooze_until
+  def formatted_snooze_until(with_time: true)
     return unless snoozed?
 
-    snooze_until.strftime('%F at %l %p')
+    dt_format = with_time ? SNOOZE_UNTIL_DATE_TIME_FORMAT : SNOOZE_UNTIL_DATE_FORMAT
+    snooze_until.strftime dt_format
   end
 
   private
@@ -34,6 +35,9 @@ module Snoozeable
     hour: 9,
     min: 0,
   }.freeze
+
+  SNOOZE_UNTIL_DATE_TIME_FORMAT = '%F at %l %p'.freeze
+  SNOOZE_UNTIL_DATE_FORMAT = '%F'.freeze
 
   def valid_snooze_until_value?(snooze_until)
     snooze_until.nil? || snooze_until > time_for_snooze_until

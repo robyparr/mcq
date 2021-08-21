@@ -1,4 +1,4 @@
-<%= form_with model: media_item, local: true, url: form_url, scope: :media_item do |f| %>
+<%= form_with model: media_item, url: form_url, scope: :media_item, data: { turbo: false } do |f| %>
   <label>Media Type</label>
   <div data-controller="toggle-buttons"
        data-toggle-buttons-field-name="media_item[type]"
@@ -24,7 +24,7 @@
       <%= f.label :title, 'Title' %>
       <%= f.text_field :title, placeholder: 'Title (Optional)' %>
 
-      <%= f.submit submit_button_text, class: 'primary button' %>
+      <%= f.submit submit_button_text, class: 'primary button', data: { testid: 'submit-media-item' } %>
     </div>
 
     <div class="column md4">

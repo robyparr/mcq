@@ -1,0 +1,20 @@
+/*
+ * Main icons from https://icons.getbootstrap.com
+ * Other icons from
+ *   - https://feathericons.com/
+ */
+.icon {
+  @apply inline-block text-xl;
+
+  &.small { @apply text-base; }
+  &.svg {
+    @apply w-6 h-6;
+
+    &.small { @apply w-4 h-4; }
+    &.xl { @apply w-16 h-16; }
+    &.hoverable {
+      opacity: 0.3;
+      &:hover { @apply opacity-100; }
+    }
+  }
+}

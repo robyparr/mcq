@@ -1,6 +1,7 @@
 .media-item {
   @apply flex items-center;
 
+  &.icon-top { @apply items-start; }
   > :first-child { @apply mr-4; }
 
   &.small {

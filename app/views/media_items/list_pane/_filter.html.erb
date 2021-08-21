@@ -1,0 +1,42 @@
+<span data-controller="tooltip filter"
+      data-tooltip-align="left"
+      data-filter-default-label-value="<%= default_label %>">
+  <input type="hidden"
+         name="<%= filter_param %>"
+         data-target="filter.hidden"
+         value="<%= params[filter_param] %>" />
+
+  <button type="button" class="text button" data-action="tooltip#toggle">
+    <span data-target="filter.text">
+      <% filter_value = filter_values.find { |value| value.second.to_s == params[filter_param] } %>
+      <%= filter_value.try(:first).try(:capitalize) || default_label %>
+    </span>
+    <i class="bi bi-chevron-down icon ml-2 text-sm"></i>
+  </button>
+
+  <template data-target="tooltip.template">
+    <ul class="menu">
+      <% if show_none %>
+        <li>
+          <%= button_tag class: 'menu-item',
+                         data: { 'filter-value' => '', 'action' => 'filter#select' } do %>
+            None
+          <% end %>
+        </li>
+      <% end %>
+      <% filter_values.each do |label, value| %>
+        <li>
+          <%= button_tag class: 'menu-item',
+                         data: {
+                           'filter-value' => value,
+                           'filter-label' => label,
+                           'action' => 'filter#select',
+                           'target' => 'filter.option',
+                         } do %>
+            <%= label.capitalize %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </template>
+</span>

@@ -8,16 +8,16 @@
 
     &:not(:hover) { @apply border-transparent; }
 
-    .feather {
-      @apply w-4 h-4;
+    .icon {
+      @apply text-lg;
     }
   }
 
   &.with-icon {
     @apply flex items-center;
 
-    .feather {
-      @apply mr-2 w-4 h-4;
+    .icon {
+      @apply mr-2 text-base;
     }
   }
 
@@ -32,6 +32,11 @@
 
   &.toggle-button.toggled {
     @apply bg-gray-200 border-indigo-600;
+  }
+
+  &.text {
+    @apply bg-transparent border shadow-none;
+    &:not(:hover) { @apply border-transparent; }
   }
 }
 

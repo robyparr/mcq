@@ -21,7 +21,7 @@ class MediaItemsPresenter
 
   def no_media_items_message
     content_tag(:div, class: 'mt-20 flex flex-col items-center text-muted') do
-      content_tag(:i, nil, data: { feather: 'inbox' }, class: 'w-20 h-20') +
+      content_tag(:i, nil, class: 'text-5xl bi bi-inbox icon') +
       content_tag(:p, class: 'text-lg') do
         "You're all caught up!"
       end
@@ -30,6 +30,10 @@ class MediaItemsPresenter
 
   def path_for_media_item(media_item)
     media_item_path(media_item, queue: queue)
+  end
+
+  def menu_items?
+    params[:queue].present? || user.pocket_integration.present?
   end
 
   private

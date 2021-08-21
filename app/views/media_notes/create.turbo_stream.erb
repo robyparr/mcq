@@ -1,0 +1,7 @@
+<%= turbo_stream.append 'media-item-notes' do %>
+  <%= render 'media_items/note', note: @media_note %>
+<% end %>
+
+<%= turbo_stream.replace 'media-note-form' do %>
+  <%= render 'media_notes/form', media_item: @media_note.media_item %>
+<% end %>

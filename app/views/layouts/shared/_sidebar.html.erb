@@ -9,7 +9,7 @@
       </h1>
       <span class="text-muted"><%= current_user.email %></span>
 
-      <%= link_to 'Add Media', new_media_item_path, class: 'primary button inline-block w-3/4 mt-4' %>
+      <%= turbo_link_to 'Add Media', new_media_item_path, class: 'primary button inline-block w-3/4 mt-4' %>
     </div>
 
     <div class="p-4 mt-6">

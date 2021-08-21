@@ -1,0 +1,41 @@
+<%= form_with url: search_path,
+              local: true,
+              method: :get,
+              class: 'mt-6 mb-4' do |f| %>
+
+  <%= hidden_field_tag :queue, params[:queue] %>
+
+  <%= f.text_field :search,
+                   placeholder: 'Search...',
+                   value: params[:search],
+                   autocomplete: :off,
+                   style: 'margin-bottom: 0;' %>
+
+  <div class="toolbar">
+    <%= render 'media_items/list_pane/filter',
+               default_label: 'Difficulty',
+               filter_param: :difficulty,
+               filter_values: MediaItem.consumption_difficulties,
+               show_none: true %>
+
+    <%= render 'media_items/list_pane/filter',
+               default_label: 'Priority',
+               filter_param: :priority,
+               filter_values: priorities,
+               show_none: true %>
+
+    <%= render 'media_items/list_pane/filter',
+               default_label: 'Type',
+               filter_param: :type,
+               filter_values: MediaItem::MEDIA_TYPES.zip(MediaItem::MEDIA_TYPES),
+               show_none: true %>
+
+    <%= render 'media_items/list_pane/filter',
+               default_label: 'Incomplete',
+               filter_param: :state,
+               filter_values: state_select_options,
+               show_none: false %>
+
+    <%= f.submit 'Filter', class: 'button primary' %>
+  </div>
+<% end %>

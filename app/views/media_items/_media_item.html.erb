@@ -1,0 +1,171 @@
+<%= turbo_frame_tag 'media-item-pane' do %>
+  <div data-controller="media-viewer"
+       data-media-viewer-url="<%= media_item.url %>"
+       data-media-viewer-type="<%= media_item.type %>"
+       data-media-viewer-media-service="<%= media_item.service_type %>"
+       data-media-viewer-media-id="<%= media_item.service_id %>">
+
+    <div class="heading">
+      <div class="content">
+        <h2 class="page-header mb-0 truncate">
+          <span data-tippy-content="<%= media_item.url %>"><%= media_item.title_or_url %></span>
+        </h1>
+
+        <div class="toolbar text-muted mb-0">
+          <div class="small media-item" data-tippy-content="Media Type">
+            <i class="small <%= media_icon(media_item) %> icon"></i>
+            <%= media_item.type %>
+          </div>
+
+          <div class="small media-item" data-tippy-content="Queue">
+            <i class="bi bi-inbox icon"></i>
+            <%= link_to media_item.queue.name, media_items_path(queue: media_item.media_queue_id), class: 'text-muted' %>
+          </div>
+
+          <% if media_item.snoozed? %>
+            <div class="small media-item"
+                 data-tippy-content="Snoozed until <%= media_item.formatted_snooze_until %>">
+              <i class="small bi bi-clock icon"></i>
+              <%= media_item.formatted_snooze_until %>
+            </div>
+          <% end %>
+
+          <% if media_item.estimated_consumption_time %>
+            <div class="small media-item" data-tippy-content="Estimated consumption time">
+              <i class="small bi bi-watch icon"></i>
+              <%= pluralize media_item.estimated_consumption_time, 'minute' %>
+            </div>
+          <% end %>
+
+          <% if media_item.priority %>
+            <div class="small media-item" data-tippy-content="Priority">
+              <i class="small bi bi-flag icon"></i>
+              <%= media_item.priority.title %>
+            </div>
+          <% end %>
+
+          <% if media_item.consumption_difficulty %>
+            <div class="small media-item" data-tippy-content="Consumption difficulty">
+              <i class="small bi bi-sliders icon"></i>
+              <span class="<%= consumption_difficulty_classes(media_item.consumption_difficulty) %>">
+                <%= media_item.consumption_difficulty.capitalize %>
+              </span>
+            </div>
+          <% end %>
+
+          <div class="small media-item"
+               data-tippy-content="<%= media_item.created_at.strftime('%F %l:%M %p') %>">
+            <i class="small bi bi-calendar icon"></i>
+            <%= time_ago_in_words media_item.created_at %> ago
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <span data-controller="tooltip" data-tooltip-align="right">
+          <button type="button"
+                  class="button icon-only"
+                  data-action="tooltip#show"
+                  data-testid="more-menu">
+            <i class="small bi bi-three-dots-vertical icon"></i>
+          </button>
+          <template data-target="tooltip.template">
+            <ul class="menu">
+              <li>
+                <%= turbo_link_to edit_media_item_path(media_item),
+                                  class: 'menu-item',
+                                  update_url: false do %>
+                  <div class="media-item small">
+                    <i class="small bi bi-pencil icon"></i>
+                    Edit
+                  </div>
+                <% end %>
+              </li>
+              <li>
+                <%= link_to media_item_path(media_item, queue: params[:queue]),
+                            method: :delete,
+                            data: { confirm: 'Are you sure?' },
+                            class: 'menu-item' do %>
+                  <div class="media-item small">
+                    <i class="small bi bi-trash icon"></i>
+                    Delete
+                  </div>
+                <% end %>
+              </li>
+            </ul>
+          </template>
+        </span>
+      </div>
+    </div>
+
+    <div class="toolbar mt-4">
+      <div class="button-group">
+        <span data-controller="tooltip">
+          <%= button_tag nil,
+              type: 'button',
+              class: 'button with-icon',
+              data: { action: 'tooltip#show', testid: 'snooze' },
+              disabled: media_item.complete? do %>
+
+            <template data-target="tooltip.template">
+              <ul class="menu">
+                <% snooze_until_options.each do |prefix, label, date| %>
+                  <%= snooze_until_menu_item media_item, snooze_until: date, prefix: prefix, label: label %>
+                <% end %>
+                <% if media_item.snoozed? %>
+                  <%= snooze_until_menu_item media_item, snooze_until: nil, label: 'Unsnooze' %>
+                <% end %>
+              </ul>
+            </template>
+            <i class="bi bi-clock icon"></i>
+            Snooze
+          <% end %>
+        </span>
+        <%= button_to complete_media_item_url(media_item),
+                      class: 'button with-icon',
+                      method: :post,
+                      data: { turbo: false },
+                      disabled: media_item.complete? do %>
+          <i class="bi bi-check-circle icon"></i>
+          Mark Completed
+        <% end %>
+      </div>
+      <div class="button-group">
+        <%= external_link_to 'Open Media', media_item.url, class: 'button', icon_position: :left %>
+        <%= button_tag nil,
+                      class: 'button with-icon',
+                      data: { action: 'click->media-viewer#open' } do %>
+          <i class="bi bi-book icon"></i>
+          Open Viewer
+        <% end %>
+      </div>
+    </div>
+
+    <h3 class="section-header">Notes</h3>
+
+    <div id="notes" class="row">
+      <div class="column sm12 md4 pl-0">
+        <%= render 'media_notes/form', media_item: media_item %>
+
+        <%= turbo_frame_tag 'media-item-notes' do %>
+          <% if media_item.notes.any? %>
+            <% media_item.notes.each do |note| %>
+              <%= render 'note', note: note %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+
+    <%= render 'media_viewer' %>
+  </div>
+
+  <script>
+    $find('#note-title').addEventListener('keydown', function(e) {
+      if (e.key !== 'Tab') return;
+
+      e.preventDefault();
+      $find('#notes .ql-editor').focus();
+    })
+  </script>
+<% end %>

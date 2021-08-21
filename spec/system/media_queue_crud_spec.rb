@@ -33,8 +33,8 @@ RSpec.describe "media queue CRUD", type: :system do
       click_link queue.name
       expect(page).to have_current_path media_items_path(queue: queue)
       expect(page).to have_css 'h2.page-header', text: queue.name
-      expect(page).to have_css 'td', text: queue_media_item.title
-      expect(page).not_to have_css 'td', text: non_queue_media_item.title
+      expect(page).to have_text queue_media_item.title
+      expect(page).not_to have_text non_queue_media_item.title
     end
   end
 
@@ -48,8 +48,13 @@ RSpec.describe "media queue CRUD", type: :system do
       fill_in 'Name', with: 'A new queue'
       click_button 'Create Media queue'
 
-      expect(page).to have_current_path media_items_path(queue: current_user.queues.last)
-      expect(page).to have_css '.alert.notice', text: 'Queue was successfully created'
+      wait_until { find('.toast.info').present? }
+
+      created_queue = current_user.queues.last
+      path_with_query = URI(page.current_url).request_uri
+
+      expect(path_with_query).to eq media_items_path(queue: created_queue)
+      expect(page).to have_css '.toast.info', text: 'Queue was successfully created'
       expect(page).to have_css 'h2.page-header', text: 'A new queue'
     end
   end
@@ -69,7 +74,7 @@ RSpec.describe "media queue CRUD", type: :system do
       click_button 'Update Media queue'
 
       expect(page).to have_current_path media_items_path(queue: queue)
-      expect(page).to have_css '.alert.notice', text: 'Queue was successfully updated'
+      expect(page).to have_css '.toast.info', text: 'Queue was successfully updated'
       expect(page).to have_css 'h2.page-header', text: 'Updated Queue'
     end
   end
@@ -87,8 +92,8 @@ RSpec.describe "media queue CRUD", type: :system do
       end
 
       expect(page).to have_current_path media_items_path
-      expect(page).to have_css '.alert.notice', text: 'Queue was successfully destroyed.'
-      expect(page).not_to have_css 'td', text: queue.name
+      expect(page).to have_css '.toast.info', text: 'Queue was successfully destroyed.'
+      expect(page).not_to have_css '.navigation-item', text: queue.name
     end
   end
 end

@@ -1,53 +1,28 @@
-<div data-controller="bulk-actions">
-  <div class="heading">
-    <% if current_queue %>
-      <h2 class="page-header pl-2" style="border-left: 3px solid <%= current_queue.color %>">
-        <%= current_queue.name %>
-      </h2>
-    <% else %>
-      <h2 class="page-header">Media</h2>
-    <% end %>
+<div class="row h-screen"
+     data-controller="detail-pane"
+     data-action="turbo:before-fetch-response@document->detail-pane#displayContent"
+     data-detail-pane-selected-class="border-l-2 border-l-indigo-500">
+  <div class="column md4 mt-4 pr-6">
+    <%= render 'media_items/list_pane', presenter: @presenter %>
+  </div>
 
-    <div class="actions">
-      <%= link_to 'Add Media', new_media_item_path(queue: current_queue), class: 'primary button' %>
+  <div class="column md8 border-l pt-8 pl-4 relative">
+    <div data-target="detail-pane.loading" class="fully-centered hidden">
+      <%= image_tag 'icons/loader', class: 'xl hoverable svg icon loader' %>
+      <span class="text text-muted">Loading...</span>
+    </div>
 
-      <% if current_user.pocket_integration.present? %>
-        <%= link_to 'Synchronize Pocket',
-                    synchronize_integrations_path(integration_id: current_user.pocket_integration.id),
-                    class: 'button',
-                    method: :post %>
-      <% end %>
-
-      <% if current_queue %>
-        <span data-controller="tooltip" data-tooltip-align="right">
-          <button type="button" class="button icon-only" data-action="tooltip#show" data-testid="page-overflow-btn">
-            <i data-feather="more-vertical"></i>
-          </button>
-          <template data-target="tooltip.template">
-            <ul class="menu">
-              <li><%= link_to 'Edit Queue', edit_queue_path(current_queue), class: 'menu-item' %></li>
-              <li>
-                <%= link_to 'Delete Queue',
-                            queue_path(current_queue),
-                            class: 'menu-item',
-                            method: :delete,
-                            data: { confirm: 'Are you sure?' } %>
-              </li>
-            </ul>
-          </template>
-        </span>
+    <div data-target="detail-pane.content">
+      <%= turbo_frame_tag 'media-item-pane' do %>
+        <% if @media_item %>
+          <%= render 'media_items/media_item', media_item: @media_item %>
+        <% else %>
+          <div class="fully-centered">
+            <i class="b bi-inbox icon text-5xl text-muted"></i>
+            <span class="text-lg text-muted">Select a media item</span>
+          </div>
+        <% end %>
       <% end %>
     </div>
   </div>
-
-  <div class="toolbar mb-4">
-    <%= render 'bulk_actions', queues: current_user_queues %>
-  </div>
-  <%= render 'filters', search_path: media_items_path, priorities: @presenter.filter_priorities %>
-
-  <% if @presenter.media_items.present? %>
-    <%= render 'media_items', presenter: @presenter %>
-  <% else %>
-    <%= @presenter.no_media_items_message %>
-  <% end %>
 </div>

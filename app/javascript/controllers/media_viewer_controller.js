@@ -45,7 +45,8 @@ export default class extends ApplicationController {
 
   close() {
     this.viewerWrapTarget.classList.add('hidden')
-    this.viewerWrapTarget.innerHTML = ''
+    this.mediaWrapTarget.innerHTML = ''
+    this.showLoader()
   }
 
   urlLoaded() {
@@ -124,6 +125,10 @@ export default class extends ApplicationController {
 
   hideLoader() {
     this.loaderTarget.classList.add('hidden')
+  }
+
+  showLoader() {
+    this.loaderTarget.classList.remove('hidden')
   }
 
   showViewer() {

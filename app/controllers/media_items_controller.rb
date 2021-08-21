@@ -1,16 +1,16 @@
 class MediaItemsController < ApplicationController
+  before_action :set_media_items_presenter, only: %i[index show]
+
   def index
-    @presenter =
-      MediaItemsPresenter.new(
-        current_user,
-        media_items_collection,
-        params: params,
-        queue: current_queue
-      )
   end
 
   def show
     @media_item = current_user.media_items.includes(:notes).find(params[:id])
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { render :index }
+    end
   end
 
   def new
@@ -86,7 +86,7 @@ class MediaItemsController < ApplicationController
     updated_items = current_user.media_items.where(id: bulk_ids).update media_queue_id: queue.id
 
     flash[:notice] = "Moved #{updated_items.length} media items to '#{queue.name}'."
-    redirect_ajax_to bulk_action_redirect_location(fallback: media_items_url)
+    redirect_ajax_to media_items_url
   end
 
   def bulk_mark_completed
@@ -96,14 +96,14 @@ class MediaItemsController < ApplicationController
     end
 
     flash[:notice] = "Marked #{media_items.size} media items as completed."
-    redirect_ajax_to bulk_action_redirect_location(fallback: media_items_url)
+    redirect_ajax_to media_items_url
   end
 
   def bulk_destroy
     destroyed_items = current_user.media_items.where(id: bulk_ids).destroy_all
 
     flash[:notice] = "Deleted #{destroyed_items.size} media items."
-    redirect_ajax_to bulk_action_redirect_location(fallback: media_items_url)
+    redirect_ajax_to media_items_url
   end
 
   private
@@ -134,5 +134,15 @@ class MediaItemsController < ApplicationController
     base_association = current_queue if current_queue.present?
 
     base_association.media_items.includes(:queue, :priority)
+  end
+
+  def set_media_items_presenter
+    @presenter =
+      MediaItemsPresenter.new(
+        current_user,
+        media_items_collection,
+        params: params,
+        queue: current_queue
+      )
   end
 end

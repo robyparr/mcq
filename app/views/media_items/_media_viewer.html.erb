@@ -1,6 +1,7 @@
-<div data-target="media-viewer.viewerWrap" class="sidebar hidden">
-  <div class="w-full h-full">
-    <div class="toolbar mb-0 justify-end py-1 px-4">
+<div data-target="media-viewer.viewerWrap" class="fixed top-0 bottom-0 right-0 hidden" style="left: 45%;">
+  <div class="w-full h-full bg-white">
+    <div class="toolbar mb-0 justify-between py-1 px-4 border-b shadow-lg">
+      <%= @media_item.url %>
       <button data-action="click->media-viewer#close" class="button icon-only">
         <i class="bi bi-x icon"></i>
       </button>

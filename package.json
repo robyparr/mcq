@@ -1,6 +1,9 @@
 {
   "name": "mcq",
   "private": true,
+  "engines": {
+    "node": "15.x"
+  },
   "dependencies": {
     "@fullhuman/postcss-purgecss": "^2.1.0",
     "@rails/actioncable": "6.0.4-7",

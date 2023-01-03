@@ -12,7 +12,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'clearance', '~> 2.5'
 gem 'rainbow', '~> 3.0'
 gem 'ruby-readability', '~> 0.7.0'
-gem 'httparty', '~> 0.17.3'
+gem 'httparty', '~> 0.21.0'
 # gem 'delayed_job_active_record'
 # gem 'daemons', '~> 1.3', '>= 1.3.1'
 gem 'clockwork', '~> 2.0', '>= 2.0.4'
